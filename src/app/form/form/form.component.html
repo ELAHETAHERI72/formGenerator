@@ -1,0 +1,18 @@
+<form action="" (ngSubmit)="formConfig.submit$">
+
+  @for(value of formConfig.items;track value){
+  @switch (value.inputType){
+    @case (Types.INPUT_TYPE){
+
+      <div>
+        <label>{{value.name}}</label>
+        <input type="text" >
+      </div>
+    }
+    @default {
+      <div>Default</div>
+    }
+
+  }
+  }
+</form>
