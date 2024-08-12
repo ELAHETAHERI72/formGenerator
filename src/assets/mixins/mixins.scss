@@ -1,0 +1,57 @@
+@import "bootstrap/scss/mixins";
+
+@mixin button-padding() {
+  padding: 9px 9px 9px 12px;
+  @include media-breakpoint-up(sm) {
+    padding: 8px 14px;
+  }
+}
+
+@mixin button-icon-padding() {
+  @include media-breakpoint-up(sm) {
+    padding: 9px;
+  }
+}
+
+@mixin product-card-content-height() {
+  @include all-height(calc(#{$product-card-height} - #{$product-card-img-height}));
+}
+
+@mixin product-card-row-content-height() {
+  @include all-height(calc(#{$product-card-row-height} - 10px));
+}
+
+@mixin all-width($value) {
+  min-width: $value;
+  width: $value;
+  max-width: $value;
+}
+
+@mixin all-height($value) {
+  min-height: $value;
+  height: $value;
+  max-height: $value;
+}
+
+@mixin scroll($scroll-axis) {
+  overflow-#{$scroll-axis}: auto;
+}
+
+@mixin custom-nav() {
+  & nav {
+    height: $header-height;
+    background-color: $white;
+  }
+}
+
+@mixin custom-bottom-menu() {
+  & {
+    height: $mobile-menu-height;
+    width: 100%;
+    background-color: $white;
+    position: fixed;
+    bottom: 0;
+    z-index: 2;
+    border-radius: $button-border-radius $button-border-radius 0 0;
+  }
+}

@@ -1,21 +1,17 @@
 import {Observable, Subject} from "rxjs";
 
 
-export  type inputTYpe = inputInterface | selectInterface<any> | textAreaInterface;
+// export  type inputTYpe = inputInterface | selectInterface<any> | textAreaInterface;
 
-export interface formItemBase{
+export interface formItemBase {
   placeholder:string;
   name:string;
   id:string;
   labelName:string;
-
+  inputTypeItem: inputInterface | selectInterface | textAreaInterface;
+  inputType:Types;
 }
 
-export interface formItem extends formItemBase{
-   inputTypeItem:inputTYpe;
-   inputType:Types;
-
-}
 
 export enum Types {
   INPUT_TYPE = 'INPUT_TYPE',
@@ -25,34 +21,36 @@ export enum Types {
 
 export class inputInterface {
   bindItem?:string | number| any;
-  constructor(item:{bindItem:string | number | any}) {
+  constructor(item:inputInterface) {
     this.bindItem = item.bindItem;
 
   }
 }
-export class selectInterface<T> {
-  Items?:Array<T>;
+export class selectInterface {
+  fileds:Array<any>;
   bindItem?:string| number | any;
   changeValue$?:Observable<any>| Subject<any>;
   hasApi?:boolean;
   apiUrl?:string;
 
-  constructor(bindItem:string | number | any) {
-    this.bindItem = bindItem;
+  constructor(selectModel:selectInterface) {
+    this.fileds = selectModel.fileds;
+    this.bindItem = selectModel.bindItem;
+    this.changeValue$ = selectModel.changeValue$;
+    this.hasApi = selectModel.hasApi;
+    this.apiUrl = selectModel.apiUrl;
 
   }
 }
 
 export class textAreaInterface {
   bindItem?:string;
-  inputType?:Types;
-  constructor(bindItem:string | number | any) {
-    this.bindItem = bindItem;
-
+  constructor(item:textAreaInterface) {
+    this.bindItem = item.bindItem;
   }
 }
 
 export class formConfig{
-  items?:Array<formItem>;
+  items?:Array<formItemBase>;
   submit$?:Observable<any> | Subject<any>;
 }

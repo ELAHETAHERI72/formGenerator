@@ -1,18 +1,33 @@
-<form action="" (ngSubmit)="formConfig.submit$">
 
-  @for(value of formConfig.items;track value){
-  @switch (value.inputType){
-    @case (Types.INPUT_TYPE){
+  <div class="container-fluid px-4">
+    <div class="row">
+    <form dir="rtl" action="" (ngSubmit)="formConfig.submit$">
+      @for(value of formConfig.items;track value){
+        @switch (value.inputType){
+        @case (Types.INPUT_TYPE){
+          <div class="form-group col-2">
+            <label>{{value.name}}</label>
+            <input type="text" class="form-control"
+                   [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="value.inputTypeItem.bindItem">
+          </div>
+        }
+          @case(Types.SELECT_TYPE){
+            {{value.inputTypeItem | json}}
+            <div class="form-group col-3">
+              <label>{{value.name}}</label>
+              <ng-select [items]="value.inputTypeItem.fileds"
+                         bindLabel="value"
+                         bindValue="id"
+                         [(ngModel)]="value.inputTypeItem.bindItem">
+              </ng-select>
+            </div>
+          }
 
-      <div>
-        <label>{{value.name}}</label>
-        <input type="text" >
-      </div>
-    }
-    @default {
-      <div>Default</div>
-    }
+      }
+      }
+    </form>
 
-  }
-  }
-</form>
+  </div>
+</div>
+

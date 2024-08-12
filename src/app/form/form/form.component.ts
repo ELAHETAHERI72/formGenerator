@@ -1,9 +1,19 @@
 import {Component} from '@angular/core';
-import {formConfig, formItem, inputInterface, inputTYpe, Types} from "../models/interfaces/form-type.interface";
+import {
+  formConfig,
+  formItemBase,
+  inputInterface,
+  selectInterface, textAreaInterface,
+  Types
+} from "../models/interfaces/form-type.interface";
 import {Observable, Subject} from "rxjs";
 import {FormsModule} from "@angular/forms";
 import {CommonModule, JsonPipe, NgIf} from "@angular/common";
 import {type} from "node:os";
+import {NgSelectModule
+} from "@ng-select/ng-select";
+
+
 
 @Component({
   selector: 'app-form',
@@ -13,13 +23,12 @@ import {type} from "node:os";
     JsonPipe,
     NgIf,
     CommonModule,
-
+    NgSelectModule
   ],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
 })
 export class FormComponent {
-   form!:formItem;
   submitApi$!:Observable<any>| Subject<any>;
 
   formConfig:formConfig = new formConfig();
@@ -27,28 +36,37 @@ export class FormComponent {
    constructor() {
       this.formConfig = {
         items: [
-          {inputTypeItem: new inputInterface({bindItem:this.firstName}),
+          {
+            inputTypeItem: new inputInterface({bindItem:this.firstName}),
             id:'name',
-            labelName:'firstName',
+            labelName:'نام',
             placeholder:'firstName',
             name:'firstName',
             inputType:Types.INPUT_TYPE
+          },
+
+          {
+            inputTypeItem:new selectInterface( {fileds: [{id: 1, value: 'test'}]}) ,
+            id:'type',
+            labelName:'نوع',
+            placeholder:'type',
+            name:'type',
+            inputType:Types.SELECT_TYPE
+          },
+
+          {
+            inputTypeItem:new textAreaInterface( {bindItem:''}) ,
+            id:'explain',
+            labelName:'توضیحات',
+            placeholder:'توضیحات',
+            name:'explain',
+            inputType:Types.TEXTAREA_TYPE
           }
         ],
-        submit$:this.submitApi$
+        submit$:this.submitApi$,
+
       }
 
-   }
-
-   typeOf(value: inputTYpe) {
-
-     // if (value instanceof inputInterface) {
-     //   return 'inputInterface'
-     // } else if (value instanceof selectInterface) {
-     //   return 'selectInterface'
-     // } else {
-     //   return 'textAreaInterface'
-     // }
    }
 
 

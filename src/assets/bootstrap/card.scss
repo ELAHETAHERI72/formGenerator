@@ -1,0 +1,37 @@
+@import "bootstrap/scss/card";
+
+.card {
+  --bs-card-border-radius: 12px!important;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--bs-card-border-radius);
+
+  &-header {
+    height: $card-header-height;
+    background-color: transparent;
+    border: none;
+    &.full-rounded {
+      border-radius: var(--bs-card-inner-border-radius);
+    }
+  }
+
+  &-body {
+    flex: 1;
+    background-color: $white;
+    border-radius: var(--bs-card-border-radius);
+  }
+
+  &-footer {
+    background-color: $white;
+    border: none;
+    @include media-breakpoint-down(md) {
+      min-height: 70px;
+    }
+
+    &__desc {
+      @include media-breakpoint-down(md) {
+        max-height: 85px;
+      }
+    }
+  }
+}
