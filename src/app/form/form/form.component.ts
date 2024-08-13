@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {formConfig, formItem, inputInterface, inputTYpe, Types} from "../models/interfaces/form-type.interface";
+import {Component, OnInit} from '@angular/core';
+import {formConfig, formItem, inputInterface, selectInterface, Types} from "../models/interfaces/form-type.interface";
 import {Observable, Subject} from "rxjs";
 import {FormsModule} from "@angular/forms";
 import {CommonModule, JsonPipe, NgIf} from "@angular/common";
@@ -18,42 +18,43 @@ import {type} from "node:os";
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
 })
-export class FormComponent {
+export class FormComponent  implements OnInit{
    form!:formItem;
   submitApi$!:Observable<any>| Subject<any>;
 
-  formConfig:formConfig = new formConfig();
+  formConfig!:formConfig;
   private firstName: any | string;
-   constructor() {
-      this.formConfig = {
-        items: [
-          {inputTypeItem: new inputInterface({bindItem:this.firstName}),
-            id:'name',
-            labelName:'firstName',
-            placeholder:'firstName',
-            name:'firstName',
-            inputType:Types.INPUT_TYPE
-          }
-        ],
-        submit$:this.submitApi$
-      }
+   constructor() {}
 
-   }
+  ngOnInit(): void {
+    this.formConfig = new formConfig({
+      items: [
+        {
+          inputTypeItem: {bindItem:this.firstName} as inputInterface,
+          id:'name',
+          labelName:'firstName',
+          placeholder:'firstName',
+          name:'firstName',
+          inputType:Types.INPUT_TYPE
+        },
+        {
+          inputType:Types.SELECT_TYPE,
+          inputTypeItem: {bindItem:this.firstName,Items:[{id:1,val:'dddd'}]} as selectInterface,
+          id:'name',
+          labelName:'firstName',
+          placeholder:'firstName',
+          name:'firstName',
+        }
+      ],
+      
+      submit$:this.submitApi$
+    });
 
-   typeOf(value: inputTYpe) {
 
-     // if (value instanceof inputInterface) {
-     //   return 'inputInterface'
-     // } else if (value instanceof selectInterface) {
-     //   return 'selectInterface'
-     // } else {
-     //   return 'textAreaInterface'
-     // }
-   }
-
+    
+  }
 
   protected readonly type = type;
   protected readonly Object = Object;
-  protected readonly inputInterface = inputInterface;
   protected readonly Types = Types;
 }

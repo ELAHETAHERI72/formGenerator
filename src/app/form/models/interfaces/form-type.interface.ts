@@ -1,7 +1,7 @@
 import {Observable, Subject} from "rxjs";
 
 
-export  type inputTYpe = inputInterface | selectInterface<any> | textAreaInterface;
+// export  type inputTYpe = inputInterface | selectInterface | textAreaInterface;
 
 export interface formItemBase{
   placeholder:string;
@@ -12,7 +12,7 @@ export interface formItemBase{
 }
 
 export interface formItem extends formItemBase{
-   inputTypeItem:inputTYpe;
+   inputTypeItem:inputInterface | selectInterface | textAreaInterface;
    inputType:Types;
 
 }
@@ -23,36 +23,29 @@ export enum Types {
   SELECT_TYPE ='SELECT_TYPE',
 }
 
-export class inputInterface {
+export interface inputInterface {
   bindItem?:string | number| any;
-  constructor(item:{bindItem:string | number | any}) {
-    this.bindItem = item.bindItem;
-
-  }
+  
 }
-export class selectInterface<T> {
-  Items?:Array<T>;
+export interface selectInterface {
+  Items?:Array<any>;
   bindItem?:string| number | any;
   changeValue$?:Observable<any>| Subject<any>;
   hasApi?:boolean;
   apiUrl?:string;
 
-  constructor(bindItem:string | number | any) {
-    this.bindItem = bindItem;
-
-  }
 }
 
-export class textAreaInterface {
+export interface textAreaInterface {
   bindItem?:string;
-  inputType?:Types;
-  constructor(bindItem:string | number | any) {
-    this.bindItem = bindItem;
-
-  }
+ 
 }
 
 export class formConfig{
   items?:Array<formItem>;
   submit$?:Observable<any> | Subject<any>;
+  constructor(config:formConfig){
+    this.items = config.items;
+    this.submit$ = config.submit$;
+  }
 }
