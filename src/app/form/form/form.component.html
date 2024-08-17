@@ -1,7 +1,7 @@
 
   <div class="container-fluid px-4">
     <div class="row">
-    <form dir="rtl" action="" (ngSubmit)="formConfig.submit$">
+    <form dir="rtl" action="" (ngSubmit)="formConfig.submit$" [classList]="formConfig.classList">
       @for(value of formConfig.items;track value){
         @switch (value.inputType){
         @case (Types.INPUT_TYPE){
@@ -9,23 +9,39 @@
             <label>{{value.name}}</label>
             <input type="text" class="form-control"
                    [ngModelOptions]="{standalone: true}"
-                   [(ngModel)]="value.inputTypeItem.bindItem">
+                   [(ngModel)]="value.bindItem">
           </div>
         }
           @case(Types.SELECT_TYPE){
-            {{value.inputTypeItem | json}}
-            <div class="form-group col-3">
+            <div class="form-group col-3 ">
               <label>{{value.name}}</label>
-              <ng-select [items]="value.inputTypeItem.fileds"
-                         bindLabel="value"
-                         bindValue="id"
-                         [(ngModel)]="value.inputTypeItem.bindItem">
+              <ng-select class="form-control" [items]="returnArray(value)"
+              bindLabel="value"
+              bindValue="id"
+              [name]="value.bindItem"
+              [(ngModel)]="value.bindItem">
               </ng-select>
+            </div>
+          }
+
+          @case(Types.TEXTAREA_TYPE){
+            <div class="form-group col-3 ">
+              <label>{{value.name}}</label>
+              <textarea 
+               [name]="value.name!"
+               [id]="value.id" 
+               class="form-control"
+               [(ngModel)]="value.bindItem"
+               ></textarea>
             </div>
           }
 
       }
       }
+
+      <div class="d-block">
+        <button class="btn btn-primary" type="submit">ذخیره</button>
+      </div>
     </form>
 
   </div>

@@ -3,10 +3,11 @@ import {
   formConfig,
   formItemBase,
   inputInterface,
+  inputTYpe,
   selectInterface, textAreaInterface,
   Types
 } from "../models/interfaces/form-type.interface";
-import {Observable, Subject} from "rxjs";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {FormsModule} from "@angular/forms";
 import {CommonModule, JsonPipe, NgIf} from "@angular/common";
 import {type} from "node:os";
@@ -29,70 +30,66 @@ import {NgSelectModule
   styleUrl: './form.component.scss'
 })
 export class FormComponent {
-  submitApi$!:Observable<any>| Subject<any>;
+
 
   formConfig!:formConfig;
   private firstName: any | string;
-   constructor() {
-      this.formConfig = {
-        items: [
-          {
-            inputTypeItem: new inputInterface({bindItem:this.firstName}),
-            id:'name',
-            labelName:'نام',
-            placeholder:'firstName',
-            name:'firstName',
-            inputType:Types.INPUT_TYPE
-          },
+  Types = Types;
 
-          {
-            inputTypeItem:new selectInterface( {fileds: [{id: 1, value: 'test'}]}) ,
-            id:'type',
-            labelName:'نوع',
-            placeholder:'type',
-            name:'type',
-            inputType:Types.SELECT_TYPE
-          },
-
-          {
-            inputTypeItem:new textAreaInterface( {bindItem:''}) ,
-            id:'explain',
-            labelName:'توضیحات',
-            placeholder:'توضیحات',
-            name:'explain',
-            inputType:Types.TEXTAREA_TYPE
-          }
-        ],
-        submit$:this.submitApi$,
-
-      }
+  formItem:Array<formItemBase>=[];
+   constructor() { }
 
   ngOnInit(): void {
     this.formConfig = new formConfig({
+      classList:'d-flex'+' '+'column-gap-2',
+
       items: [
-        {
-          inputTypeItem: {bindItem:this.firstName} as inputInterface,
-          id:'name',
-          labelName:'firstName',
-          placeholder:'firstName',
-          name:'firstName',
-          inputType:Types.INPUT_TYPE
-        },
-        {
+        new inputInterface({
+          bindItem:'id',
+          id:'1',
+          inputType:Types.INPUT_TYPE,
+          labelName:'نام',
+          name:'name',
+          placeholder:'name',
+
+        }),
+        new selectInterface({
+          bindItem:'id',
+          id:'1',
           inputType:Types.SELECT_TYPE,
-          inputTypeItem: {bindItem:this.firstName,Items:[{id:1,val:'dddd'}]} as selectInterface,
-          id:'name',
-          labelName:'firstName',
-          placeholder:'firstName',
-          name:'firstName',
-        }
+          labelName:'نام',
+          name:'name',
+          placeholder:'name',
+          fileds:[{id:1,name:'vehicle',value:'volvu'}],
+
+        }),
+        new textAreaInterface({
+          bindItem:'text',
+          id:'1',
+          inputType:Types.TEXTAREA_TYPE,
+          labelName:'توضیحات',
+          name:'text',
+          placeholder:'توضیحات',
+        }),
+        new selectInterface({
+          bindItem:'id',
+          id:'1',
+          inputType:Types.SELECT_TYPE,
+          labelName:'نام',
+          name:'name',
+          placeholder:'name',
+          fileds:[{id:1,name:'vehicle',value:'volvu'}],
+        }),
       ],
       
-      submit$:this.submitApi$
+      submit$: new Observable().subscribe(console.log) as any,
     });
+  }
+
+  returnArray(_t7: selectInterface |any) {        
+    return _t7.fileds;
+  }
 
 
-  protected readonly type = type;
-  protected readonly Object = Object;
-  protected readonly Types = Types;
-}
+
+  }
