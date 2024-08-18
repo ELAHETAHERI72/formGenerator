@@ -1,3 +1,4 @@
+import { Form, FormGroup, NgForm } from "@angular/forms";
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 
 
@@ -72,9 +73,11 @@ export class formConfig{
   items?:Array<inputTYpe>;
   submit$?:Observable<any> | BehaviorSubject<any>;
   classList?:string;
+  submited?:(form:NgForm)=> void;
   constructor(config:formConfig){
     this.items = config.items;
     this.submit$ = config.submit$;
     this.classList = config.classList;
+    this.submited = config.submited;
   }
 }

@@ -8,7 +8,7 @@ import {
   Types
 } from "../models/interfaces/form-type.interface";
 import {BehaviorSubject, Observable, Subject} from "rxjs";
-import {FormsModule} from "@angular/forms";
+import {Form, FormGroup, FormsModule, NgForm} from "@angular/forms";
 import {CommonModule, JsonPipe, NgIf} from "@angular/common";
 import {type} from "node:os";
 import {NgSelectModule
@@ -45,7 +45,7 @@ export class FormComponent {
 
       items: [
         new inputInterface({
-          bindItem:'id',
+          bindItem:'',
           id:'1',
           inputType:Types.INPUT_TYPE,
           labelName:'نام',
@@ -83,6 +83,8 @@ export class FormComponent {
       ],
       
       submit$: new Observable().subscribe(console.log) as any,
+      submited:(form:NgForm)=>{console.log(form?.value)}
+      
     });
   }
 
