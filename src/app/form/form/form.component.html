@@ -2,7 +2,10 @@
   <div class="container-fluid px-4">
     <div class="row">
 
-     <form dir="rtl" id="form" name="form" action="" #Form="ngForm" (ngSubmit)="formConfig?.submited(Form)" [classList]="formConfig.classList">
+     <form dir="rtl" id="form" name="form" 
+       action="" #Form="ngForm"
+       (ngSubmit)="submitApiCall()"
+       [classList]="formConfig?.classList">
     
         @for(value of formConfig.items;track value){
           @switch (value.inputType){
@@ -10,7 +13,8 @@
             <div class="form-group col-2">
               <label>{{value.name}}</label>
               <input type="text" class="form-control"
-                     [ngModelOptions]="{standalone: true}"
+                     [id]="value.id"
+                     [name]="value.name!"
                      [(ngModel)]="value.bindItem">
             </div>
           }
@@ -18,9 +22,11 @@
               <div class="form-group col-3 ">
                 <label>{{value.name}}</label>
                 <ng-select class="form-control" [items]="returnArray(value)"
-                bindLabel="value"
+                bindLabel="name"
                 bindValue="id"
                 [name]="value.bindItem"
+                [id]="value.id"
+                [name]="value.name!"
                 [(ngModel)]="value.bindItem">
                 </ng-select>
               </div>
@@ -37,6 +43,10 @@
                  ></textarea>
               </div>
             }
+
+            @case(Types.SWITCH_TYPE){
+              <switch-button></switch-button>
+            }
   
         }
         }
@@ -47,6 +57,5 @@
 
   <div class="container-fluid px-4 d-flex justify-end my-5">
     <button form="form" class="btn btn-primary" type="submit">ذخیره</button>
-
   </div>
 

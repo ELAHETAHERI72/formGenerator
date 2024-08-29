@@ -1,5 +1,7 @@
+import { Output } from "@angular/core";
 import { Form, FormGroup, NgForm } from "@angular/forms";
 import {BehaviorSubject, Observable, Subject} from "rxjs";
+import { EventEmitter } from "stream";
 
 
 
@@ -26,6 +28,7 @@ export enum Types {
   INPUT_TYPE = 'INPUT_TYPE',
   TEXTAREA_TYPE = 'TEXTAREA_TYPE',
   SELECT_TYPE ='SELECT_TYPE',
+  SWITCH_TYPE = 'SWITCH_TYPE',
 }
 
 export class inputInterface extends formItemBase{
@@ -66,17 +69,25 @@ export class textAreaInterface extends formItemBase{
   }
 }
 
-export  type inputTYpe = selectInterface| inputInterface | textAreaInterface;
+export class switchInterface extends formItemBase {
+  bindItem?:any;
+  isSelect?:boolean;
+  constructor(item:switchInterface){
+    super(item)
+    this.bindItem = item.bindItem;
+    this.isSelect = item.isSelect;
+  }
+}
+
+export  type inputTYpe = selectInterface| inputInterface | textAreaInterface | switchInterface;
 
 
 export class formConfig{
   items?:Array<inputTYpe>;
-  submit$?:Observable<any> | BehaviorSubject<any>;
   classList?:string;
-  submited?:(form:NgForm)=> void;
-  constructor(config:formConfig){
+  submited?:(items:any)=> void;
+  constructor(config:{items:Array<inputTYpe>,submited:(items:any)=> void,classList:string}){
     this.items = config.items;
-    this.submit$ = config.submit$;
     this.classList = config.classList;
     this.submited = config.submited;
   }

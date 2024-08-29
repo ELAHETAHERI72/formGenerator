@@ -1,20 +1,16 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {
   formConfig,
-  formItemBase,
   inputInterface,
-  inputTYpe,
-  selectInterface, textAreaInterface,
+  selectInterface,
   Types
 } from "../models/interfaces/form-type.interface";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
-import {Form, FormGroup, FormsModule, NgForm} from "@angular/forms";
+import {FormsModule} from "@angular/forms";
 import {CommonModule, JsonPipe, NgIf} from "@angular/common";
-import {type} from "node:os";
 import {NgSelectModule
 } from "@ng-select/ng-select";
-
-
+import { SwitchButtonComponent } from "../../components/switch-button/switch-button.component";
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-form',
@@ -24,74 +20,61 @@ import {NgSelectModule
     JsonPipe,
     NgIf,
     CommonModule,
-    NgSelectModule
-  ],
+    NgSelectModule,
+    SwitchButtonComponent
+],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
 })
+
 export class FormComponent {
 
+ private _formConfog!:formConfig;
+  formItems!: Array<any>;
 
-  formConfig!:formConfig;
-  private firstName: any | string;
+ @Input() set formConfig(config:formConfig ) {
+     this._formConfog = config;
+     (this.formItems as any) = config.items;
+
+     this.createFormItems(this.formItems);
+     this.formConfig.submited?.(this.formItems);
+ }
+
+get formConfig():formConfig {
+   return this._formConfog;
+}
+
   Types = Types;
+ @Input() submitedFormValue$:Subject<any>= new Subject();
 
-  formItem:Array<formItemBase>=[];
    constructor() { }
 
-  ngOnInit(): void {
-    this.formConfig = new formConfig({
-      classList:'d-flex'+' '+'column-gap-2',
-
-      items: [
-        new inputInterface({
-          bindItem:'',
-          id:'1',
-          inputType:Types.INPUT_TYPE,
-          labelName:'نام',
-          name:'name',
-          placeholder:'name',
-
-        }),
-        new selectInterface({
-          bindItem:'id',
-          id:'1',
-          inputType:Types.SELECT_TYPE,
-          labelName:'نام',
-          name:'name',
-          placeholder:'name',
-          fileds:[{id:1,name:'vehicle',value:'volvu'}],
-
-        }),
-        new textAreaInterface({
-          bindItem:'text',
-          id:'1',
-          inputType:Types.TEXTAREA_TYPE,
-          labelName:'توضیحات',
-          name:'text',
-          placeholder:'توضیحات',
-        }),
-        new selectInterface({
-          bindItem:'id',
-          id:'1',
-          inputType:Types.SELECT_TYPE,
-          labelName:'نام',
-          name:'name',
-          placeholder:'name',
-          fileds:[{id:1,name:'vehicle',value:'volvu'}],
-        }),
-      ],
-      
-      submit$: new Observable().subscribe(console.log) as any,
-      submited:(form:NgForm)=>{console.log(form?.value)}
-      
-    });
+  ngOnInit() {
+    this.submitedFormValue$.subscribe(res=>{
+      this.formConfig?.submited?.(res);
+     })
   }
 
   returnArray(_t7: selectInterface |any) {        
     return _t7.fileds;
   }
 
+  createFormItems(formItems:Array<inputInterface>) {
+    formItems.map(_v=>{
+      switch (_v.inputType) {
+        case Types.INPUT_TYPE:
+          console.log(_v,'hhhhhhh');
+          
+          break;
+      
+        default:
+          break;
+      }
+    })
+  }
 
-
+submitApiCall() {
+  this.formConfig.submited?.(this.formConfig.items)
+}
+  
   }
