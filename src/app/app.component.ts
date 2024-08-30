@@ -4,6 +4,13 @@ import { FormComponent } from "./form/form/form.component";
 import { formConfig, inputInterface, selectInterface, switchInterface, textAreaInterface, Types } from './form/models/interfaces/form-type.interface';
 import { Subject } from 'rxjs';
 
+export interface formModel {
+  name:string;
+  cityName:string;
+  fullName:string;
+  ispaid:boolean;
+}
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -11,6 +18,7 @@ import { Subject } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
+
 export class AppComponent implements OnInit{
   
   title = 'formGenerator';
@@ -19,7 +27,7 @@ export class AppComponent implements OnInit{
   confog:formConfig = new formConfig({
     classList:'d-flex'+' '+'column-gap-2',
     
-    submited:(v=>{
+    submited:((v:formModel)=>{
        console.log(v,'vvvvvvvvvv');
        
     }),

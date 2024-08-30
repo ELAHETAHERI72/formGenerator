@@ -30,14 +30,14 @@ import { Subject } from 'rxjs';
 export class FormComponent {
 
  private _formConfog!:formConfig;
-  formItems!: Array<any>;
+  formItems: any;
+  bindItems?: any={};
 
  @Input() set formConfig(config:formConfig ) {
      this._formConfog = config;
-     (this.formItems as any) = config.items;
+    //  (this.formItems as any) = config.items;
 
-     this.createFormItems(this.formItems);
-     this.formConfig.submited?.(this.formItems);
+     this.createFormItems(config.items as Array<inputInterface>);
  }
 
 get formConfig():formConfig {
@@ -45,32 +45,25 @@ get formConfig():formConfig {
 }
 
   Types = Types;
- @Input() submitedFormValue$:Subject<any>= new Subject();
 
    constructor() { }
 
-  ngOnInit() {
-    this.submitedFormValue$.subscribe(res=>{
-      this.formConfig?.submited?.(res);
-     })
-  }
+  ngOnInit() { }
 
   returnArray(_t7: selectInterface |any) {        
     return _t7.fileds;
   }
 
   createFormItems(formItems:Array<inputInterface>) {
-    formItems.map(_v=>{
-      switch (_v.inputType) {
-        case Types.INPUT_TYPE:
-          console.log(_v,'hhhhhhh');
-          
-          break;
-      
-        default:
-          break;
-      }
-    })
+    if(formItems){
+      formItems?.forEach((element:any) => {
+
+        this.bindItems[element?.bindItem!] = '';
+
+      });
+      this.formConfig.submited?.(this.bindItems);
+
+    }
   }
 
 submitApiCall() {

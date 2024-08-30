@@ -15,7 +15,7 @@
               <input type="text" class="form-control"
                      [id]="value.id"
                      [name]="value.name!"
-                     [(ngModel)]="value.bindItem">
+                     [(ngModel)]="bindItems[value.bindItem!]">
             </div>
           }
             @case(Types.SELECT_TYPE){
@@ -27,7 +27,7 @@
                 [name]="value.bindItem"
                 [id]="value.id"
                 [name]="value.name!"
-                [(ngModel)]="value.bindItem">
+                [(ngModel)]="bindItems[value.bindItem!]">
                 </ng-select>
               </div>
             }
@@ -39,7 +39,7 @@
                  [name]="value.name!"
                  [id]="value.id" 
                  class="form-control"
-                 [(ngModel)]="value.bindItem"
+                 [(ngModel)]="bindItems[value.bindItem!]"
                  ></textarea>
               </div>
             }
