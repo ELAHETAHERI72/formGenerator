@@ -67,7 +67,7 @@ get formConfig():formConfig {
   }
 
 submitApiCall() {
-  this.formConfig.submited?.(this.formConfig.items)
+  this.formConfig.submited?.(this.bindItems);
 }
   
   }

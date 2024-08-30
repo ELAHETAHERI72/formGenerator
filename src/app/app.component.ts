@@ -64,7 +64,7 @@ export class AppComponent implements OnInit{
         labelName:'نام خانوادگی',
         name:'fname',
         placeholder:'fname',
-        fileds:[{id:1,name:'s',value:'s'}],
+        fileds:[{id:'zahra',name:'s',value:'s'}],
         bindItem:'fullName'
       }),
       new switchInterface({
