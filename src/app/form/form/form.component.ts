@@ -1,16 +1,16 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Type} from '@angular/core';
 import {
   formConfig,
   inputInterface,
   selectInterface,
   Types
 } from "../models/interfaces/form-type.interface";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule, JsonPipe, NgIf} from "@angular/common";
 import {NgSelectModule
 } from "@ng-select/ng-select";
 import { SwitchButtonComponent } from "../../components/switch-button/switch-button.component";
-import { Subject } from 'rxjs';
+import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
 
 @Component({
   selector: 'app-form',
@@ -21,7 +21,9 @@ import { Subject } from 'rxjs';
     NgIf,
     CommonModule,
     NgSelectModule,
-    SwitchButtonComponent
+    SwitchButtonComponent,
+    NgPersianDatepickerModule,
+      ReactiveFormsModule,
 ],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
@@ -56,9 +58,16 @@ get formConfig():formConfig {
 
   createFormItems(formItems:Array<inputInterface>) {
     if(formItems){
-      formItems?.forEach((element:any) => {
+      formItems?.forEach((element:inputInterface) => {
 
-        this.bindItems[element?.bindItem!] = '';
+        if(element.inputType ==Types.SWITCH_TYPE){
+
+          this.bindItems[element?.bindItem!] = false;
+        }
+        else{
+
+          this.bindItems[element?.bindItem!] = '';
+        }
 
       });
       this.formConfig.submited?.(this.bindItems);
@@ -66,8 +75,8 @@ get formConfig():formConfig {
     }
   }
 
-submitApiCall() {
-  this.formConfig.submited?.(this.bindItems);
-}
-  
+  submitApiCall() {
+    this.formConfig.submited?.(this.bindItems);
+  }
+
   }

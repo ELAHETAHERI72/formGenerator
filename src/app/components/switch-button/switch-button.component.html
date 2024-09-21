@@ -1,7 +1,7 @@
-<div>
-    <span>تست</span>
+<div class="d-flex flex-column">
+    <span>{{labelName}}</span>
     <label class="switch">
-        <input type="checkbox" checked>
+        <input type="checkbox" [checked]="isChecked" [(ngModel)]="isChecked" [name]="id" [id]="id" (change)="changeValue($event)">
         <span class="slider round"></span>
       </label>
 </div>

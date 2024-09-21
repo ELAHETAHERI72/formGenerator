@@ -1,9 +1,4 @@
-import { Output } from "@angular/core";
-import { Form, FormGroup, NgForm } from "@angular/forms";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
-import { EventEmitter } from "stream";
-
-
+import { Observable, Subject} from "rxjs";
 
 
 export class formItemBase {
@@ -29,6 +24,7 @@ export enum Types {
   TEXTAREA_TYPE = 'TEXTAREA_TYPE',
   SELECT_TYPE ='SELECT_TYPE',
   SWITCH_TYPE = 'SWITCH_TYPE',
+  DATE_TYPE= 'DATE_TYPE',
 }
 
 export class inputInterface extends formItemBase{
@@ -56,6 +52,18 @@ export class selectInterface extends formItemBase{
       this.changeValue$ = item.changeValue$;
       this.hasApi = item.hasApi;
       this.apiUrl = item.apiUrl;
+    }
+  
+}
+
+export class dateInterface extends formItemBase{
+  bindItem?:string;
+  maxDate?:string;
+  minDate?:string;
+
+    constructor(item:dateInterface){
+      super(item);
+    
     }
   
 }

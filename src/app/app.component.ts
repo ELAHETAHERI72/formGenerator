@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormComponent } from "./form/form/form.component";
-import { formConfig, inputInterface, selectInterface, switchInterface, textAreaInterface, Types } from './form/models/interfaces/form-type.interface';
+import { dateInterface, formConfig, inputInterface, selectInterface, switchInterface, textAreaInterface, Types } from './form/models/interfaces/form-type.interface';
 import { Subject } from 'rxjs';
 
 export interface formModel {
@@ -56,7 +56,7 @@ export class AppComponent implements OnInit{
           {"name":"جلفا","id":6},
           {"name":"سراب","id":7}
         ],
-        bindItem:'cityName'
+        bindItem:'cityId'
       }),
       new selectInterface({
         id:'fname',
@@ -69,10 +69,17 @@ export class AppComponent implements OnInit{
       }),
       new switchInterface({
         id:'ispaid',
-        isSelect:false,
+        name:'قسطی',
         placeholder:'قسطی',
         inputType:Types.SWITCH_TYPE,
         bindItem:'ispaid'
+      }),
+      new dateInterface({
+        id:'fromDate',
+        name:'fromDate',
+        bindItem:'fromDare',
+        inputType:Types.DATE_TYPE,
+        labelName:'از تاریخ'
       })
     ],
     

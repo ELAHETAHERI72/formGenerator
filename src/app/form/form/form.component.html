@@ -45,7 +45,26 @@
             }
 
             @case(Types.SWITCH_TYPE){
-              <switch-button></switch-button>
+              <switch-button 
+              [(ngModel)]="bindItems[value.bindItem!]" 
+              [isChecked]="bindItems[value.bindItem!]"
+              [labelName]="value.name"
+              [name]="value.bindItem"
+              (emitValue)="bindItems[value.bindItem!] = $event"
+              ></switch-button>
+            }
+
+            @case (Types.DATE_TYPE) {
+              <div class="form-group">
+                <label for="">{{value.labelName}}</label>
+              <ng-persian-datepicker dateFormat="YYYY-MM-DD HH:mm:ss">
+                <input type="text" 
+                 class="form-control"
+                [(ngModel)]="bindItems[value.bindItem!]" 
+                [id]="value.id"
+              [name]="value.bindItem"/>
+              </ng-persian-datepicker>
+              </div>
             }
   
         }
