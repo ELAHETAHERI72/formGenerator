@@ -1,16 +1,18 @@
-import {Component, Input, Type} from '@angular/core';
+import { Component, EventEmitter, Input, Output, Type } from '@angular/core';
 import {
   formConfig,
-  inputInterface,
+  inputTYpe,
   selectInterface,
   Types
 } from "../models/interfaces/form-type.interface";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {CommonModule, JsonPipe, NgIf} from "@angular/common";
-import {NgSelectModule
+import { FormsModule, NgForm, ReactiveFormsModule } from "@angular/forms";
+import { CommonModule, JsonPipe, NgIf } from "@angular/common";
+import {
+  NgSelectModule
 } from "@ng-select/ng-select";
 import { SwitchButtonComponent } from "../../components/switch-button/switch-button.component";
 import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
+import { FormItemsComponent } from "../form-items/form-items.component";
 
 @Component({
   selector: 'app-form',
@@ -23,60 +25,69 @@ import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
     NgSelectModule,
     SwitchButtonComponent,
     NgPersianDatepickerModule,
-      ReactiveFormsModule,
-],
+    ReactiveFormsModule,
+    FormItemsComponent
+  ],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
 })
 
 export class FormComponent {
 
- private _formConfog!:formConfig;
+  private _formConfog!: formConfig;
   formItems: any;
-  bindItems?: any={};
+  bindItems?: any = {};
+  @Output() callSubmitApi = new EventEmitter();
 
- @Input() set formConfig(config:formConfig ) {
-     this._formConfog = config;
-    //  (this.formItems as any) = config.items;
+  @Input() set formConfig(config: formConfig) {
+    this._formConfog = config;
+    this.createFormItems(config.items as Array<inputTYpe>);
+  }
 
-     this.createFormItems(config.items as Array<inputInterface>);
- }
-
-get formConfig():formConfig {
-   return this._formConfog;
-}
+  get formConfig(): formConfig {
+    return this._formConfog;
+  }
 
   Types = Types;
 
-   constructor() { }
+  constructor() { }
 
   ngOnInit() { }
 
-  returnArray(_t7: selectInterface |any) {        
+  returnArray(_t7: selectInterface | any) {
     return _t7.fileds;
   }
 
-  createFormItems(formItems:Array<inputInterface>) {
-    if(formItems){
-      formItems?.forEach((element:inputInterface) => {
+  getFormGroup(_t9: selectInterface | any): formConfig {
+    return _t9.formGroups;
+  }
 
-        if(element.inputType ==Types.SWITCH_TYPE){
+  submitApiCall(form: NgForm) {
+    this.formConfig.submited?.(this.bindItems);
+    this.callSubmitApi.emit(this.bindItems);
+  }
+
+  createFormItems(formItems: Array<inputTYpe>) {
+    if (formItems) {
+      formItems?.forEach((element: inputTYpe) => {
+
+        if (element.inputType == Types.SWITCH_TYPE) {
 
           this.bindItems[element?.bindItem!] = false;
         }
-        else{
+        else if (element.inputType == Types.FORM_GROUP) {
+          this.bindItems[element.bindItem] = {}
+        }
+        else {
 
           this.bindItems[element?.bindItem!] = '';
         }
 
       });
       this.formConfig.submited?.(this.bindItems);
+      this.callSubmitApi.emit(this.bindItems);
 
     }
   }
 
-  submitApiCall() {
-    this.formConfig.submited?.(this.bindItems);
-  }
-
-  }
+}
