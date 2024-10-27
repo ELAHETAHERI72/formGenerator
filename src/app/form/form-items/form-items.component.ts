@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, JsonPipe, NgIf } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SwitchButtonComponent } from '../../components/switch-button/switch-button.component';
-import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
+import {defaultTheme, IActiveDate, IDatepickerTheme, NgPersianDatepickerModule} from 'ng-persian-datepicker';
 
 @Component({
   selector: 'app-form-items',
@@ -30,6 +30,24 @@ export class FormItemsComponent {
 
   Types = Types;
 
+  // ng-select variables
+  uiIsVisible: boolean = true;
+  uiTheme: IDatepickerTheme = defaultTheme;
+  uiYearView: boolean = true;
+  uiMonthView: boolean = true;
+  uiHideAfterSelectDate: boolean = false;
+  uiHideOnOutsideClick: boolean = false;
+  uiTodayBtnEnable: boolean = true;
+
+  timeEnable: boolean = true;
+  timeShowSecond: boolean = true;
+  timeMeridian: boolean = false;
+
+  private _theme: string = 'default';
+
+  onSelect(date: IActiveDate) {
+    console.log(date);
+  }
   @Input() set items(config: Array<inputTYpe>) {
     this._items = config;
   }

@@ -1,57 +1,73 @@
 <ng-container>
-    <section class="row">
-        @for(value of items;track value){
-        @switch (value.inputType){
-        @case (Types.INPUT_TYPE){
-        <div class="form-group col-4">
-            <label>{{value.labelName}}</label>
+  <section class="row">
+    @for (value of items;track value) {
+      @switch (value.inputType) {
+        @case (Types.INPUT_TYPE) {
+          <div class="form-group col-4">
+            <label>{{ value.labelName }}</label>
             <input type="text" class="form-control"
-                [id]="value.id" [name]="value.name!"
-                [(ngModel)]="bindItems[value.bindItem!]">
-        </div>
+                   [id]="value.id" [name]="value.name!"
+                   [(ngModel)]="bindItems[value.bindItem!]">
+          </div>
         }
-        @case(Types.SELECT_TYPE){
-        <div class="form-group col-4">
-            <label>{{value.labelName}}</label>
-            <ng-select class="form-control" [items]="returnArray(value)" bindLabel="name" bindValue="id"
-                [name]="value.bindItem" [id]="value.id"  [(ngModel)]="bindItems[value.bindItem!]">
+        @case (Types.SELECT_TYPE) {
+          <div class="form-group col-4">
+            <label>{{ value.labelName }}</label>
+            <ng-select class=" custom-select" [items]="returnArray(value)"
+                       bindLabel="name" bindValue="id"
+                       [name]="value.bindItem" [id]="value.id"
+                       [(ngModel)]="bindItems[value.bindItem!]">
             </ng-select>
-        </div>
+          </div>
         }
-
-        @case(Types.TEXTAREA_TYPE){
-        <div class="form-group col-4">
-            <label>{{value.labelName}}</label>
+        @case (Types.TEXTAREA_TYPE) {
+          <div class="form-group col-4">
+            <label>{{ value.labelName }}</label>
             <textarea [name]="value.name!" [id]="value.id" class="form-control"
-                [(ngModel)]="bindItems[value.bindItem!]"></textarea>
-        </div>
+                      [(ngModel)]="bindItems[value.bindItem!]"></textarea>
+          </div>
         }
-
-        @case(Types.SWITCH_TYPE){
-        <div class="col-4">
+        @case (Types.SWITCH_TYPE) {
+          <div class="col-4">
             <switch-button [(ngModel)]="bindItems[value.bindItem!]" [isChecked]="bindItems[value.bindItem!]"
-                [labelName]="value.labelName" [name]="value.bindItem"
-                (emitValue)="bindItems[value.bindItem!] = $event"></switch-button>
-        </div>
+                           [labelName]="value.labelName" [name]="value.bindItem"
+                           (emitValue)="bindItems[value.bindItem!] = $event"></switch-button>
+          </div>
         }
-
         @case (Types.DATE_TYPE) {
-        <div class="form-group col-4">
-            <label for="">{{value.labelName}}</label>
-            <ng-persian-datepicker theme="dp-material" dateFormat="YYYY-MM-DD HH:mm:ss">
-                <input type="text" class="form-control" [name]="value.name!" [id]="value.id"
-                    [(ngModel)]="bindItems[value.bindItem!]" />
-            </ng-persian-datepicker>
-        </div>
+          <div class="form-group col-4">
+            <label for="">{{ value.labelName }}</label>
+            <div class="datepicker-wrapper">
+              <ng-persian-datepicker (dateOnSelect)="onSelect($event)"
+                                     [dateFormat]="'YYYY/MM/DD HH:mm:ss'"
+                                     [dateGregorianFormat]="'YYYY-MM-DD HH:mm:ss'"
+                                     [(uiIsVisible)]="uiIsVisible"
+                                     [uiTheme]="uiTheme"
+                                     [uiYearView]="uiYearView"
+                                     [uiMonthView]="uiMonthView"
+                                     [uiHideAfterSelectDate]="uiHideAfterSelectDate"
+                                     [uiHideOnOutsideClick]="uiHideOnOutsideClick"
+                                     [uiTodayBtnEnable]="uiTodayBtnEnable"
+                                     [timeEnable]="timeEnable"
+                                     [timeShowSecond]="timeShowSecond"
+                                     [timeMeridian]="timeMeridian">
+                <div class="input-field">
+                  <input type="text"
+                         class="form-control"
+                         [(ngModel)]="bindItems[value.bindItem!]"
+                         aria-label="Datepicker Input"/>
+                </div>
+              </ng-persian-datepicker>
+            </div>
+          </div>
         }
-
         @case (Types.FORM_GROUP) {
-        <label for="">{{value.labelName}}</label>
-        <app-form-items [items]="getFormGroup(value)" [bindItems]="bindItems[value.bindItem]"></app-form-items>
+          <label for="">{{ value.labelName }}</label>
+          <app-form-items [items]="getFormGroup(value)" [bindItems]="bindItems[value.bindItem]"></app-form-items>
         }
 
-        }
-        }
-    </section>
+      }
+    }
+  </section>
 
 </ng-container>

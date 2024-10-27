@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
   submited$: Subject<any> = new Subject();
 
 
-  confog: formConfig = new formConfig({
+  config: formConfig = new formConfig({
     classList: 'd-flex' + ' ' + 'column-gap-2',
 
     submited: ((v: formModel) => {
@@ -35,31 +35,31 @@ export class AppComponent implements OnInit {
     }),
 
     items: [
-      // new inputInterface({
-      //   id:'name',
-      //   inputType:Types.INPUT_TYPE,
-      //   labelName:'نام',
-      //   name:'name',
-      //   placeholder:'name',
-      //   bindItem:'name'
-      // }),
-      // new selectInterface({
-      //   id:'city',
-      //   inputType:Types.SELECT_TYPE,
-      //   labelName:'شهر',
-      //   name:'city',
-      //   placeholder:'شهر',
-      //   fileds:[
-      //     {"name":"تبريز","id":1},
-      //     {"name":"مراغه","id":2},
-      //     {"name":"ميانه","id":3},
-      //     {"name":"شبستر","id":4},
-      //     {"name":"مرند","id":5},
-      //     {"name":"جلفا","id":6},
-      //     {"name":"سراب","id":7}
-      //   ],
-      //   bindItem:'cityId'
-      // }),
+      new inputInterface({
+        id:'name',
+        inputType:Types.INPUT_TYPE,
+        labelName:'نام',
+        name:'name',
+        placeholder:'name',
+        bindItem:'name'
+      }),
+      new selectInterface({
+        id:'city',
+        inputType:Types.SELECT_TYPE,
+        labelName:'شهر',
+        name:'city',
+        placeholder:'شهر',
+        fileds:[
+          {"name":"تبريز","id":1},
+          {"name":"مراغه","id":2},
+          {"name":"ميانه","id":3},
+          {"name":"شبستر","id":4},
+          {"name":"مرند","id":5},
+          {"name":"جلفا","id":6},
+          {"name":"سراب","id":7}
+        ],
+        bindItem:'cityId'
+      }),
       new selectInterface({
         id:'fname',
         inputType:Types.SELECT_TYPE,
@@ -74,15 +74,16 @@ export class AppComponent implements OnInit {
         name: 'قسطی',
         placeholder: 'قسطی',
         inputType: Types.SWITCH_TYPE,
-        bindItem: 'ispaid'
+        bindItem: 'ispaid',
+        labelName:'نوع پرداخت'
       }),
-      // new dateInterface({
-      //   id: 'fromDate',
-      //   name: 'fromDate',
-      //   bindItem: 'fromDare',
-      //   inputType: Types.DATE_TYPE,
-      //   labelName: 'از تاریخ'
-      // }),
+      new dateInterface({
+        id: 'fromDate',
+        name: 'fromDate',
+        bindItem: 'fromDate',
+        inputType: Types.DATE_TYPE,
+        labelName: 'از تاریخ'
+      }),
       new formGroups(
         {
           inputType: Types.FORM_GROUP,
@@ -114,7 +115,7 @@ export class AppComponent implements OnInit {
 
   apiCall($event: any) {
     console.log($event,'eventCall');
-    
+
  }
 
   ngOnInit(): void {
