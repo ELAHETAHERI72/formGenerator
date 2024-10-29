@@ -9,7 +9,7 @@ export interface formModel {
   name: string;
   cityName: string;
   fullName: string;
-  ispaid: boolean;
+  isPay?:boolean;
 }
 
 @Component({
@@ -23,8 +23,7 @@ export interface formModel {
 export class AppComponent implements OnInit {
 
   title = 'formGenerator';
-  submited$: Subject<any> = new Subject();
-
+  tableConfig:any;
 
   config: formConfig = new formConfig({
     classList: 'd-flex' + ' ' + 'column-gap-2',
@@ -74,16 +73,16 @@ export class AppComponent implements OnInit {
         name: 'قسطی',
         placeholder: 'قسطی',
         inputType: Types.SWITCH_TYPE,
-        bindItem: 'ispaid',
+        bindItem: 'isPay',
         labelName:'نوع پرداخت'
       }),
-      new dateInterface({
-        id: 'fromDate',
-        name: 'fromDate',
-        bindItem: 'fromDate',
-        inputType: Types.DATE_TYPE,
-        labelName: 'از تاریخ'
-      }),
+      // new dateInterface({
+      //   id: 'fromDate',
+      //   name: 'fromDate',
+      //   bindItem: 'fromDate',
+      //   inputType: Types.DATE_TYPE,
+      //   labelName: 'از تاریخ'
+      // }),
       new formGroups(
         {
           inputType: Types.FORM_GROUP,
@@ -108,10 +107,6 @@ export class AppComponent implements OnInit {
     ],
 
   });
-
-  tableCOnfig = {
-
-  }
 
   apiCall($event: any) {
     console.log($event,'eventCall');

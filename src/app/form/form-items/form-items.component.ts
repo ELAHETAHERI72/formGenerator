@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { formGroups, inputTYpe, selectInterface, Types } from '../models/interfaces/form-type.interface';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {ControlContainer, FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule, JsonPipe, NgIf } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SwitchButtonComponent } from '../../components/switch-button/switch-button.component';
@@ -20,7 +20,8 @@ import {defaultTheme, IActiveDate, IDatepickerTheme, NgPersianDatepickerModule} 
     ReactiveFormsModule,
   ],
   templateUrl: './form-items.component.html',
-  styleUrl: './form-items.component.scss'
+  styleUrl: './form-items.component.scss',
+  viewProviders: [{provide: ControlContainer, useExisting: NgForm}]
 })
 
 export class FormItemsComponent {

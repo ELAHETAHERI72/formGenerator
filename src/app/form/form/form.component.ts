@@ -34,18 +34,18 @@ import { FormItemsComponent } from "../form-items/form-items.component";
 
 export class FormComponent {
 
-  private _formConfog!: formConfig;
+  private _formConfig!: formConfig;
   formItems: any;
   bindItems?: any = {};
   @Output() callSubmitApi = new EventEmitter();
 
   @Input() set formConfig(config: formConfig) {
-    this._formConfog = config;
+    this._formConfig = config;
     this.createFormItems(config.items as Array<inputTYpe>);
   }
 
   get formConfig(): formConfig {
-    return this._formConfog;
+    return this._formConfig;
   }
 
   Types = Types;
@@ -63,6 +63,7 @@ export class FormComponent {
   }
 
   submitApiCall(form: NgForm) {
+    debugger
     this.formConfig.submited?.(this.bindItems);
     this.callSubmitApi.emit(this.bindItems);
   }
