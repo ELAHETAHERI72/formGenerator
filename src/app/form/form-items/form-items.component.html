@@ -6,16 +6,17 @@
           <div class="form-group col-4">
             <label>{{ value.labelName }}</label>
             <input type="text" class="form-control"
-                   required
-                   [id]="value.id" [name]="value.name!"
-                   [(ngModel)]="bindItems[value.bindItem!]">
+            [required]="value.isRequired"
+            [id]="value.id" [name]="value.name!"
+            [(ngModel)]="bindItems[value.bindItem!]">
           </div>
         }
         @case (Types.SELECT_TYPE) {
           <div class="form-group col-4">
             <label>{{ value.labelName }}</label>
-            <ng-select class=" custom-select" [items]="returnArray(value)"
+            <ng-select class="custom-select" [items]="returnArray(value)"
                        bindLabel="name" bindValue="id"
+                       [required]="value.isRequired"
                        [name]="value.bindItem" [id]="value.id"
                        [(ngModel)]="bindItems[value.bindItem!]">
             </ng-select>
@@ -24,14 +25,21 @@
         @case (Types.TEXTAREA_TYPE) {
           <div class="form-group col-4">
             <label>{{ value.labelName }}</label>
-            <textarea [name]="value.name!" [id]="value.id" class="form-control"
+            <textarea 
+            [name]="value.name!"
+             [id]="value.id"
+             [required]="value.isRequired"
+             class="form-control"
                       [(ngModel)]="bindItems[value.bindItem!]"></textarea>
           </div>
         }
         @case (Types.SWITCH_TYPE) {
           <div class="col-4">
-            <switch-button [(ngModel)]="bindItems[value.bindItem!]" [isChecked]="bindItems[value.bindItem!]"
-                           [labelName]="value.labelName" [name]="value.bindItem"
+            <switch-button [(ngModel)]="bindItems[value.bindItem!]" 
+            [isChecked]="bindItems[value.bindItem!]"
+                           [labelName]="value.labelName"
+                            [name]="value.bindItem"
+                            [required]="value.isRequired"
                            (emitValue)="bindItems[value.bindItem!] = $event"></switch-button>
           </div>
         }
@@ -40,21 +48,15 @@
             <label for="">{{ value.labelName }}</label>
             <div class="datepicker-wrapper">
               <ng-persian-datepicker (dateOnSelect)="onSelect($event)"
-                                     [dateFormat]="'YYYY/MM/DD HH:mm:ss'"
                                      [dateGregorianFormat]="'YYYY-MM-DD HH:mm:ss'"
-                                     [(uiIsVisible)]="uiIsVisible"
-                                     [uiTheme]="uiTheme"
                                      [uiYearView]="uiYearView"
                                      [uiMonthView]="uiMonthView"
-                                     [uiHideAfterSelectDate]="uiHideAfterSelectDate"
-                                     [uiHideOnOutsideClick]="uiHideOnOutsideClick"
                                      [uiTodayBtnEnable]="uiTodayBtnEnable"
-                                     [timeEnable]="timeEnable"
-                                     [timeShowSecond]="timeShowSecond"
-                                     [timeMeridian]="timeMeridian">
+                                     [timeEnable]="false">
                 <div class="input-field">
                   <input type="text"
                          class="form-control"
+                         [required]="value.isRequired"
                          [(ngModel)]="bindItems[value.bindItem!]"
                          aria-label="Datepicker Input"/>
                 </div>

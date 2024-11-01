@@ -106,13 +106,15 @@ export class AppComponent implements OnInit {
           formItems: [
             new selectInterface({
               id: 'fname',
+
               inputType: Types.SELECT_TYPE,
               labelName: 'نام خانوادگی',
               name: 'fname',
               isRequired:true,
               placeholder: 'fname',
               fileds: [{ id: 'zahra', name: 's', value: 's' }],
-              bindItem: 'fullName'
+              bindItem: 'fullName',
+              
             }),
           ]
 

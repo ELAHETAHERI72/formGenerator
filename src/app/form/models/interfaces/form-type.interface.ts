@@ -7,7 +7,6 @@ export class formItemBase {
   id?: string;
   labelName?: string;
   inputType?: Types;
-  required?:boolean;
   isRequired:boolean | string;
   constructor(item: formItemBase) {
     this.placeholder = item.placeholder;
