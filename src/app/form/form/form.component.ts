@@ -69,6 +69,7 @@ export class FormComponent {
 
   createFormItems(formItems: Array<inputTYpe>) {
     if (formItems) {
+
       formItems?.forEach((element: inputTYpe) => {
 
         if (element.inputType == Types.SWITCH_TYPE) {
@@ -88,6 +89,7 @@ export class FormComponent {
       this.callSubmitApi.emit(this.bindItems);
 
     }
+    
   }
 
 }

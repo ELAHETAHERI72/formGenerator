@@ -5,7 +5,6 @@ import { CommonModule, JsonPipe, NgIf } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SwitchButtonComponent } from '../../components/switch-button/switch-button.component';
 import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
-
 @Component({
   selector: 'app-form-items',
   standalone: true,

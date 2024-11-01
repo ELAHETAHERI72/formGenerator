@@ -7,13 +7,15 @@ export class formItemBase {
   id?: string;
   labelName?: string;
   inputType?: Types;
-
+  required?:boolean;
+  isRequired:boolean | string;
   constructor(item: formItemBase) {
     this.placeholder = item.placeholder;
     this.name = item.name;
     this.id = item.id;
     this.labelName = item.labelName;
     this.inputType = item.inputType;
+    this.isRequired = item.isRequired;
   }
 
 }

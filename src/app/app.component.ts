@@ -35,31 +35,33 @@ export class AppComponent implements OnInit {
     }),
 
     items: [
-      // new inputInterface({
-      //   id:'name',
-      //   inputType:Types.INPUT_TYPE,
-      //   labelName:'نام',
-      //   name:'name',
-      //   placeholder:'name',
-      //   bindItem:'name'
-      // }),
-      // new selectInterface({
-      //   id:'city',
-      //   inputType:Types.SELECT_TYPE,
-      //   labelName:'شهر',
-      //   name:'city',
-      //   placeholder:'شهر',
-      //   fileds:[
-      //     {"name":"تبريز","id":1},
-      //     {"name":"مراغه","id":2},
-      //     {"name":"ميانه","id":3},
-      //     {"name":"شبستر","id":4},
-      //     {"name":"مرند","id":5},
-      //     {"name":"جلفا","id":6},
-      //     {"name":"سراب","id":7}
-      //   ],
-      //   bindItem:'cityId'
-      // }),
+      new inputInterface({
+        id:'name',
+        inputType:Types.INPUT_TYPE,
+        labelName:'نام',
+        name:'name',
+        placeholder:'name',
+        bindItem:'name',
+        isRequired:true,
+      }),
+      new selectInterface({
+        id:'city',
+        inputType:Types.SELECT_TYPE,
+        labelName:'شهر',
+        name:'city',
+        placeholder:'شهر',
+        isRequired:true,
+        fileds:[
+          {"name":"تبريز","id":1},
+          {"name":"مراغه","id":2},
+          {"name":"ميانه","id":3},
+          {"name":"شبستر","id":4},
+          {"name":"مرند","id":5},
+          {"name":"جلفا","id":6},
+          {"name":"سراب","id":7}
+        ],
+        bindItem:'cityId'
+      }),
       new selectInterface({
         id:'fname',
         inputType:Types.SELECT_TYPE,
@@ -67,22 +69,25 @@ export class AppComponent implements OnInit {
         name:'fname',
         placeholder:'fname',
         fileds:[{id:'zahra',name:'s',value:'s'}],
-        bindItem:'fullName'
+        bindItem:'fullName',
+        isRequired:true,
       }),
       new switchInterface({
         id: 'ispaid',
         name: 'قسطی',
         placeholder: 'قسطی',
         inputType: Types.SWITCH_TYPE,
-        bindItem: 'ispaid'
+        bindItem: 'ispaid',
+        isRequired:true,
       }),
-      // new dateInterface({
-      //   id: 'fromDate',
-      //   name: 'fromDate',
-      //   bindItem: 'fromDare',
-      //   inputType: Types.DATE_TYPE,
-      //   labelName: 'از تاریخ'
-      // }),
+      new dateInterface({
+        id: 'fromDate',
+        name: 'fromDate',
+        bindItem: 'fromDare',
+        isRequired:false,
+        inputType: Types.DATE_TYPE,
+        labelName: 'از تاریخ'
+      }),
       new formGroups(
         {
           inputType: Types.FORM_GROUP,
@@ -90,12 +95,14 @@ export class AppComponent implements OnInit {
           labelName: 'جنسیت',
           bindItem: 'gender',
           name: 'gender',
+          isRequired:true,
           formItems: [
             new selectInterface({
               id: 'fname',
               inputType: Types.SELECT_TYPE,
               labelName: 'نام خانوادگی',
               name: 'fname',
+              isRequired:true,
               placeholder: 'fname',
               fileds: [{ id: 'zahra', name: 's', value: 's' }],
               bindItem: 'fullName'
@@ -108,9 +115,6 @@ export class AppComponent implements OnInit {
 
   });
 
-  tableCOnfig = {
-
-  }
 
   apiCall($event: any) {
     console.log($event,'eventCall');
