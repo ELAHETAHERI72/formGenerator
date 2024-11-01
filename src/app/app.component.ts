@@ -9,7 +9,7 @@ export interface formModel {
   name: string;
   cityName: string;
   fullName: string;
-  ispaid: boolean;
+  isPay?:boolean;
 }
 
 @Component({
@@ -23,10 +23,9 @@ export interface formModel {
 export class AppComponent implements OnInit {
 
   title = 'formGenerator';
-  submited$: Subject<any> = new Subject();
+  tableConfig:any;
 
-
-  confog: formConfig = new formConfig({
+  config: formConfig = new formConfig({
     classList: 'd-flex' + ' ' + 'column-gap-2',
 
     submited: ((v: formModel) => {
@@ -88,6 +87,14 @@ export class AppComponent implements OnInit {
         inputType: Types.DATE_TYPE,
         labelName: 'از تاریخ'
       }),
+    
+      // new dateInterface({
+      //   id: 'fromDate',
+      //   name: 'fromDate',
+      //   bindItem: 'fromDate',
+      //   inputType: Types.DATE_TYPE,
+      //   labelName: 'از تاریخ'
+      // }),
       new formGroups(
         {
           inputType: Types.FORM_GROUP,
@@ -115,10 +122,9 @@ export class AppComponent implements OnInit {
 
   });
 
-
   apiCall($event: any) {
     console.log($event,'eventCall');
-    
+
  }
 
   ngOnInit(): void {
