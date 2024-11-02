@@ -5,6 +5,7 @@ import { CommonModule, JsonPipe, NgIf } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SwitchButtonComponent } from '../../components/switch-button/switch-button.component';
 import { IActiveDate, NgPersianDatepickerModule } from 'ng-persian-datepicker';
+import { isObservable, Observable, of } from 'rxjs';
 
 
 @Component({
@@ -22,7 +23,7 @@ import { IActiveDate, NgPersianDatepickerModule } from 'ng-persian-datepicker';
   ],
   templateUrl: './form-items.component.html',
   styleUrl: './form-items.component.scss',
-  viewProviders: [{provide: ControlContainer, useExisting: NgForm}]
+  providers: [{provide: ControlContainer, useExisting: NgForm}]
 })
 
 export class FormItemsComponent {
@@ -58,8 +59,14 @@ export class FormItemsComponent {
     return this._items;
   }
 
-  returnArray(_t7: selectInterface | any) {
-    return _t7.fileds;
+  returnArray(_t7: selectInterface | any): Observable<Array<any>> {   
+        
+    if ( _t7 && typeof _t7.fileds.subscribe === 'function') {  
+      return _t7.fileds;  
+    } else {  
+      return of(_t7.fileds); // wrap the array in an Observable  
+    }  
+
   }
 
   getFormGroup(_t7: formGroups | any) {

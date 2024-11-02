@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormComponent } from "./form/form/form.component";
 import { dateInterface, formConfig, formGroups, inputInterface, selectInterface, switchInterface, textAreaInterface, Types } from './form/models/interfaces/form-type.interface';
-import { Subject } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { BaseTableComponent } from "./base-table/base-table/base-table.component";
 
 export interface formModel {
@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
         name:'city',
         placeholder:'شهر',
         isRequired:true,
-        fileds:[
+        fileds:of([
           {"name":"تبريز","id":1},
           {"name":"مراغه","id":2},
           {"name":"ميانه","id":3},
@@ -58,7 +58,7 @@ export class AppComponent implements OnInit {
           {"name":"مرند","id":5},
           {"name":"جلفا","id":6},
           {"name":"سراب","id":7}
-        ],
+        ]),
         bindItem:'cityId'
       }),
       new selectInterface({
@@ -71,22 +71,25 @@ export class AppComponent implements OnInit {
         bindItem:'fullName',
         isRequired:true,
       }),
-      new switchInterface({
-        id: 'ispaid',
-        name: 'قسطی',
-        placeholder: 'قسطی',
-        inputType: Types.SWITCH_TYPE,
-        bindItem: 'ispaid',
-        isRequired:true,
-      }),
-      new dateInterface({
-        id: 'fromDate',
-        name: 'fromDate',
-        bindItem: 'fromDare',
+      // new switchInterface({
+      //   id: 'ispaid',
+      //   name: 'قسطی',
+      //   placeholder: 'قسطی',
+      //   inputType: Types.SWITCH_TYPE,
+      //   bindItem: 'ispaid',
+      //   isRequired:true,
+      // }),
+      {inputType: Types.CUSTOME_FORM_ITEM,
         isRequired:false,
-        inputType: Types.DATE_TYPE,
-        labelName: 'از تاریخ'
-      }),
+      },
+      // new dateInterface({
+      //   id: 'fromDate',
+      //   name: 'fromDate',
+      //   bindItem: 'fromDare',
+      //   isRequired:false,
+      //   inputType: Types.DATE_TYPE,
+      //   labelName: 'از تاریخ'
+      // }),
     
       // new dateInterface({
       //   id: 'fromDate',

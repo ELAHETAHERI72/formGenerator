@@ -8,13 +8,15 @@
 
           <app-form-items name="formItem" 
           ngModel ngDefaultControl required
-            class="w-100" [bindItems]="bindItems" [items]="formConfig.items"></app-form-items>
+            class="w-100" [bindItems]="bindItems" [items]="formConfig.items">
+          </app-form-items>
         </form>
       </div>
     </div>
 
     <div class="container-fluid px-4 d-flex justify-end my-5">
-      <button form="form" class="btn btn-primary" type="submit">ذخیره</button>
+      <button form="form" class="btn btn-primary" 
+      [disabled]="Form.invalid" type="submit">ذخیره</button>
     </div>
 
   </div>

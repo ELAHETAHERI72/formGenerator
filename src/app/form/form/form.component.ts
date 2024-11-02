@@ -63,7 +63,6 @@ export class FormComponent {
   }
 
   submitApiCall(form: NgForm) {
-    debugger
     this.formConfig.submited?.(this.bindItems);
     this.callSubmitApi.emit(this.bindItems);
   }

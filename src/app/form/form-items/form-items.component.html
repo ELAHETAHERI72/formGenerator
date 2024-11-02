@@ -8,13 +8,18 @@
             <input type="text" class="form-control"
             [required]="value.isRequired"
             [id]="value.id" [name]="value.name!"
+            #{{value.name}}
             [(ngModel)]="bindItems[value.bindItem!]">
           </div>
+          @if(value.isRequired && value){
+            <p></p>
+            
+          }
         }
         @case (Types.SELECT_TYPE) {
           <div class="form-group col-4">
             <label>{{ value.labelName }}</label>
-            <ng-select class="custom-select" [items]="returnArray(value)"
+            <ng-select class="custom-select" [items]="returnArray(value) |async"
                        bindLabel="name" bindValue="id"
                        [required]="value.isRequired"
                        [name]="value.bindItem" [id]="value.id"
@@ -47,7 +52,7 @@
           <div class="form-group col-4">
             <label for="">{{ value.labelName }}</label>
             <div class="datepicker-wrapper">
-              <ng-persian-datepicker (dateOnSelect)="onSelect($event)"
+              <ng-persian-datepicker 
                                      [dateGregorianFormat]="'YYYY-MM-DD HH:mm:ss'"
                                      [uiYearView]="uiYearView"
                                      [uiMonthView]="uiMonthView"
@@ -67,6 +72,9 @@
         @case (Types.FORM_GROUP) {
           <label for="">{{ value.labelName }}</label>
           <app-form-items [items]="getFormGroup(value)" [bindItems]="bindItems[value.bindItem]"></app-form-items>
+        }
+        @case(Types.CUSTOME_FORM_ITEM){
+          <ng-content select="custome-view"></ng-content>
         }
 
       }

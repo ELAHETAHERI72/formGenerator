@@ -27,6 +27,7 @@ export enum Types {
   SWITCH_TYPE = 'SWITCH_TYPE',
   DATE_TYPE = 'DATE_TYPE',
   FORM_GROUP = 'FORM_GROUP',
+  CUSTOME_FORM_ITEM = 'CUSTOME_FORM_ITEM',
 }
 
 export class inputInterface extends formItemBase {
@@ -41,7 +42,7 @@ export class inputInterface extends formItemBase {
 }
 
 export class selectInterface extends formItemBase {
-  fileds?: Array<any>;
+  fileds?: Array<any> | Observable<Array<any>>;
   bindItem?: string | number | any;
   changeValue$?: Observable<any> | Subject<any>;
   hasApi?: boolean;
