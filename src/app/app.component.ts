@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
         name:'city',
         placeholder:'شهر',
         isRequired:true,
-        fileds:of([
+        fields:of([
           {"name":"تبريز","id":1},
           {"name":"مراغه","id":2},
           {"name":"ميانه","id":3},
@@ -62,12 +62,12 @@ export class AppComponent implements OnInit {
         bindItem:'cityId'
       }),
       new selectInterface({
-        id:'fname',
+        id:'gender',
         inputType:Types.SELECT_TYPE,
-        labelName:'نام خانوادگی',
-        name:'fname',
-        placeholder:'fname',
-        fileds:[{id:'zahra',name:'s',value:'s'}],
+        labelName:'جنسیت',
+        name:'gender',
+        placeholder:'جنسیت',
+        fields:[{id:'male',name:'مرد',value:'مرد'},{id:'female',name:'زن',value:'زن'}],
         bindItem:'fullName',
         isRequired:true,
       }),
@@ -79,9 +79,9 @@ export class AppComponent implements OnInit {
       //   bindItem: 'ispaid',
       //   isRequired:true,
       // }),
-      {inputType: Types.CUSTOME_FORM_ITEM,
-        isRequired:false,
-      },
+      // {inputType: Types.CUSTOME_FORM_ITEM,
+      //   isRequired:false,
+      // },
       // new dateInterface({
       //   id: 'fromDate',
       //   name: 'fromDate',
@@ -90,7 +90,7 @@ export class AppComponent implements OnInit {
       //   inputType: Types.DATE_TYPE,
       //   labelName: 'از تاریخ'
       // }),
-    
+
       // new dateInterface({
       //   id: 'fromDate',
       //   name: 'fromDate',
@@ -102,22 +102,20 @@ export class AppComponent implements OnInit {
         {
           inputType: Types.FORM_GROUP,
           id: 'gender',
-          labelName: 'جنسیت',
+          labelName: '',
           bindItem: 'gender',
           name: 'gender',
           isRequired:true,
           formItems: [
             new selectInterface({
-              id: 'fname',
-
-              inputType: Types.SELECT_TYPE,
-              labelName: 'نام خانوادگی',
-              name: 'fname',
+              id:'gender',
+              inputType:Types.SELECT_TYPE,
+              labelName:'جنسیت',
+              name:'gender',
+              placeholder:'جنسیت',
+              fields:[{id:'male',name:'مرد',value:'مرد'},{id:'female',name:'زن',value:'زن'}],
+              bindItem:'fullName',
               isRequired:true,
-              placeholder: 'fname',
-              fileds: [{ id: 'zahra', name: 's', value: 's' }],
-              bindItem: 'fullName',
-              
             }),
           ]
 

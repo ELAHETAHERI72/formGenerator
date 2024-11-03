@@ -5,7 +5,7 @@ import {
   selectInterface,
   Types
 } from "../models/interfaces/form-type.interface";
-import { FormsModule, NgForm, ReactiveFormsModule } from "@angular/forms";
+import {ControlContainer, FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
 import { CommonModule, JsonPipe, NgIf } from "@angular/common";
 import {
   NgSelectModule
@@ -29,7 +29,8 @@ import { FormItemsComponent } from "../form-items/form-items.component";
     FormItemsComponent
   ],
   templateUrl: './form.component.html',
-  styleUrl: './form.component.scss'
+  styleUrl: './form.component.scss',
+
 })
 
 export class FormComponent {
@@ -89,7 +90,7 @@ export class FormComponent {
       this.callSubmitApi.emit(this.bindItems);
 
     }
-    
+
   }
 
 }

@@ -42,7 +42,7 @@ export class inputInterface extends formItemBase {
 }
 
 export class selectInterface extends formItemBase {
-  fileds?: Array<any> | Observable<Array<any>>;
+  fields?: Array<any> | Observable<Array<any>>;
   bindItem?: string | number | any;
   changeValue$?: Observable<any> | Subject<any>;
   hasApi?: boolean;
@@ -50,7 +50,7 @@ export class selectInterface extends formItemBase {
 
   constructor(item: selectInterface) {
     super(item);
-    this.fileds = item.fileds;
+    this.fields = item.fields;
     this.bindItem = item.bindItem;
     this.changeValue$ = item.changeValue$;
     this.hasApi = item.hasApi;
