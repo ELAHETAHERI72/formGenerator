@@ -63,11 +63,10 @@ export class FormComponent {
 
 
   submitApiForm(form: NgForm) {
-    const deepClone = this.deepClone(this.bindItems);
-    // this.formConfig.submited?.(form.value);
-    this.submitCall.emit(deepClone);
+    debugger
+    this.formConfig.submited?.(this.deepClone(form.value));
+    this.submitCall.emit(this.bindItems);
 
-    // Object.values(this.bindItems).map(v => v = undefined);
 
   }
 

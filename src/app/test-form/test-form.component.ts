@@ -11,6 +11,8 @@ import {
 } from "../form/models/interfaces/form-type.interface";
 import {formModel} from "../app.component";
 import {Test2Component} from "../test2/test2.component";
+import {NgFor} from "@angular/common";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-test-form',
@@ -27,12 +29,14 @@ import {Test2Component} from "../test2/test2.component";
 export class TestFormComponent {
 
   tableConfig:any;
+  testForm!:NgForm;
 
   formItem:any ={};
 
   config: formConfig = {
     classList: 'd-flex' + ' ' + 'column-gap-2',
-
+    formName:this.testForm,
+    formId:'testForm',
     submited: ((v: formModel) => {
       console.log(v, ':)');
      this.formItem = v;
@@ -78,6 +82,6 @@ export class TestFormComponent {
   };
 
   submitApiCall($event: any) {
-    console.log(this.formItem,'submitCall')
+    console.log($event,'submitCall')
   }
 }

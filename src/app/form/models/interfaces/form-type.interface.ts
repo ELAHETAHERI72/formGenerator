@@ -1,4 +1,5 @@
 import { Observable, Subject } from "rxjs";
+import {NgForm} from "@angular/forms";
 
 
 export class formItemBase {
@@ -105,11 +106,15 @@ export type inputTYpe = selectInterface | inputInterface | textAreaInterface | s
 export class formConfig {
   items: Array<inputTYpe>;
   classList: string;
+  formName:NgForm;
   submited?: (items: any) => void ;
-  constructor(config: { items: Array<inputTYpe>, submited: (items: any) => void, classList: string }) {
+  formId?: string;
+  constructor(config: { items: Array<inputTYpe>, submited: (items: any) => void, classList: string ,formName:NgForm,formId:string;}) {
     this.items = config.items;
     this.classList = config.classList;
+    this.formId = config.formId,
     this.submited =  config.submited;
+    this.formName = config.formName;
   }
 }
 

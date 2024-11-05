@@ -3,7 +3,7 @@
     <div class="container-fluid px-4">
       <div class="row">
 
-        <form dir="rtl" id="form" name="form" action="" #Form="ngForm" (ngSubmit)="submitApiForm(Form)"
+        <form dir="rtl" id="{{formConfig.formId}}" name="{{formConfig.formId}}" action="" #Form="ngForm" (ngSubmit)="submitApiForm(Form)"
           [classList]="formConfig.classList">
 
           <app-form-items name="formItem"
@@ -15,7 +15,7 @@
     </div>
 
     <div class="container-fluid px-4 d-flex justify-end my-5">
-      <button form="form" class="btn btn-primary"
+      <button class="btn btn-primary"
       [disabled]="Form.invalid" type="submit">ذخیره</button>
     </div>
 

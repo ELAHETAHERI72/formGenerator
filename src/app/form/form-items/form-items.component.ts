@@ -41,10 +41,6 @@ export class FormItemsComponent {
 
   uiTodayBtnEnable: boolean = true;
 
-  deepClone(obj:any){
-    return JSON.parse(JSON.stringify(obj));
-  }
-
   @Input() set items(config: Array<inputTYpe>) {
     this._items = config;
   }
