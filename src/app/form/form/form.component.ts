@@ -64,10 +64,8 @@ export class FormComponent {
 
   submitApiForm(form: NgForm) {
     debugger
-    this.formConfig.submited?.(this.deepClone(form.value));
+    this.formConfig.submited?.(form.value);
     this.submitCall.emit(this.bindItems);
-
-
   }
 
 

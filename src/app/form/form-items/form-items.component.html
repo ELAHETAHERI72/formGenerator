@@ -9,7 +9,7 @@
             [required]="value.isRequired"
             [id]="value.id" [name]="value.name!"
               [(ngModel)]="bindItems[value.bindItem!]">
-            @if(ControlContainer?.invalid){
+            @if(ControlContainer.invalid){
               <app-show-error ></app-show-error>
             }
           </div>
