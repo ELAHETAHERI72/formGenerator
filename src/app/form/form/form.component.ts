@@ -56,16 +56,12 @@ export class FormComponent {
     return this._formConfig;
   }
 
-  Types = Types;
-
-  constructor() {
-  }
-
 
   submitApiForm(form: NgForm) {
-    debugger
-    this.formConfig.submited?.(form.value);
-    this.submitCall.emit(this.bindItems);
+    // this.formConfig.submited?.(this.bindItems);
+    // this.submitCall.emit(this.bindItems);
+    this.formConfig.submited?.(this.deepClone(this.bindItems));
+
   }
 
 
