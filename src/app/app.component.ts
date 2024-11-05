@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {RouterLink, RouterOutlet} from '@angular/router';
 import { FormComponent } from "./form/form/form.component";
 import { dateInterface, formConfig, formGroups, inputInterface, selectInterface, switchInterface, textAreaInterface, Types } from './form/models/interfaces/form-type.interface';
 import { of, Subject } from 'rxjs';
@@ -15,7 +15,7 @@ export interface formModel {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FormComponent, BaseTableComponent],
+  imports: [RouterOutlet, FormComponent, BaseTableComponent, RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -24,111 +24,6 @@ export class AppComponent implements OnInit {
 
   title = 'formGenerator';
   tableConfig:any;
-
-  config: formConfig = new formConfig({
-    classList: 'd-flex' + ' ' + 'column-gap-2',
-
-    submited: ((v: formModel) => {
-      console.log(v, 'vvvvvvvvvv');
-
-    }),
-
-    items: [
-      new inputInterface({
-        id:'name',
-        inputType:Types.INPUT_TYPE,
-        labelName:'نام',
-        name:'name',
-        placeholder:'name',
-        bindItem:'name',
-        isRequired:true,
-      }),
-      new selectInterface({
-        id:'city',
-        inputType:Types.SELECT_TYPE,
-        labelName:'شهر',
-        name:'city',
-        placeholder:'شهر',
-        isRequired:true,
-        fields:of([
-          {"name":"تبريز","id":1},
-          {"name":"مراغه","id":2},
-          {"name":"ميانه","id":3},
-          {"name":"شبستر","id":4},
-          {"name":"مرند","id":5},
-          {"name":"جلفا","id":6},
-          {"name":"سراب","id":7}
-        ]),
-        bindItem:'cityId'
-      }),
-      new selectInterface({
-        id:'gender',
-        inputType:Types.SELECT_TYPE,
-        labelName:'جنسیت',
-        name:'gender',
-        placeholder:'جنسیت',
-        fields:[{id:'male',name:'مرد',value:'مرد'},{id:'female',name:'زن',value:'زن'}],
-        bindItem:'fullName',
-        isRequired:true,
-      }),
-      // new switchInterface({
-      //   id: 'ispaid',
-      //   name: 'قسطی',
-      //   placeholder: 'قسطی',
-      //   inputType: Types.SWITCH_TYPE,
-      //   bindItem: 'ispaid',
-      //   isRequired:true,
-      // }),
-      // {inputType: Types.CUSTOME_FORM_ITEM,
-      //   isRequired:false,
-      // },
-      // new dateInterface({
-      //   id: 'fromDate',
-      //   name: 'fromDate',
-      //   bindItem: 'fromDare',
-      //   isRequired:false,
-      //   inputType: Types.DATE_TYPE,
-      //   labelName: 'از تاریخ'
-      // }),
-
-      // new dateInterface({
-      //   id: 'fromDate',
-      //   name: 'fromDate',
-      //   bindItem: 'fromDate',
-      //   inputType: Types.DATE_TYPE,
-      //   labelName: 'از تاریخ'
-      // }),
-      new formGroups(
-        {
-          inputType: Types.FORM_GROUP,
-          id: 'gender',
-          labelName: '',
-          bindItem: 'gender',
-          name: 'gender',
-          isRequired:true,
-          formItems: [
-            new selectInterface({
-              id:'gender',
-              inputType:Types.SELECT_TYPE,
-              labelName:'جنسیت',
-              name:'gender',
-              placeholder:'جنسیت',
-              fields:[{id:'male',name:'مرد',value:'مرد'},{id:'female',name:'زن',value:'زن'}],
-              bindItem:'fullName',
-              isRequired:true,
-            }),
-          ]
-
-        }
-      )
-    ],
-
-  });
-
-  apiCall($event: any) {
-    console.log($event,'eventCall');
-
- }
 
   ngOnInit(): void {
 

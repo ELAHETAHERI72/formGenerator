@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, Type } from '@angular/core';
+import {Component, EventEmitter, forwardRef, Input, Output, Type} from '@angular/core';
 import {
   formConfig,
   inputTYpe,
@@ -13,6 +13,7 @@ import {
 import { SwitchButtonComponent } from "../../components/switch-button/switch-button.component";
 import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
 import { FormItemsComponent } from "../form-items/form-items.component";
+import {Token} from "@angular/compiler";
 
 @Component({
   selector: 'app-form',
@@ -26,8 +27,9 @@ import { FormItemsComponent } from "../form-items/form-items.component";
     SwitchButtonComponent,
     NgPersianDatepickerModule,
     ReactiveFormsModule,
-    FormItemsComponent
+    forwardRef(()=>FormItemsComponent)
   ],
+
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss',
 
@@ -38,11 +40,15 @@ export class FormComponent {
   private _formConfig!: formConfig;
   formItems: any;
   bindItems?: any = {};
-  @Output() callSubmitApi = new EventEmitter();
 
+  @Output() submitCall = new EventEmitter();
+
+  deepClone(obj:any){
+    return JSON.parse(JSON.stringify(obj));
+  }
   @Input() set formConfig(config: formConfig) {
     this._formConfig = config;
-    this.createFormItems(config.items as Array<inputTYpe>);
+    this.createFormItems(this.deepClone(config.items) as Array<inputTYpe>);
   }
 
   get formConfig(): formConfig {
@@ -53,22 +59,14 @@ export class FormComponent {
 
   constructor() { }
 
-  ngOnInit() { }
 
-  returnArray(_t7: selectInterface | any) {
-    return _t7.fileds;
-  }
-
-  getFormGroup(_t9: selectInterface | any): formConfig {
-    return _t9.formGroups;
-  }
-
-  submitApiCall(form: NgForm) {
-    this.formConfig.submited?.(this.bindItems);
-    this.callSubmitApi.emit(this.bindItems);
+  submitApiForm(form: NgForm) {
+    // this.formConfig.submited?.(form.value);
+    this.submitCall.emit(this.bindItems);
   }
 
   createFormItems(formItems: Array<inputTYpe>) {
+     this.bindItems = {};
     if (formItems) {
 
       formItems?.forEach((element: inputTYpe) => {
@@ -86,8 +84,7 @@ export class FormComponent {
         }
 
       });
-      this.formConfig.submited?.(this.bindItems);
-      this.callSubmitApi.emit(this.bindItems);
+      this.formConfig.submited?.(this.deepClone(this.bindItems));
 
     }
 

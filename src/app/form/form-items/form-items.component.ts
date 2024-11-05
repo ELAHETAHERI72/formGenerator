@@ -41,10 +41,12 @@ export class FormItemsComponent {
 
   uiTodayBtnEnable: boolean = true;
 
+  deepClone(obj:any){
+    return JSON.parse(JSON.stringify(obj));
+  }
 
   @Input() set items(config: Array<inputTYpe>) {
     this._items = config;
-    console.log(this.ControlContainer,'ggggs');
   }
 
   get items() {
@@ -52,7 +54,6 @@ export class FormItemsComponent {
   }
 
   returnArray(_t7: selectInterface | any): Observable<Array<any>> {
-
     if ( _t7 && typeof _t7.fields.subscribe === 'function') {
       return _t7.fields;
     } else {

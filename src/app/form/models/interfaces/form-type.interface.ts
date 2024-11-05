@@ -105,10 +105,14 @@ export type inputTYpe = selectInterface | inputInterface | textAreaInterface | s
 export class formConfig {
   items: Array<inputTYpe>;
   classList: string;
-  submited?: (items: any) => void;
+  submited?: (items: any) => void ;
   constructor(config: { items: Array<inputTYpe>, submited: (items: any) => void, classList: string }) {
     this.items = config.items;
     this.classList = config.classList;
-    this.submited = config.submited;
+    this.submited =  config.submited;
   }
+}
+
+function   deepClone(obj:any){
+  return JSON.parse(JSON.stringify(obj));
 }
