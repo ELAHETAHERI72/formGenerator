@@ -9,7 +9,6 @@ import {
   selectInterface,
   Types
 } from "../form/models/interfaces/form-type.interface";
-import {of} from "rxjs";
 import {formModel} from "../app.component";
 import {Test2Component} from "../test2/test2.component";
 
@@ -29,12 +28,14 @@ export class TestFormComponent {
 
   tableConfig:any;
 
-  config: formConfig = new formConfig({
+  formItem:any ={};
+
+  config: formConfig = {
     classList: 'd-flex' + ' ' + 'column-gap-2',
 
     submited: ((v: formModel) => {
       console.log(v, ':)');
-
+     this.formItem = v;
     }),
 
     items: [
@@ -74,9 +75,9 @@ export class TestFormComponent {
       )
     ],
 
-  });
+  };
 
   submitApiCall($event: any) {
-    console.log($event,'submitCall')
+    console.log(this.formItem,'submitCall')
   }
 }

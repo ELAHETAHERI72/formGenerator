@@ -6,13 +6,13 @@ import {
   Types
 } from "../models/interfaces/form-type.interface";
 import {ControlContainer, FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
-import { CommonModule, JsonPipe, NgIf } from "@angular/common";
+import {CommonModule, JsonPipe, NgIf} from "@angular/common";
 import {
   NgSelectModule
 } from "@ng-select/ng-select";
-import { SwitchButtonComponent } from "../../components/switch-button/switch-button.component";
-import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
-import { FormItemsComponent } from "../form-items/form-items.component";
+import {SwitchButtonComponent} from "../../components/switch-button/switch-button.component";
+import {NgPersianDatepickerModule} from 'ng-persian-datepicker';
+import {FormItemsComponent} from "../form-items/form-items.component";
 import {Token} from "@angular/compiler";
 
 @Component({
@@ -27,7 +27,7 @@ import {Token} from "@angular/compiler";
     SwitchButtonComponent,
     NgPersianDatepickerModule,
     ReactiveFormsModule,
-    forwardRef(()=>FormItemsComponent)
+    forwardRef(() => FormItemsComponent)
   ],
 
   templateUrl: './form.component.html',
@@ -43,9 +43,10 @@ export class FormComponent {
 
   @Output() submitCall = new EventEmitter();
 
-  deepClone(obj:any){
+  deepClone(obj: any) {
     return JSON.parse(JSON.stringify(obj));
   }
+
   @Input() set formConfig(config: formConfig) {
     this._formConfig = config;
     this.createFormItems(this.deepClone(config.items) as Array<inputTYpe>);
@@ -57,16 +58,22 @@ export class FormComponent {
 
   Types = Types;
 
-  constructor() { }
+  constructor() {
+  }
 
 
   submitApiForm(form: NgForm) {
+    const deepClone = this.deepClone(this.bindItems);
     // this.formConfig.submited?.(form.value);
-    this.submitCall.emit(this.bindItems);
+    this.submitCall.emit(deepClone);
+
+    // Object.values(this.bindItems).map(v => v = undefined);
+
   }
 
+
   createFormItems(formItems: Array<inputTYpe>) {
-     this.bindItems = {};
+    this.bindItems = {};
     if (formItems) {
 
       formItems?.forEach((element: inputTYpe) => {
@@ -74,11 +81,9 @@ export class FormComponent {
         if (element.inputType == Types.SWITCH_TYPE) {
 
           this.bindItems[element?.bindItem!] = false;
-        }
-        else if (element.inputType == Types.FORM_GROUP) {
+        } else if (element.inputType == Types.FORM_GROUP) {
           this.bindItems[element.bindItem] = {}
-        }
-        else {
+        } else {
 
           this.bindItems[element?.bindItem!] = '';
         }

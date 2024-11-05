@@ -21,13 +21,14 @@ import {formModel} from "../app.component";
 })
 export class Test2Component {
 
+  formItem = {};
 
-  config: formConfig = new formConfig({
+  config: formConfig ={
     classList: 'd-flex' + ' ' + 'column-gap-2',
 
     submited: ((v: formModel) => {
       console.log(v, 'vvvvvvvvvv');
-
+      this.formItem = v;
     }),
 
     items: [
@@ -120,10 +121,10 @@ export class Test2Component {
       )
     ],
 
-  });
+  };
 
   submitApiCall($event: any) {
-    console.log($event,'submitCall')
+    console.log(this.formItem,'submitCall')
   }
 
 }
