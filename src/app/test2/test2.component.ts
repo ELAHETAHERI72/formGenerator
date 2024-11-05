@@ -126,8 +126,8 @@ export class Test2Component {
 
   };
 
-  submitApiCall($event: any) {
-    console.log($event,'submitCall')
-  }
+  // submitApiCall($event: any) {
+  //   console.log($event,'submitCall')
+  // }
 
 }

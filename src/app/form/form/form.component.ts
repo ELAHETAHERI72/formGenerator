@@ -13,7 +13,6 @@ import {
 import {SwitchButtonComponent} from "../../components/switch-button/switch-button.component";
 import {NgPersianDatepickerModule} from 'ng-persian-datepicker';
 import {FormItemsComponent} from "../form-items/form-items.component";
-import {Token} from "@angular/compiler";
 
 @Component({
   selector: 'app-form',
@@ -56,14 +55,15 @@ export class FormComponent {
     return this._formConfig;
   }
 
-
   submitApiForm(form: NgForm) {
     // this.formConfig.submited?.(this.bindItems);
     // this.submitCall.emit(this.bindItems);
+    console.log('hhhhh');
+    debugger
+    
     this.formConfig.submited?.(this.deepClone(this.bindItems));
 
   }
-
 
   createFormItems(formItems: Array<inputTYpe>) {
     this.bindItems = {};

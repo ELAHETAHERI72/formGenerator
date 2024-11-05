@@ -4,8 +4,8 @@ import {ControlContainer, FormsModule, NgForm, ReactiveFormsModule} from '@angul
 import { CommonModule, JsonPipe, NgIf } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SwitchButtonComponent } from '../../components/switch-button/switch-button.component';
-import { IActiveDate, NgPersianDatepickerModule } from 'ng-persian-datepicker';
-import { isObservable, Observable, of } from 'rxjs';
+import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
+import { Observable, of } from 'rxjs';
 import {ShowErrorComponent} from "../../components/show-error/show-error.component";
 
 @Component({

@@ -34,7 +34,7 @@ export class TestFormComponent {
   formItem:any ={};
 
   config: formConfig = {
-    classList: 'd-flex' + ' ' + 'column-gap-2',
+    classList: 'd-flex' ,
     formName:this.testForm,
     formId:'testForm',
     submited: ((v: formModel) => {
