@@ -1,8 +1,7 @@
-import {Component, EventEmitter, forwardRef, Input, Output, Type} from '@angular/core';
+import {Component, forwardRef, Input} from '@angular/core';
 import {
   formConfig,
   inputTYpe,
-  selectInterface,
   Types
 } from "../models/interfaces/form-type.interface";
 import {ControlContainer, FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
@@ -40,11 +39,32 @@ export class FormComponent {
   formItems: any;
   bindItems?: any = {};
 
-  @Output() submitCall = new EventEmitter();
+  deepClone(obj:any, hash = new WeakMap()) {  
+    if (obj === null || typeof obj !== "object") {  
+      return obj; // Return the value if obj is not an object  
+    }  
+    
+    if (hash.has(obj)) {        
+      return hash.get(obj); // If circular reference, return previous reference  
+    }  
+  
+    const clone:any = Array.isArray(obj) ? [] : {}; // Create a new array or object  
+    hash.set(obj, clone); // Store reference to avoid circular references  
+  
+    for (const key in obj) {  
+      if (obj.hasOwnProperty(key)) {  
+        clone[key] = this.deepClone(obj[key], hash); // Recursively clone  
+      }  
+    } 
 
-  deepClone(obj: any) {
-    return JSON.parse(JSON.stringify(obj));
+    return clone;  
+
   }
+
+
+  // deepClone(obj: any) {
+  //   return JSON.parse(JSON.stringify(obj));
+  // }
 
   @Input() set formConfig(config: formConfig) {
     this._formConfig = config;
@@ -56,17 +76,12 @@ export class FormComponent {
   }
 
   submitApiForm(form: NgForm) {
-    // this.formConfig.submited?.(this.bindItems);
-    // this.submitCall.emit(this.bindItems);
-    console.log('hhhhh');
-    debugger
     
     this.formConfig.submited?.(this.deepClone(this.bindItems));
-
   }
 
   createFormItems(formItems: Array<inputTYpe>) {
-    this.bindItems = {};
+    
     if (formItems) {
 
       formItems?.forEach((element: inputTYpe) => {
@@ -82,6 +97,8 @@ export class FormComponent {
         }
 
       });
+      console.log(this.deepClone(this.bindItems));
+
       this.formConfig.submited?.(this.deepClone(this.bindItems));
 
     }

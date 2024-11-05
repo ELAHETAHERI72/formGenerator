@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
 import { formGroups, inputTYpe, selectInterface, Types } from '../models/interfaces/form-type.interface';
 import {ControlContainer, FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule, JsonPipe, NgIf } from '@angular/common';
