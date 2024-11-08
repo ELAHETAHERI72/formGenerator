@@ -1,18 +1,23 @@
-import { Component } from '@angular/core';
-import {BaseTableComponent} from "../base-table/base-table/base-table.component";
-import {FormComponent} from "../form/form/form.component";
-import {RouterOutlet} from "@angular/router";
+import { Component, TemplateRef } from '@angular/core';
+import { BaseTableComponent } from "../base-table/base-table/base-table.component";
+import { FormComponent } from "../form/form/form.component";
+import { RouterOutlet } from "@angular/router";
 import {
+  CustomItem,
+  dateInterface,
   formConfig,
   formGroups,
   inputInterface,
   selectInterface,
   Types
 } from "../form/models/interfaces/form-type.interface";
-import {formModel} from "../app.component";
-import {Test2Component} from "../test2/test2.component";
-import {NgFor} from "@angular/common";
-import {NgForm} from "@angular/forms";
+import { formModel } from "../app.component";
+import { Test2Component } from "../test2/test2.component";
+import { FormsModule, NgForm } from "@angular/forms";
+import { NgSelectModule } from '@ng-select/ng-select';
+import { BehaviorSubject, of } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-test-form',
@@ -21,39 +26,83 @@ import {NgForm} from "@angular/forms";
     BaseTableComponent,
     FormComponent,
     RouterOutlet,
-    Test2Component
+    Test2Component,
+    NgSelectModule,
+    FormsModule,
+    AsyncPipe
   ],
   templateUrl: './test-form.component.html',
   styleUrl: './test-form.component.scss'
 })
 export class TestFormComponent {
 
-  tableConfig:any;
-  testForm!:NgForm;
+  tableConfig: any;
+  testForm!: NgForm;
 
-  formItem:any ={};
+  formItem: any = {};
+
+  statuses = of([
+    { id: 'isValid', name: 'قابل قبول', value: 'isValid' },
+    { id: 'notValid', name: 'غیرقابل قبول', value: 'notValid' }
+  ])
+
+  changeStatus$ = new BehaviorSubject(null);
+  changeNationalId$ = new BehaviorSubject(null);
+
+  statusTemplateRef?: TemplateRef<any>;
+  customeNationalTempRef?: TemplateRef<any>;
 
   config: formConfig = {
-    classList: 'd-flex' ,
-    formName:this.testForm,
-    formId:'testForm',
+    classList: 'd-flex',
+    formName: this.testForm,
+    formId: 'testForm',
     submited: ((v: formModel) => {
       console.log(v, ':)');
-     this.formItem = v;
+      this.formItem = v;
     }),
 
     items: [
       new inputInterface({
-        id:'name',
-        inputType:Types.INPUT_TYPE,
-        labelName:'نام',
-        name:'name',
-        placeholder:'name',
-        bindItem:'name',
-        isRequired:true,
+        id: 'name',
+        inputType: Types.INPUT_TYPE,
+        labelName: 'نام',
+        name: 'name',
+        placeholder: 'name',
+        bindItem: 'name',
+        isRequired: true,
       }),
 
+      new CustomItem({
+        isRequired: true,
+        inputType: Types.CUSTOME_FORM_ITEM,
+        labelName: 'وضعیت',
+        name: 'status',
+        id: 'status',
+        bindItem: 'statusId',
+        defaultValue: '',
+        template: this.statusTemplateRef,
+        changeValue$: this.changeStatus$,
+      }),
 
+      new CustomItem({
+        isRequired: true,
+        inputType: Types.CUSTOME_FORM_ITEM,
+        labelName: 'کد ملی',
+        name: 'nationalId',
+        id: 'nationalId',
+        bindItem: 'nationalId',
+        defaultValue: '',
+        template: this.customeNationalTempRef,
+        changeValue$: this.changeNationalId$,
+      }),
+      // new dateInterface({
+      //   id: 'fromDate',
+      //   name: 'fromDate',
+      //   bindItem: 'fromDarte',
+      //   isRequired: false,
+      //   inputType: Types.DATE_TYPE,
+      //   labelName: 'از تاریخ'
+      // }),
       new formGroups(
         {
           inputType: Types.FORM_GROUP,
@@ -61,17 +110,17 @@ export class TestFormComponent {
           labelName: '',
           bindItem: 'gender',
           name: 'gender',
-          isRequired:true,
+          isRequired: true,
           formItems: [
             new selectInterface({
-              id:'gender',
-              inputType:Types.SELECT_TYPE,
-              labelName:'جنسیت',
-              name:'gender',
-              placeholder:'جنسیت',
-              fields:[{id:'male',name:'مرد',value:'مرد'},{id:'female',name:'زن',value:'زن'}],
-              bindItem:'fullName',
-              isRequired:true,
+              id: 'gender',
+              inputType: Types.SELECT_TYPE,
+              labelName: 'جنسیت',
+              name: 'gender',
+              placeholder: 'جنسیت',
+              fields: [{ id: 'male', name: 'مرد', value: 'مرد' }, { id: 'female', name: 'زن', value: 'زن' }],
+              bindItem: 'fullName',
+              isRequired: true,
             }),
           ]
 
@@ -81,7 +130,6 @@ export class TestFormComponent {
 
   };
 
-  submitApiCall($event: any) {
-    console.log($event,'submitCall')
-  }
 }
+
+

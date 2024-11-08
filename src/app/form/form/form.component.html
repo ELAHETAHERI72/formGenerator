@@ -3,23 +3,21 @@
     <div class="container-fluid px-4">
       <div class="row">
 
-        <form dir="rtl" [id]="formConfig.formId" class="d-flex flex-column" (ngSubmit)="submitApiForm(Form)" 
-        [name]="formConfig.formId" #Form="ngForm">
+        <form dir="rtl" [id]="formConfig.formId" class="d-flex flex-column" (ngSubmit)="submitApiForm(Form)"
+          [name]="formConfig.formId" #Form="ngForm">
 
-          <app-form-items name="formItem"
-            class="w-100" [bindItems]="bindItems"
-                          [items]="formConfig.items">
+          <app-form-items name="formItem" class="w-100" [bindItems]="bindItems"
+            [items]="formConfig.items">
           </app-form-items>
 
           <div class="container-fluid px-4 d-flex justify-start my-5 ">
-            <button class="btn btn-primary"
-            [disabled]="Form.invalid" type="submit">ذخیره</button>
+            <button class="btn btn-primary" [disabled]="Form.invalid" type="submit">ذخیره</button>
           </div>
-      
+
         </form>
       </div>
     </div>
 
-    
+
   </div>
 </div>

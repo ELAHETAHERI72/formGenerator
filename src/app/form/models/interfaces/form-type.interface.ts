@@ -1,14 +1,17 @@
-import { Observable, Subject } from "rxjs";
-import {NgForm} from "@angular/forms";
+import { BehaviorSubject, Observable } from "rxjs";
+import { NgForm } from "@angular/forms";
+import { TemplateRef } from "@angular/core";
 
 
 export class formItemBase {
   placeholder?: string;
-  name?: string;
+  name!: string;
   id?: string;
   labelName?: string;
   inputType?: Types;
-  isRequired:boolean | string;
+  isRequired: boolean | string;
+  changeValue$?:Observable<any> | BehaviorSubject<any>;
+  defaultValue?:any;
   constructor(item: formItemBase) {
     this.placeholder = item.placeholder;
     this.name = item.name;
@@ -16,6 +19,8 @@ export class formItemBase {
     this.labelName = item.labelName;
     this.inputType = item.inputType;
     this.isRequired = item.isRequired;
+    this.defaultValue = item.defaultValue;
+    this.changeValue$ = item.changeValue$;
   }
 
 }
@@ -42,10 +47,22 @@ export class inputInterface extends formItemBase {
 
 }
 
+export class CustomItem extends formItemBase {
+
+  template?: TemplateRef<string>;
+  bindItem?: string;
+
+  constructor(item: CustomItem) {
+    super(item);
+    this.template = item.template;
+    this.bindItem = item.bindItem;
+  }
+
+}
+
 export class selectInterface extends formItemBase {
   fields?: Array<any> | Observable<Array<any>>;
   bindItem?: string | number | any;
-  changeValue$?: Observable<any> | Subject<any>;
   hasApi?: boolean;
   apiUrl?: string;
 
@@ -61,13 +78,15 @@ export class selectInterface extends formItemBase {
 }
 
 export class dateInterface extends formItemBase {
+  minDate?: string;
   bindItem?: string;
   maxDate?: string;
-  minDate?: string;
 
   constructor(item: dateInterface) {
     super(item);
-
+    this.minDate = item.minDate;
+    this.bindItem = item.bindItem;
+    this.maxDate = item.maxDate;
   }
 
 }
@@ -93,7 +112,7 @@ export class switchInterface extends formItemBase {
 
 export class formGroups extends formItemBase {
   formItems?: Array<inputTYpe>;
-  bindItem:any;
+  bindItem: any;
   constructor(item: formGroups) {
     super(item)
     this.formItems = item.formItems;
@@ -101,23 +120,27 @@ export class formGroups extends formItemBase {
   }
 }
 
-export type inputTYpe = selectInterface | inputInterface | textAreaInterface | switchInterface ;
+export type inputTYpe = selectInterface | inputInterface | textAreaInterface | switchInterface;
 
 export class formConfig {
   items: Array<inputTYpe>;
   classList: string;
-  formName:NgForm;
-  submited?: (items: any) => void ;
+  formName: NgForm;
+  submited?: (items: any) => void;
   formId?: string;
-  constructor(config: { items: Array<inputTYpe>, submited: (items: any) => void, classList: string ,formName:NgForm,formId:string;}) {
+  constructor(
+    config: {
+      items: Array<inputTYpe>,
+      submited: (items: any) => void, classList: string, formName: NgForm, formId: string;
+    }) {
     this.items = config.items;
     this.classList = config.classList;
     this.formId = config.formId,
-    this.submited =  config.submited;
+      this.submited = config.submited;
     this.formName = config.formName;
   }
 }
 
-function   deepClone(obj:any){
+function deepClone(obj: any) {
   return JSON.parse(JSON.stringify(obj));
 }

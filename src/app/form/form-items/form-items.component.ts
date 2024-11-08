@@ -1,5 +1,5 @@
-import {Component, inject, Input} from '@angular/core';
-import { formGroups, inputTYpe, selectInterface, Types } from '../models/interfaces/form-type.interface';
+import {Component, inject, Input, TemplateRef, ViewContainerRef} from '@angular/core';
+import { CustomItem, formGroups, inputTYpe, selectInterface, Types } from '../models/interfaces/form-type.interface';
 import {ControlContainer, FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule, JsonPipe, NgIf } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -31,9 +31,11 @@ export class FormItemsComponent {
 
   _items: Array<inputTYpe> = [];
   @Input() bindItems?: any = {};
+  @Input() templateRefs!:Array<TemplateRef<any>>;
+
   Types = Types;
 
-  ControlContainer = inject(ControlContainer)
+ protected ControlContainer = inject(ControlContainer);
 
   // ng-persian variables
   uiYearView: boolean = true;
@@ -60,6 +62,10 @@ export class FormItemsComponent {
 
   getFormGroup(_t7: formGroups | any) {
     return _t7.formItems;
+  }
+
+  getTemlate(item:CustomItem | any){        
+    return item.template;
   }
 
 }

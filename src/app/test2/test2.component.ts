@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {FormComponent} from "../form/form/form.component";
 import {
+  dateInterface,
   formConfig,
   formGroups,
   inputInterface,
@@ -83,14 +84,14 @@ export class Test2Component {
       // {inputType: Types.CUSTOME_FORM_ITEM,
       //   isRequired:false,
       // },
-      // new dateInterface({
-      //   id: 'fromDate',
-      //   name: 'fromDate',
-      //   bindItem: 'fromDare',
-      //   isRequired:false,
-      //   inputType: Types.DATE_TYPE,
-      //   labelName: 'از تاریخ'
-      // }),
+      new dateInterface({
+        id: 'fromDate',
+        name: 'fromDate',
+        bindItem: 'fromDare',
+        isRequired:false,
+        inputType: Types.DATE_TYPE,
+        labelName: 'از تاریخ'
+      }),
 
       // new dateInterface({
       //   id: 'fromDate',
