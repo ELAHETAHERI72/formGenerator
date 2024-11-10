@@ -52,7 +52,7 @@
           </div>
         }
         @case (Types.CUSTOME_FORM_ITEM) {
-          <ng-container *ngTemplateOutlet="getTemplate(value);context:{value:value}"></ng-container>
+          <ng-container *ngTemplateOutlet="getTemplate(value);context:{value:value,bindValue:bindItems}"></ng-container>
         }
         @case (Types.FORM_GROUP) {
           <label for="">{{ value.labelName }}</label>

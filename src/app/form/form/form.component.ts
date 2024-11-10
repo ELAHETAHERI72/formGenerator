@@ -115,10 +115,9 @@ export class FormComponent {
         Object.values(this._tempRefs()).map(item => {
           if (item.id == (element as CustomItem).bindItem) {
             (element as CustomItem).template = item.template;
-            const temp = (element as CustomItem).template;
-            // this.vcRef.createEmbeddedView(temp);
+
           }
-        })
+        });
 
         element.changeValue$?.pipe(
           takeUntilDestroyed(this.destroyRef)
@@ -129,7 +128,6 @@ export class FormComponent {
       }
     )
   }
-
 
   deepClone(obj: any, hash = new WeakMap()) {
     if (obj === null || typeof obj !== "object") {

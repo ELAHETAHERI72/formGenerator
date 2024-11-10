@@ -13,19 +13,21 @@
                  [name]="value.bindItem"
                  (ngModelChange)="changeStatus$.next($event)"
                  [id]="value.id"
+                 #statusIdRef="ngModel"
                  [(ngModel)]="value.defaultValue">
       </ng-select>
     </div>
   </ng-template>
-    <ng-template #customNationalTempRef let-value="value">
+    <ng-template #customNationalTempRef let-value="value" let-bindValue="bindValue">
     <div class="form-group col-3">
       <label>{{ value.labelName }}</label>
       <input type="text"
              class="form-control"
              [id]="value.id"
              [name]="value.name"
+             #nationalIdRef="ngModel"
              (ngModelChange)="changeNationalId$.next($event)"
-             [(ngModel)]="value.defaultValue">
+             [(ngModel)]="bindValue[value?.bindItem]">
     </div>
   </ng-template>
 
