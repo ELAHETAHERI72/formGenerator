@@ -4,9 +4,9 @@ import {
   effect,
   forwardRef,
   inject,
-  Input,
+  Input, Renderer2,
   signal,
-  TemplateRef,
+  TemplateRef, ViewContainerRef,
   WritableSignal
 } from '@angular/core';
 import {
@@ -61,7 +61,9 @@ export class FormComponent {
     this._tempRefs.set(arr);
   };
 
-  constructor() {
+  constructor(private vcRef: ViewContainerRef, private renderer: Renderer2) {
+
+
     effect(() => {
       this.customFormItemSetValue();
     })
@@ -71,6 +73,7 @@ export class FormComponent {
     this._formConfig = config;
     this.createFormItems(this.deepClone(config.items) as Array<inputTYpe>);
   }
+
 
   submitApiForm(form: NgForm) {
     this.customFormItemSetValue();
@@ -112,6 +115,8 @@ export class FormComponent {
         Object.values(this._tempRefs()).map(item => {
           if (item.id == (element as CustomItem).bindItem) {
             (element as CustomItem).template = item.template;
+            const temp = (element as CustomItem).template;
+            // this.vcRef.createEmbeddedView(temp);
           }
         })
 

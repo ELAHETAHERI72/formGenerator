@@ -1,4 +1,5 @@
-  <app-form [formConfig]="config" [tempRefs]="[{template:customStatusTempRef,id:'statusId'},{template:customNationalTempRef,id:'nationalId'}]">
+  <app-form [formConfig]="config"
+            [tempRefs]="[{template:customStatusTempRef,id:'statusId'},{template:customNationalTempRef,id:'nationalId'}]">
 
   </app-form>
   <ng-template #customStatusTempRef let-value="value">
@@ -16,7 +17,7 @@
       </ng-select>
     </div>
   </ng-template>
-  <ng-template #customNationalTempRef let-value="value">
+    <ng-template #customNationalTempRef let-value="value">
     <div class="form-group col-3">
       <label>{{ value.labelName }}</label>
       <input type="text"

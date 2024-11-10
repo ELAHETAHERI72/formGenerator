@@ -24,7 +24,7 @@ import {ShowErrorComponent} from "../../components/show-error/show-error.compone
   ],
   templateUrl: './form-items.component.html',
   styleUrl: './form-items.component.scss',
-  viewProviders: [{provide: ControlContainer, useExisting: NgForm}]
+    viewProviders: [{provide: ControlContainer, useExisting: NgForm}]
 })
 
 export class FormItemsComponent {
@@ -42,6 +42,10 @@ export class FormItemsComponent {
   uiMonthView: boolean = true;
 
   uiTodayBtnEnable: boolean = true;
+
+  constructor() {
+    console.log(this.ControlContainer,'controlCOntainer')
+  }
 
   @Input() set items(config: Array<inputTYpe>) {
     this._items = config;
