@@ -1,6 +1,6 @@
-import { BehaviorSubject, Observable } from "rxjs";
-import { NgForm } from "@angular/forms";
-import { TemplateRef } from "@angular/core";
+import {BehaviorSubject, Observable} from "rxjs";
+import {NgForm} from "@angular/forms";
+import {TemplateRef} from "@angular/core";
 
 
 export class formItemBase {
@@ -10,8 +10,9 @@ export class formItemBase {
   labelName?: string;
   inputType?: Types;
   isRequired: boolean | string;
-  changeValue$?:Observable<any> | BehaviorSubject<any>;
-  defaultValue?:any;
+  changeValue$?: Observable<any> | BehaviorSubject<any>;
+  defaultValue?: any;
+
   constructor(item: formItemBase) {
     this.placeholder = item.placeholder;
     this.name = item.name;
@@ -48,14 +49,15 @@ export class inputInterface extends formItemBase {
 }
 
 export class CustomItem extends formItemBase {
-
   template?: TemplateRef<string>;
+  templateName?: string;
   bindItem?: string;
 
   constructor(item: CustomItem) {
     super(item);
     this.template = item.template;
     this.bindItem = item.bindItem;
+    this.templateName = item.templateName;
   }
 
 }
@@ -103,6 +105,7 @@ export class textAreaInterface extends formItemBase {
 export class switchInterface extends formItemBase {
   bindItem?: any;
   isSelect?: boolean;
+
   constructor(item: switchInterface) {
     super(item)
     this.bindItem = item.bindItem;
@@ -113,6 +116,7 @@ export class switchInterface extends formItemBase {
 export class formGroups extends formItemBase {
   formItems?: Array<inputTYpe>;
   bindItem: any;
+
   constructor(item: formGroups) {
     super(item)
     this.formItems = item.formItems;
@@ -126,8 +130,9 @@ export class formConfig {
   items: Array<inputTYpe>;
   classList: string;
   formName: NgForm;
-  submited?: (items: any) => void;
+  submitted?: (items: any) => void;
   formId?: string;
+
   constructor(
     config: {
       items: Array<inputTYpe>,
@@ -136,7 +141,7 @@ export class formConfig {
     this.items = config.items;
     this.classList = config.classList;
     this.formId = config.formId,
-      this.submited = config.submited;
+      this.submitted = config.submited;
     this.formName = config.formName;
   }
 }

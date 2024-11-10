@@ -3,10 +3,14 @@
     <div class="container-fluid px-4">
       <div class="row">
 
-        <form dir="rtl" [id]="formConfig.formId" class="d-flex flex-column" (ngSubmit)="submitApiForm(Form)"
-          [name]="formConfig.formId" #Form="ngForm">
+        <form dir="rtl"
+              [id]="formConfig.formId"
+              class="d-flex flex-column"
+              (ngSubmit)="submitApiForm(Form)"
+              [name]="formConfig.formId" #Form="ngForm">
 
-          <app-form-items name="formItem" class="w-100" [bindItems]="bindItems"
+          <app-form-items name="formItem" class="w-100"
+                          [bindItems]="bindItems"
             [items]="formConfig.items">
           </app-form-items>
 

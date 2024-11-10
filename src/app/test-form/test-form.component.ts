@@ -1,10 +1,9 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, OnInit,TemplateRef, ViewChild} from '@angular/core';
 import { BaseTableComponent } from "../base-table/base-table/base-table.component";
 import { FormComponent } from "../form/form/form.component";
 import { RouterOutlet } from "@angular/router";
 import {
   CustomItem,
-  dateInterface,
   formConfig,
   formGroups,
   inputInterface,
@@ -17,7 +16,6 @@ import { FormsModule, NgForm } from "@angular/forms";
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BehaviorSubject, of } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-
 
 @Component({
   selector: 'app-test-form',
@@ -34,7 +32,7 @@ import { AsyncPipe } from '@angular/common';
   templateUrl: './test-form.component.html',
   styleUrl: './test-form.component.scss'
 })
-export class TestFormComponent {
+export class TestFormComponent implements OnInit{
 
   tableConfig: any;
   testForm!: NgForm;
@@ -49,86 +47,95 @@ export class TestFormComponent {
   changeStatus$ = new BehaviorSubject(null);
   changeNationalId$ = new BehaviorSubject(null);
 
-  statusTemplateRef?: TemplateRef<any>;
-  customeNationalTempRef?: TemplateRef<any>;
+  @ViewChild('customNationalTempRef') customNationalTempRef?: TemplateRef<any>;
+  @ViewChild('customStatusTempRef') customStatusTempRef?: TemplateRef<any>;
 
-  config: formConfig = {
-    classList: 'd-flex',
-    formName: this.testForm,
-    formId: 'testForm',
-    submited: ((v: formModel) => {
-      console.log(v, ':)');
-      this.formItem = v;
-    }),
 
-    items: [
-      new inputInterface({
-        id: 'name',
-        inputType: Types.INPUT_TYPE,
-        labelName: 'نام',
-        name: 'name',
-        placeholder: 'name',
-        bindItem: 'name',
-        isRequired: true,
-      }),
+  config!: formConfig;
+  ngOnInit() {
+    this.initialCall();
+  }
+  constructor() {
+  }
 
-      new CustomItem({
-        isRequired: true,
-        inputType: Types.CUSTOME_FORM_ITEM,
-        labelName: 'وضعیت',
-        name: 'status',
-        id: 'status',
-        bindItem: 'statusId',
-        defaultValue: '',
-        template: this.statusTemplateRef,
-        changeValue$: this.changeStatus$,
-      }),
+  initialCall(){
+      this.config = {
+        classList: 'd-flex',
+        formName: this.testForm,
+        formId: 'testForm',
+        submitted: ((v: formModel) => {
+          console.log(v, ':)');
+          this.formItem = v;
+        }),
 
-      new CustomItem({
-        isRequired: true,
-        inputType: Types.CUSTOME_FORM_ITEM,
-        labelName: 'کد ملی',
-        name: 'nationalId',
-        id: 'nationalId',
-        bindItem: 'nationalId',
-        defaultValue: '',
-        template: this.customeNationalTempRef,
-        changeValue$: this.changeNationalId$,
-      }),
-      // new dateInterface({
-      //   id: 'fromDate',
-      //   name: 'fromDate',
-      //   bindItem: 'fromDarte',
-      //   isRequired: false,
-      //   inputType: Types.DATE_TYPE,
-      //   labelName: 'از تاریخ'
-      // }),
-      new formGroups(
-        {
-          inputType: Types.FORM_GROUP,
-          id: 'gender',
-          labelName: '',
-          bindItem: 'gender',
-          name: 'gender',
-          isRequired: true,
-          formItems: [
-            new selectInterface({
+        items: [
+          new inputInterface({
+            id: 'name',
+            inputType: Types.INPUT_TYPE,
+            labelName: 'نام',
+            name: 'name',
+            placeholder: 'name',
+            bindItem: 'name',
+            isRequired: true,
+          }),
+
+          new CustomItem({
+            isRequired: true,
+            inputType: Types.CUSTOME_FORM_ITEM,
+            labelName: 'وضعیت',
+            name: 'status',
+            id: 'status',
+            bindItem: 'statusId',
+            defaultValue: '',
+            templateName: 'customStatusTempRef',
+            changeValue$: this.changeStatus$,
+          }),
+
+          new CustomItem({
+            isRequired: true,
+            inputType: Types.CUSTOME_FORM_ITEM,
+            labelName: 'کد ملی',
+            name: 'nationalId',
+            id: 'nationalId',
+            bindItem: 'nationalId',
+            defaultValue: '',
+            templateName: 'customNationalTempRef',
+            changeValue$: this.changeNationalId$,
+          }),
+          // new dateInterface({
+          //   id: 'fromDate',
+          //   name: 'fromDate',
+          //   bindItem: 'fromDarte',
+          //   isRequired: false,
+          //   inputType: Types.DATE_TYPE,
+          //   labelName: 'از تاریخ'
+          // }),
+          new formGroups(
+            {
+              inputType: Types.FORM_GROUP,
               id: 'gender',
-              inputType: Types.SELECT_TYPE,
-              labelName: 'جنسیت',
+              labelName: '',
+              bindItem: 'gender',
               name: 'gender',
-              placeholder: 'جنسیت',
-              fields: [{ id: 'male', name: 'مرد', value: 'مرد' }, { id: 'female', name: 'زن', value: 'زن' }],
-              bindItem: 'fullName',
               isRequired: true,
-            }),
-          ]
+              formItems: [
+                new selectInterface({
+                  id: 'gender',
+                  inputType: Types.SELECT_TYPE,
+                  labelName: 'جنسیت',
+                  name: 'gender',
+                  placeholder: 'جنسیت',
+                  fields: [{ id: 'male', name: 'مرد', value: 'مرد' }, { id: 'female', name: 'زن', value: 'زن' }],
+                  bindItem: 'fullName',
+                  isRequired: true,
+                }),
+              ]
 
-        }
-      )
-    ],
-
-  };
+            }
+          )
+        ],
+      };
+    }
 
 }
 

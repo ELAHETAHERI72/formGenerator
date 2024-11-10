@@ -30,7 +30,7 @@ export class Test2Component {
     classList: 'd-flex' + ' ' + 'column-gap-2',
     formName:this.test2Form,
     formId:'test2Form',
-    submited: ((v: formModel) => {
+    submitted: ((v: formModel) => {
       console.log(v, 'vvvvvvvvvv');
       this.formItem = v;
     }),

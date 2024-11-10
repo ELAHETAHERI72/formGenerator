@@ -64,8 +64,8 @@ export class FormItemsComponent {
     return _t7.formItems;
   }
 
-  getTemlate(item:CustomItem | any){        
-    return item.template;
+  getTemplate(item:CustomItem | any){
+    return item.template ? item.template : null;
   }
 
 }
