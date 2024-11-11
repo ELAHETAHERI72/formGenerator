@@ -7,6 +7,7 @@ import { SwitchButtonComponent } from '../../components/switch-button/switch-but
 import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
 import { Observable, of } from 'rxjs';
 import {ShowErrorComponent} from "../../components/show-error/show-error.component";
+import {ShowErrorsComponent} from "../show-errors/show-errors.component";
 
 @Component({
   selector: 'app-form-items',
@@ -21,6 +22,7 @@ import {ShowErrorComponent} from "../../components/show-error/show-error.compone
     NgPersianDatepickerModule,
     ReactiveFormsModule,
     ShowErrorComponent,
+    ShowErrorsComponent,
   ],
   templateUrl: './form-items.component.html',
   styleUrl: './form-items.component.scss',

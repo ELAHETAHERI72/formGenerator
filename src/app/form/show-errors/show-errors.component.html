@@ -1,0 +1,15 @@
+@if(!errorMessage && shouldShowError(ctrl)) {
+    @for (error of listOfErrors(); track error) {
+        <div class="invalid-feedback d-inline-block"
+             @slideDown>
+            {{error}}
+        </div>
+    }
+}
+
+@if(errorMessage && errorMessage.length) {
+  <div class="invalid-feedback d-inline-block"
+       @slideDown>
+      {{errorMessage}}
+  </div>
+}

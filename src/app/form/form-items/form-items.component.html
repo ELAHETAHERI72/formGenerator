@@ -5,11 +5,12 @@
         @case (Types.INPUT_TYPE) {
           <div class="form-group col-3">
             <label>{{ value.labelName }}</label>
-            <input type="text" class="form-control" [required]="value.isRequired" [id]="value.id" [name]="value.name!"
+            <input type="text" class="form-control"
+                   [required]="value.isRequired"
+                   [id]="value.id"
+                   [name]="value.name!"
                    [(ngModel)]="bindItems[value.bindItem!]">
-            @if (ControlContainer.invalid) {
-              <app-show-error></app-show-error>
-            }
+<!--              <app-show-errors></app-show-errors>-->
           </div>
         }
         @case (Types.SELECT_TYPE) {
