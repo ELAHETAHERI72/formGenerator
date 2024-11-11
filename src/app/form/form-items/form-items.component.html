@@ -9,8 +9,9 @@
                    [required]="value.isRequired"
                    [id]="value.id"
                    [name]="value.name!"
+                   #input1="ngModel"
                    [(ngModel)]="bindItems[value.bindItem!]">
-<!--              <app-show-errors></app-show-errors>-->
+              <app-show-errors [ctrl]="input1.control"></app-show-errors>
           </div>
         }
         @case (Types.SELECT_TYPE) {
