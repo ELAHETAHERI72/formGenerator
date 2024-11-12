@@ -48,9 +48,6 @@ export class TestFormComponent implements OnInit {
   changeStatus$ = new BehaviorSubject(null);
   changeNationalId$ = new BehaviorSubject(null);
 
-  @ViewChild('customNationalTempRef') customNationalTempRef?: TemplateRef<any>;
-  @ViewChild('customStatusTempRef') customStatusTempRef?: TemplateRef<any>;
-
 
   config!: formConfig;
 
@@ -58,14 +55,12 @@ export class TestFormComponent implements OnInit {
     this.initialCall();
   }
 
-  constructor() {
-  }
-
   initialCall() {
     this.config = {
       classList: 'd-flex',
       formName: this.testForm,
       formId: 'testForm',
+      
       submitted: ((v: formModel) => {
         console.log(v, ':)');
         this.formItem = v;
@@ -91,7 +86,6 @@ export class TestFormComponent implements OnInit {
           bindItem: 'statusId',
           defaultValue: '',
           templateName: 'customStatusTempRef',
-          changeValue$: this.changeStatus$,
         }),
 
         new CustomItem({
@@ -102,9 +96,7 @@ export class TestFormComponent implements OnInit {
           id: 'nationalId',
           bindItem: 'nationalId',
           defaultValue: '',
-
           templateName: 'customNationalTempRef',
-          changeValue$: this.changeNationalId$,
         }),
         // new dateInterface({
         //   id: 'fromDate',

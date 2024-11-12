@@ -2,7 +2,7 @@
             [tempRefs]="[{template:customStatusTempRef,id:'statusId'},{template:customNationalTempRef,id:'nationalId'}]">
 
   </app-form>
-  <ng-template #customStatusTempRef let-value="value">
+  <ng-template #customStatusTempRef let-value="value" let-bindItems="bindItems">
     <div class="form-group col-3">
       <label>{{ value.labelName }}</label>
       <ng-select class="custom-select"
@@ -14,11 +14,11 @@
                  (ngModelChange)="changeStatus$.next($event)"
                  [id]="value.id"
                  #statusIdRef="ngModel"
-                 [(ngModel)]="value.defaultValue">
+                 [(ngModel)]="bindItems[value?.bindItem]">
       </ng-select>
     </div>
   </ng-template>
-    <ng-template #customNationalTempRef let-value="value" let-bindValue="bindValue">
+    <ng-template #customNationalTempRef let-value="value" let-bindItems="bindItems">
     <div class="form-group col-3">
       <label>{{ value.labelName }}</label>
       <input type="text"
@@ -27,7 +27,7 @@
              [name]="value.name"
              #nationalIdRef="ngModel"
              (ngModelChange)="changeNationalId$.next($event)"
-             [(ngModel)]="bindValue[value?.bindItem]">
+             [(ngModel)]="bindItems[value?.bindItem]">
     </div>
   </ng-template>
 

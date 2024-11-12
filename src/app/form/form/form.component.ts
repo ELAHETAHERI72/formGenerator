@@ -15,15 +15,15 @@ import {
   inputTYpe,
   Types
 } from "../models/interfaces/form-type.interface";
-import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
-import {CommonModule, JsonPipe, NgIf} from "@angular/common";
+import { FormsModule, NgForm, ReactiveFormsModule } from "@angular/forms";
+import { CommonModule, JsonPipe, NgIf } from "@angular/common";
 import {
   NgSelectModule
 } from "@ng-select/ng-select";
-import {SwitchButtonComponent} from "../../components/switch-button/switch-button.component";
-import {NgPersianDatepickerModule} from 'ng-persian-datepicker';
-import {FormItemsComponent} from "../form-items/form-items.component";
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import { SwitchButtonComponent } from "../../components/switch-button/switch-button.component";
+import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
+import { FormItemsComponent } from "../form-items/form-items.component";
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-form',
@@ -48,22 +48,24 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 export class FormComponent {
 
   private _formConfig!: formConfig;
+
   formItems: any;
   bindItems?: any = {};
-  _tempRefs: WritableSignal<Array<{template:TemplateRef<any>,id:any}>> = signal<Array<{template:TemplateRef<any>,id:any}>>([]);
+
+  _tempRefs: WritableSignal<Array<{ template: TemplateRef<any>, id: any }>> =
+    signal<Array<{ template: TemplateRef<any>, id: any }>>([]);
+
   private destroyRef = inject(DestroyRef);
 
   get formConfig(): formConfig {
     return this._formConfig;
   }
 
-  @Input() set tempRefs(arr: Array<{template:TemplateRef<any>,id:any}>) {
+  @Input() set tempRefs(arr: Array<{ template: TemplateRef<any>, id: any }>) {
     this._tempRefs.set(arr);
   };
 
   constructor(private vcRef: ViewContainerRef, private renderer: Renderer2) {
-
-
     effect(() => {
       this.customFormItemSetValue();
     })
