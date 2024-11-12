@@ -73,7 +73,9 @@ export class FormComponent {
 
   @Input() set formConfig(config: formConfig) {
     this._formConfig = config;
-    this.createFormItems(this.deepClone(config.items) as Array<inputTYpe>);
+    if(config.initialCal){
+      this.createFormItems(this.deepClone(config.items) as Array<inputTYpe>);
+    }
   }
 
 

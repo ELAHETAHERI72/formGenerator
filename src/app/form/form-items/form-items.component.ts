@@ -45,10 +45,6 @@ export class FormItemsComponent {
 
   uiTodayBtnEnable: boolean = true;
 
-  constructor() {
-    console.log(this.ControlContainer,'controlCOntainer')
-  }
-
   @Input() set items(config: Array<inputTYpe>) {
     this._items = config;
   }

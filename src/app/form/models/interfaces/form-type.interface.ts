@@ -12,6 +12,8 @@ export class formItemBase {
   isRequired: boolean | string;
   changeValue$?: Observable<any> | BehaviorSubject<any>;
   defaultValue?: any;
+  errorItems?:ErrorInterface | any;
+  pattern?:string | any;
 
   constructor(item: formItemBase) {
     this.placeholder = item.placeholder;
@@ -22,6 +24,8 @@ export class formItemBase {
     this.isRequired = item.isRequired;
     this.defaultValue = item.defaultValue;
     this.changeValue$ = item.changeValue$;
+    this.errorItems = item.errorItems;
+    this.pattern = item.pattern;
   }
 
 }
@@ -46,6 +50,14 @@ export class inputInterface extends formItemBase {
     this.bindItem = item.bindItem;
   }
 
+}
+
+export interface ErrorInterface {
+  patternErrorMsg: string;
+  oneRequiredErrorMsg: string;
+  errorMessage: string;
+  waitForTouch: boolean;
+  showRequiredError: boolean;
 }
 
 export class CustomItem extends formItemBase {
@@ -133,10 +145,16 @@ export class formConfig {
   submitted?: (items: any) => void;
   formId?: string;
   isCheckFormValid?:boolean;
+  initialCal:boolean;
   constructor(
     config: {
       items: Array<inputTYpe>,
-      submited: (items: any) => void, classList: string, formName: NgForm, formId: string,isCheckFormValid:boolean
+      submited: (items: any) => void, 
+      classList: string, 
+      formName: NgForm, 
+      formId: string,
+      isCheckFormValid:boolean,
+      initialCal:boolean,
     }) {
     this.items = config.items;
     this.classList = config.classList;
@@ -144,9 +162,10 @@ export class formConfig {
       this.submitted = config.submited;
     this.formName = config.formName;
     this.isCheckFormValid = config.isCheckFormValid;
+    this.initialCal = config.initialCal;
   }
 }
 
-function deepClone(obj: any) {
-  return JSON.parse(JSON.stringify(obj));
-}
+// function deepClone(obj: any) {
+//   return JSON.parse(JSON.stringify(obj));
+// }

@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BaseTableComponent} from "../base-table/base-table/base-table.component";
 import {FormComponent} from "../form/form/form.component";
 import {RouterOutlet} from "@angular/router";
@@ -60,7 +60,8 @@ export class TestFormComponent implements OnInit {
       classList: 'd-flex',
       formName: this.testForm,
       formId: 'testForm',
-      
+      isCheckFormValid:false,
+      initialCal :true,
       submitted: ((v: formModel) => {
         console.log(v, ':)');
         this.formItem = v;
@@ -75,6 +76,11 @@ export class TestFormComponent implements OnInit {
           placeholder: 'name',
           bindItem: 'name',
           isRequired: true,
+          errorItems:{
+            oneRequiredErrorMsg:'این فیلد اجباری می باشد',
+            waitForTouch:true,
+            showRequiredError:true,
+          }
         }),
 
         new CustomItem({
@@ -86,6 +92,7 @@ export class TestFormComponent implements OnInit {
           bindItem: 'statusId',
           defaultValue: '',
           templateName: 'customStatusTempRef',
+          errorItems:{}
         }),
 
         new CustomItem({
@@ -97,6 +104,7 @@ export class TestFormComponent implements OnInit {
           bindItem: 'nationalId',
           defaultValue: '',
           templateName: 'customNationalTempRef',
+          errorItems:{}
         }),
         // new dateInterface({
         //   id: 'fromDate',
@@ -124,6 +132,7 @@ export class TestFormComponent implements OnInit {
                 fields: [{id: 'male', name: 'مرد', value: 'مرد'}, {id: 'female', name: 'زن', value: 'زن'}],
                 bindItem: 'fullName',
                 isRequired: true,
+                errorItems:{}
               }),
             ]
 
