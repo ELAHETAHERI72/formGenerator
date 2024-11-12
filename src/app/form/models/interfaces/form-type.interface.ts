@@ -132,17 +132,18 @@ export class formConfig {
   formName: NgForm;
   submitted?: (items: any) => void;
   formId?: string;
-
+  isCheckFormValid?:boolean;
   constructor(
     config: {
       items: Array<inputTYpe>,
-      submited: (items: any) => void, classList: string, formName: NgForm, formId: string;
+      submited: (items: any) => void, classList: string, formName: NgForm, formId: string,isCheckFormValid:boolean
     }) {
     this.items = config.items;
     this.classList = config.classList;
     this.formId = config.formId,
       this.submitted = config.submited;
     this.formName = config.formName;
+    this.isCheckFormValid = config.isCheckFormValid;
   }
 }
 

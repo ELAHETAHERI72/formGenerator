@@ -3,14 +3,16 @@
     @for (value of items;track value) {
     @switch (value.inputType) {
     @case (Types.INPUT_TYPE) {
-    <div class="form-group col-3">
-      <label>{{ value.labelName }}</label>
-      <input type="text" class="form-control" [required]="value.isRequired" [id]="value.id" [name]="value.name!"
-        [(ngModel)]="bindItems[value.bindItem!]">
-      @if (ControlContainer.invalid) {
-      <app-show-error></app-show-error>
-      }
-    </div>
+      <div class="form-group col-3">
+        <label>{{ value.labelName }}</label>
+        <input type="text" class="form-control"
+               [required]="value.isRequired"
+               [id]="value.id"
+               [name]="value.name!"
+               #input1="ngModel"
+               [(ngModel)]="bindItems[value.bindItem!]">
+          <app-show-errors [ctrl]="input1.control"></app-show-errors>
+      </div>
     }
     @case (Types.SELECT_TYPE) {
     <div class="form-group col-3">
