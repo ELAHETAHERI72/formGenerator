@@ -10,7 +10,10 @@
       <input type="text" class="form-control" [required]="value.isRequired" [id]="value.id" [name]="value.name!"
         [pattern]="value.pattern" #input1Ref="ngModel" [(ngModel)]="bindItems[value.bindItem!]">
 
-      <app-show-errors [ctrl]="input1Ref.control" [patternErrorMsg]="value.errorItems.patternErrorMsg"
+      <app-show-errors [ctrl]="input1Ref.control" 
+      
+      
+      [patternErrorMsg]="value.errorItems.patternErrorMsg"
         [oneRequiredErrorMsg]="value.errorItems.oneRequiredErrorMsg" [errorMessage]="value.errorItems.errorMessage"
         [waitForTouch]="value.errorItems.waitForTouch"
         [showRequiredError]="value.errorItems.showRequiredError"></app-show-errors>

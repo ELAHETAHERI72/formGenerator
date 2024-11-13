@@ -52,6 +52,8 @@ export class FormComponent {
   formItems: any;
   bindItems?: any = {};
 
+  baseService:any;
+
   _tempRefs: WritableSignal<Array<{ template: TemplateRef<any>, id: any }>> =
     signal<Array<{ template: TemplateRef<any>, id: any }>>([]);
 
@@ -73,8 +75,8 @@ export class FormComponent {
 
   @Input() set formConfig(config: formConfig) {
     this._formConfig = config;
-    if(config.initialCal){
-      this.createFormItems(this.deepClone(config.items) as Array<inputTYpe>);
+    if (config.initialCal) {
+        this.createFormItems(this.deepClone(config) as formConfig);      
     }
   }
 
@@ -84,11 +86,11 @@ export class FormComponent {
     this.formConfig.submitted?.(this.deepClone(this.bindItems));
   }
 
-  createFormItems(formItems: Array<inputTYpe>) {
+  createFormItems(config: formConfig) {
+        
+    if (config.items) {
 
-    if (formItems) {
-
-      formItems?.forEach((element: inputTYpe) => {
+      config.items?.forEach((element: inputTYpe) => {
 
         if (element.inputType == Types.SWITCH_TYPE) {
 
@@ -104,6 +106,10 @@ export class FormComponent {
 
         } else {
           this.bindItems[element?.bindItem!] = element.defaultValue ?? '';
+        }
+
+        if(config.apiCall){
+          // this.baseService.
         }
 
       });

@@ -1,6 +1,6 @@
-import {BehaviorSubject, Observable} from "rxjs";
-import {NgForm} from "@angular/forms";
-import {TemplateRef} from "@angular/core";
+import { BehaviorSubject, Observable } from "rxjs";
+import { NgForm } from "@angular/forms";
+import { TemplateRef } from "@angular/core";
 
 
 export class formItemBase {
@@ -12,8 +12,8 @@ export class formItemBase {
   isRequired: boolean | string;
   changeValue$?: Observable<any> | BehaviorSubject<any>;
   defaultValue?: any;
-  errorItems?:ErrorInterface | any;
-  pattern?:string | any;
+  errorItems?: ErrorInterface | any;
+  pattern?: string | any;
 
   constructor(item: formItemBase) {
     this.placeholder = item.placeholder;
@@ -142,19 +142,22 @@ export class formConfig {
   items: Array<inputTYpe>;
   classList: string;
   formName: NgForm;
+  apiCall?: string;
+
   submitted?: (items: any) => void;
   formId?: string;
-  isCheckFormValid?:boolean;
-  initialCal:boolean;
+  isCheckFormValid?: boolean;
+  initialCal: boolean;
   constructor(
     config: {
       items: Array<inputTYpe>,
-      submited: (items: any) => void, 
-      classList: string, 
-      formName: NgForm, 
+      submited: (items: any) => void,
+      classList: string,
+      formName: NgForm,
       formId: string,
-      isCheckFormValid:boolean,
-      initialCal:boolean,
+      isCheckFormValid: boolean,
+      initialCal: boolean,
+      apiCall: string,
     }) {
     this.items = config.items;
     this.classList = config.classList;
@@ -163,6 +166,7 @@ export class formConfig {
     this.formName = config.formName;
     this.isCheckFormValid = config.isCheckFormValid;
     this.initialCal = config.initialCal;
+    this.apiCall = config.apiCall;
   }
 }
 

@@ -31,8 +31,8 @@ import {AsyncPipe} from '@angular/common';
   ],
   templateUrl: './test-form.component.html',
   styleUrl: './test-form.component.scss'
-
 })
+
 export class TestFormComponent implements OnInit {
 
   tableConfig: any;
@@ -62,8 +62,10 @@ export class TestFormComponent implements OnInit {
       formId: 'testForm',
       isCheckFormValid:false,
       initialCal :true,
+      apiCall:'',
+      
       submitted: ((v: formModel) => {
-        console.log(v, ':)');
+
         this.formItem = v;
       }),
 
