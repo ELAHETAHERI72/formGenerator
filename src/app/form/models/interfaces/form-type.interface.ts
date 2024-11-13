@@ -26,7 +26,7 @@ export class formItemBase {
     this.changeValue$ = item.changeValue$;
     this.errorItems = item.errorItems;
     this.pattern = item.pattern;
-    this.isDisplayed = item.isDisplayed;
+    this.isDisplayed =  item.isDisplayed ?? true;
   }
 
 }
@@ -167,7 +167,7 @@ export class formConfig {
       this.submitted = config.submited;
     this.formName = config.formName;
     this.isCheckFormValid = config.isCheckFormValid;
-    this.initialCal = config.initialCal;
+    this.initialCal = config.initialCal ?? true;
     this.apiCall = config.apiCall;
   }
 }

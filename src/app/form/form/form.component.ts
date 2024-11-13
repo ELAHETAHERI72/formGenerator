@@ -108,9 +108,9 @@ export class FormComponent {
           this.bindItems[element?.bindItem!] = element.defaultValue ?? '';
         }
 
-        if(config.apiCall){
-          // this.baseService.
-        }
+        // if(config.apiCall){
+        //   // this.baseService.
+        // }
 
       });
       this.formConfig.submitted?.(this.deepClone(this.bindItems));

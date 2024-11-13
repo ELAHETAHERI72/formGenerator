@@ -65,7 +65,8 @@ export class TestFormComponent implements OnInit {
       apiCall:'',
       
       submitted: ((v: formModel) => {
-
+        console.log(v,'form');
+        
         this.formItem = v;
       }),
 
