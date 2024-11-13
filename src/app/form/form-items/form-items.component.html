@@ -5,27 +5,28 @@
     @switch (value.inputType) {
 
     @case (Types.INPUT_TYPE) {
+    @if(value.isDisplayed){
     <div class="form-group col-3">
       <label>{{ value.labelName }}</label>
       <input type="text" class="form-control" [required]="value.isRequired" [id]="value.id" [name]="value.name!"
         [pattern]="value.pattern" #input1Ref="ngModel" [(ngModel)]="bindItems[value.bindItem!]">
 
-      <app-show-errors [ctrl]="input1Ref.control" 
-      
-      
-      [patternErrorMsg]="value.errorItems.patternErrorMsg"
+      <app-show-errors [ctrl]="input1Ref.control" [patternErrorMsg]="value.errorItems.patternErrorMsg"
         [oneRequiredErrorMsg]="value.errorItems.oneRequiredErrorMsg" [errorMessage]="value.errorItems.errorMessage"
         [waitForTouch]="value.errorItems.waitForTouch"
         [showRequiredError]="value.errorItems.showRequiredError"></app-show-errors>
     </div>
+
+    }
     }
     @case (Types.SELECT_TYPE) {
+    @if(value.isDisplayed){
+
     <div class="form-group col-3">
       <label>{{ value.labelName }}</label>
       <ng-select class="custom-select" [items]="returnArray(value) |async" bindLabel="name" bindValue="id"
-        [required]="value.isRequired"
-         #input2Ref="ngModel"
-          [name]="value.bindItem" [id]="value.id" [(ngModel)]="bindItems[value.bindItem!]">
+        [required]="value.isRequired" #input2Ref="ngModel" [name]="value.bindItem" [id]="value.id"
+        [(ngModel)]="bindItems[value.bindItem!]">
       </ng-select>
       <app-show-errors [ctrl]="input2Ref.control" [patternErrorMsg]="value.errorItems.patternErrorMsg"
         [oneRequiredErrorMsg]="value.errorItems.oneRequiredErrorMsg" [errorMessage]="value.errorItems.errorMessage"
@@ -33,62 +34,73 @@
         [showRequiredError]="value.errorItems.showRequiredError"></app-show-errors>
     </div>
     }
+    }
     @case (Types.TEXTAREA_TYPE) {
+    @if(value.isDisplayed){
+
     <div class="form-group col-3">
       <label>{{ value.labelName }}</label>
-      <textarea [name]="value.name!" 
-      #input3Ref="ngModel"
-      [id]="value.id" [required]="value.isRequired" class="form-control"
-        [(ngModel)]="bindItems[value.bindItem!]"></textarea>
+      <textarea [name]="value.name!" #input3Ref="ngModel" [id]="value.id" [required]="value.isRequired"
+        class="form-control" [(ngModel)]="bindItems[value.bindItem!]"></textarea>
 
-        <app-show-errors [ctrl]="input3Ref.control" [patternErrorMsg]="value.errorItems.patternErrorMsg"
+      <app-show-errors [ctrl]="input3Ref.control" [patternErrorMsg]="value.errorItems.patternErrorMsg"
         [oneRequiredErrorMsg]="value.errorItems.oneRequiredErrorMsg" [errorMessage]="value.errorItems.errorMessage"
         [waitForTouch]="value.errorItems.waitForTouch"
         [showRequiredError]="value.errorItems.showRequiredError"></app-show-errors>
     </div>
+    }
     }
     @case (Types.SWITCH_TYPE) {
+    @if(value.isDisplayed){
+
     <div class="col-3">
       <switch-button [(ngModel)]="bindItems[value.bindItem!]" [isChecked]="bindItems[value.bindItem!]"
-        [labelName]="value.labelName" [name]="value.bindItem" [required]="value.isRequired"
-        #input4Ref="ngModel"
+        [labelName]="value.labelName" [name]="value.bindItem" [required]="value.isRequired" #input4Ref="ngModel"
         (emitValue)="bindItems[value.bindItem!] = $event"></switch-button>
 
-        <app-show-errors [ctrl]="input4Ref.control" [patternErrorMsg]="value.errorItems.patternErrorMsg"
+      <app-show-errors [ctrl]="input4Ref.control" [patternErrorMsg]="value.errorItems.patternErrorMsg"
         [oneRequiredErrorMsg]="value.errorItems.oneRequiredErrorMsg" [errorMessage]="value.errorItems.errorMessage"
         [waitForTouch]="value.errorItems.waitForTouch"
         [showRequiredError]="value.errorItems.showRequiredError"></app-show-errors>
     </div>
     }
+    }
     @case (Types.DATE_TYPE) {
+    @if(value.isDisplayed){
+
     <div class="form-group col-3">
       <label for="">{{ value.labelName }}</label>
       <div class="datepicker-wrapper">
         <ng-persian-datepicker [dateGregorianFormat]="'YYYY-MM-DD HH:mm:ss'" [uiYearView]="uiYearView"
           [uiMonthView]="uiMonthView" [uiTodayBtnEnable]="uiTodayBtnEnable" [timeEnable]="false">
           <div class="input-field">
-            <input type="text" class="form-control"
-            #input5Ref="ngModel"
-            [id]="value.id" [name]="value.name" [required]="value.isRequired"
-              [(ngModel)]="bindItems[value.bindItem!]" aria-label="Datepicker Input" />
+            <input type="text" class="form-control" #input5Ref="ngModel" [id]="value.id" [name]="value.name"
+              [required]="value.isRequired" [(ngModel)]="bindItems[value.bindItem!]" aria-label="Datepicker Input" />
           </div>
         </ng-persian-datepicker>
         <app-show-errors [ctrl]="input5Ref.control" [patternErrorMsg]="value.errorItems.patternErrorMsg"
-        [oneRequiredErrorMsg]="value.errorItems.oneRequiredErrorMsg" [errorMessage]="value.errorItems.errorMessage"
-        [waitForTouch]="value.errorItems.waitForTouch"
-        [showRequiredError]="value.errorItems.showRequiredError"></app-show-errors>
+          [oneRequiredErrorMsg]="value.errorItems.oneRequiredErrorMsg" [errorMessage]="value.errorItems.errorMessage"
+          [waitForTouch]="value.errorItems.waitForTouch"
+          [showRequiredError]="value.errorItems.showRequiredError"></app-show-errors>
       </div>
     </div>
     }
+    }
     @case (Types.CUSTOME_FORM_ITEM) {
+    @if(value.isDisplayed){
+
     <ng-container *ngTemplateOutlet="getTemplate(value);
           context:{
             value:value,bindItems:bindItems,
              form:ControlContainer}"></ng-container>
     }
+    }
     @case (Types.FORM_GROUP) {
+    @if(value.isDisplayed){
+
     <label for="">{{ value.labelName }}</label>
     <app-form-items [items]="getFormGroup(value)" [bindItems]="bindItems[value.bindItem]"></app-form-items>
+    }
     }
     }
     }

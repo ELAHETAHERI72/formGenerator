@@ -14,7 +14,7 @@ export class formItemBase {
   defaultValue?: any;
   errorItems?: ErrorInterface | any;
   pattern?: string | any;
-
+  isDisplayed?:boolean;
   constructor(item: formItemBase) {
     this.placeholder = item.placeholder;
     this.name = item.name;
@@ -26,6 +26,7 @@ export class formItemBase {
     this.changeValue$ = item.changeValue$;
     this.errorItems = item.errorItems;
     this.pattern = item.pattern;
+    this.isDisplayed = item.isDisplayed;
   }
 
 }
@@ -39,6 +40,7 @@ export enum Types {
   DATE_TYPE = 'DATE_TYPE',
   FORM_GROUP = 'FORM_GROUP',
   CUSTOME_FORM_ITEM = 'CUSTOME_FORM_ITEM',
+  BOREDER_LINE = 'BOREDER_LINE',
 }
 
 export class inputInterface extends formItemBase {
