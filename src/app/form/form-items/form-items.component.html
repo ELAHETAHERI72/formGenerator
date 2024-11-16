@@ -68,7 +68,6 @@
               <ng-select class="custom-select"
                          (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
                          [items]="returnArray(value) |async" bindLabel="name" bindValue="id"
-
                          [required]="value.isRequired" #input2Ref="ngModel" [name]="value.bindItem" [id]="value.id"
                          [(ngModel)]="bindItems[value.bindItem!]">
               </ng-select>
@@ -162,7 +161,8 @@
           @if (value?.isDisplayedSignal()) {
 
             <label for="">{{ value.labelName }}</label>
-            <app-form-items [items]="getFormGroup(value)" [bindItems]="bindItems[value.bindItem]"></app-form-items>
+            <app-form-items [items]="getFormGroup(value)" 
+            [bindItems]="bindItems[value.bindItem]"></app-form-items>
           }
         }
       }

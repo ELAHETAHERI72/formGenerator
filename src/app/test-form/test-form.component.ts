@@ -58,7 +58,7 @@ export class TestFormComponent implements OnInit {
       classList: 'd-flex',
       formName: this.testForm,
       formId: 'testForm',
-      isCheckFormValid: false,
+      isCheckFormValid: true,
       initialCal: true,
       apiCall: '',
 
