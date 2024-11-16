@@ -119,7 +119,10 @@ export class TestFormComponent implements OnInit {
         {
           "inputType":Types.BORDER_LINE,
         } as any,
-
+        {
+          "inputType":Types.SECTION_TITLE,
+          labelName:'اطلاعات'
+        } as any,
         // new dateInterface({
         //   id: 'fromDate',
         //   name: 'fromDate',
