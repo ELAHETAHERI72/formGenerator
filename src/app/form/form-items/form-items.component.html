@@ -16,16 +16,14 @@
               <label>{{ value.labelName }}</label>
               <input type="text" class="form-control"
                      [required]="value.isRequired"
-                     [id]="value.id" [name]="value.name!"
-                     [min]="value.min"
-                     [minLength]="value.minLength"
-                     [max]="value.max"
-                     [maxLength]="value.maxLength"
+                     [id]="value.id" 
+                     [name]="value.name!"
                      [pattern]="value.pattern" #input1Ref="ngModel"
                      (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
                      [(ngModel)]="bindItems[value.bindItem!]">
 
-              <app-show-errors [ctrl]="input1Ref.control" [patternErrorMsg]="value.errorItems.patternErrorMsg"
+              <app-show-errors [ctrl]="input1Ref.control"
+               [patternErrorMsg]="value.errorItems.patternErrorMsg"
                                [oneRequiredErrorMsg]="value.errorItems.oneRequiredErrorMsg"
                                [errorMessage]="value.errorItems.errorMessage"
                                [waitForTouch]="value.errorItems.waitForTouch"
@@ -34,6 +32,31 @@
 
           }
         }
+ 
+        @case(Types.INPUT_NUMBER_TYPE){
+          <div class="form-group col-3">
+            <label>{{ value.labelName }}</label>
+            <input type="text" class="form-control"
+                   [required]="value.isRequired"
+                   [id]="value.id" 
+                   [name]="value.name!"
+                   [min]="value.min"
+                   [minLength]="value.minLength"
+                   [max]="value.max"
+                   [maxLength]="value.maxLength"
+                   [pattern]="value.pattern" #input6Ref="ngModel"
+                   (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
+                   [(ngModel)]="bindItems[value.bindItem!]">
+
+            <app-show-errors [ctrl]="input6Ref.control" [patternErrorMsg]="value.errorItems.patternErrorMsg"
+                             [oneRequiredErrorMsg]="value.errorItems.oneRequiredErrorMsg"
+                             [errorMessage]="value.errorItems.errorMessage"
+                             [waitForTouch]="value.errorItems.waitForTouch"
+                             [showRequiredError]="value.errorItems.showRequiredError"></app-show-errors>
+          </div>
+
+        }
+
         @case (Types.SELECT_TYPE) {
           @if (value?.isDisplayedSignal()) {
 

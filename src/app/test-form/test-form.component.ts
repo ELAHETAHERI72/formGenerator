@@ -3,7 +3,6 @@ import {BaseTableComponent} from "../base-table/base-table/base-table.component"
 import {FormComponent} from "../form/form/form.component";
 import {RouterOutlet} from "@angular/router";
 import {
-  borderLine,
   CustomItem,
   formConfig,
   formGroups,
@@ -54,11 +53,6 @@ export class TestFormComponent implements OnInit {
     this.initialCall();
   }
 
-  constructor() {
-    effect(()=>{
-
-    })
-  }
   initialCall() {
     this.config = {
       classList: 'd-flex',
@@ -90,6 +84,18 @@ export class TestFormComponent implements OnInit {
           }
         }),
 
+        new inputInterface({
+          isRequired: true,
+          inputType: Types.INPUT_NUMBER_TYPE,
+          labelName: 'کد ملی',
+          name: 'nationalId',
+          id: 'nationalId',
+          bindItem: 'nationalId',
+          maxLength:10,
+          minLength:10,
+          defaultValue: '',
+          errorItems: {}
+        }),
         new CustomItem({
           isRequired: true,
           inputType: Types.CUSTOM_FORM_ITEM,
@@ -102,17 +108,17 @@ export class TestFormComponent implements OnInit {
           errorItems: {}
         }),
 
-        new CustomItem({
-          isRequired: true,
-          inputType: Types.CUSTOM_FORM_ITEM,
-          labelName: 'کد ملی',
-          name: 'nationalId',
-          id: 'nationalId',
-          bindItem: 'nationalId',
-          defaultValue: '',
-          templateName: 'customNationalTempRef',
-          errorItems: {}
-        }),
+        // new CustomItem({
+        //   isRequired: true,
+        //   inputType: Types.CUSTOM_FORM_ITEM,
+        //   labelName: 'کد ملی',
+        //   name: 'nationalId',
+        //   id: 'nationalId',
+        //   bindItem: 'nationalId',
+        //   defaultValue: '',
+        //   templateName: 'customNationalTempRef',
+        //   errorItems: {}
+        // }),
         {
           "inputType":Types.BORDER_LINE,
         } as any,

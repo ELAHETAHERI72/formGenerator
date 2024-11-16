@@ -1,5 +1,6 @@
   <app-form [formConfig]="config"
-            [tempRefs]="[{template:customStatusTempRef,id:'statusId'},{template:customNationalTempRef,id:'nationalId'}]">
+            [tempRefs]="[{template:customStatusTempRef,id:'statusId'},
+            {template:customNationalTempRef,id:'nationalId'}]">
 
   </app-form>
   <ng-template #customStatusTempRef let-value="value" let-bindItems="bindItems">

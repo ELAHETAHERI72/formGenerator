@@ -16,9 +16,9 @@ export class formItemBase {
   pattern?: string | any;
   isDisPlayed?: boolean = false;
   min?: string;
-  minLength?:number | string;
+  minLength?:number;
   max?: string;
-  maxLength?:number | string;
+  maxLength?:number;
   emitFormItems?: (item: any) => void;
 
   constructor(item: formItemBase) {
@@ -33,10 +33,10 @@ export class formItemBase {
     this.errorItems = item.errorItems;
     this.pattern = item.pattern;
     this.isDisPlayed = item.isDisPlayed;
-    this.min = item.min;
-    this.minLength = item.minLength;
-    this.max = item.max;
-    this.maxLength = item.maxLength;
+    this.min = item.min ?? undefined;
+    this.minLength = item.minLength ?? undefined;
+    this.max = item.max ?? undefined;
+    this.maxLength = item.maxLength ?? undefined;
     this.emitFormItems = item.emitFormItems;
   }
 }
@@ -51,6 +51,7 @@ export enum Types {
   CUSTOM_FORM_ITEM = 'CUSTOM_FORM_ITEM',
   BORDER_LINE = 'BORDER_LINE',
   SECTION_TITLE = 'SECTION_TITLE',
+  INPUT_NUMBER_TYPE = 'INPUT_NUMBER_TYPE',
 }
 
 export type borderLine = Pick<formItemBase, 'inputType'>;
