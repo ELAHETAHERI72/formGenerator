@@ -104,6 +104,10 @@ export class TestFormComponent implements OnInit {
           errorItems: {}
         }),
 
+        {
+          inputType:Types.BORDER_LINE
+        } as any,
+
         new CustomItem({
           isRequired: true,
           inputType: Types.CUSTOM_FORM_ITEM,
