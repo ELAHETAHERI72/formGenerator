@@ -48,7 +48,8 @@
                    (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
                    [(ngModel)]="bindItems[value.bindItem!]">
 
-            <app-show-errors [ctrl]="input6Ref.control" [patternErrorMsg]="value.errorItems.patternErrorMsg"
+            <app-show-errors [ctrl]="input6Ref.control" 
+                             [patternErrorMsg]="value.errorItems.patternErrorMsg"
                              [oneRequiredErrorMsg]="value.errorItems.oneRequiredErrorMsg"
                              [errorMessage]="value.errorItems.errorMessage"
                              [waitForTouch]="value.errorItems.waitForTouch"
