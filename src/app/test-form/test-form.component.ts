@@ -94,8 +94,12 @@ export class TestFormComponent implements OnInit {
           maxLength:10,
           minLength:10,
           defaultValue: '',
-          errorItems: {}
-        }),
+          errorItems: {
+            oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
+            waitForTouch: true,
+            showRequiredError: true,
+          }
+                }),
         new CustomItem({
           isRequired: true,
           inputType: Types.CUSTOM_FORM_ITEM,

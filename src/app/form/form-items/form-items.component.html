@@ -44,7 +44,9 @@
                    [minLength]="value.minLength"
                    [max]="value.max"
                    [maxLength]="value.maxLength"
-                   [pattern]="value.pattern" #input6Ref="ngModel"
+                   [inputMode]="'numeric'"
+                   [pattern]="value.pattern" 
+                   #input6Ref="ngModel"
                    (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
                    [(ngModel)]="bindItems[value.bindItem!]">
 
