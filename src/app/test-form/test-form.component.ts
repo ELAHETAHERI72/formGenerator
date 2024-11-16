@@ -94,7 +94,7 @@ export class TestFormComponent implements OnInit {
 
         new CustomItem({
           isRequired: true,
-          inputType: Types.CUSTOME_FORM_ITEM,
+          inputType: Types.CUSTOM_FORM_ITEM,
           labelName: 'وضعیت',
           name: 'status',
           id: 'status',
@@ -106,7 +106,7 @@ export class TestFormComponent implements OnInit {
 
         new CustomItem({
           isRequired: true,
-          inputType: Types.CUSTOME_FORM_ITEM,
+          inputType: Types.CUSTOM_FORM_ITEM,
           labelName: 'کد ملی',
           name: 'nationalId',
           id: 'nationalId',
@@ -152,8 +152,10 @@ export class TestFormComponent implements OnInit {
   }
 
   checkIsFill(value: any) {
-    if(value.$event.length !== 0){
+    if( value.$event && value.$event.length !== 0){
       this.disabledName.set(true);
+    }else {
+      this.disabledName.set(false);
     }
   }
 

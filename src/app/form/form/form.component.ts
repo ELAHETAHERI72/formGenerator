@@ -76,7 +76,7 @@ export class FormComponent {
   @Input() set formConfig(config: formConfig) {
     this._formConfig = config;
     if (config.initialCal) {
-        this.createFormItems(this.deepClone(config) as formConfig);      
+        this.createFormItems(this.deepClone(config) as formConfig);
     }
   }
 
@@ -87,7 +87,7 @@ export class FormComponent {
   }
 
   createFormItems(config: formConfig) {
-        
+
     if (config.items) {
 
       config.items?.forEach((element: inputTYpe) => {
@@ -97,7 +97,7 @@ export class FormComponent {
           this.bindItems[element?.bindItem!] = element.defaultValue ?? false;
         } else if (element.inputType == Types.FORM_GROUP) {
           this.bindItems[element.bindItem] = element.defaultValue ?? {}
-        } else if (element.inputType == Types.CUSTOME_FORM_ITEM) {
+        } else if (element.inputType == Types.CUSTOM_FORM_ITEM) {
           this.bindItems[element.bindItem] = element.defaultValue ?? '';
 
           if (this.bindItems[element.bindItem]) {
@@ -120,7 +120,7 @@ export class FormComponent {
   }
 
   customFormItemSetValue() {
-    this._formConfig.items.filter(item => item.inputType === Types.CUSTOME_FORM_ITEM).forEach(
+    this._formConfig.items.filter(item => item.inputType === Types.CUSTOM_FORM_ITEM).forEach(
       element => {
         Object.values(this._tempRefs()).map(item => {
           if (item.id == (element as CustomItem).bindItem) {

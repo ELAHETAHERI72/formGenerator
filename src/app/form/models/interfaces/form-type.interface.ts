@@ -43,8 +43,8 @@ export enum Types {
   SWITCH_TYPE = 'SWITCH_TYPE',
   DATE_TYPE = 'DATE_TYPE',
   FORM_GROUP = 'FORM_GROUP',
-  CUSTOME_FORM_ITEM = 'CUSTOME_FORM_ITEM',
-  BOREDER_LINE = 'BOREDER_LINE',
+  CUSTOM_FORM_ITEM = 'CUSTOM_FORM_ITEM',
+  BORDER_LINE = 'BORDER_LINE',
 }
 
 export class inputInterface extends formItemBase {
