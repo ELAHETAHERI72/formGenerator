@@ -5,7 +5,6 @@
       @switch (value.inputType) {
 
         @case (Types.INPUT_TYPE) {
-          {{value?.isDisplayedSignal()}}
           @if (value?.isDisplayedSignal()) {
             <div class="form-group col-3">
               <label>{{ value.labelName }}</label>

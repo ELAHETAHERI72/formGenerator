@@ -55,9 +55,9 @@ export class inputInterface extends formItemBase {
   constructor(item: inputInterface) {
     super(item);
     this.bindItem = item.bindItem;
-    this.isDisplayedSignal = item.isDisplayedSignal;
-    console.log(item.isDisplayedSignal?.(),'displayeddddd');
-
+    if (item.isDisplayedSignal?.() !== undefined) {
+      this.isDisplayedSignal = item.isDisplayedSignal;
+    }
   }
 
 }
@@ -76,11 +76,17 @@ export class CustomItem extends formItemBase {
   bindItem?: string;
   isDisplayedSignal?: WritableSignal<any> = signal(true);
 
+
   constructor(item: CustomItem) {
     super(item);
     this.template = item.template;
     this.bindItem = item.bindItem;
     this.templateName = item.templateName;
+
+    if (item.isDisplayedSignal?.()) {
+      this.isDisplayedSignal = item.isDisplayedSignal;
+    }
+
   }
 
 }
@@ -99,6 +105,10 @@ export class selectInterface extends formItemBase {
     this.changeValue$ = item.changeValue$;
     this.hasApi = item.hasApi;
     this.apiUrl = item.apiUrl;
+
+    if (item.isDisplayedSignal?.()) {
+      this.isDisplayedSignal = item.isDisplayedSignal;
+    }
   }
 
 }
@@ -114,6 +124,10 @@ export class dateInterface extends formItemBase {
     this.minDate = item.minDate;
     this.bindItem = item.bindItem;
     this.maxDate = item.maxDate;
+
+    if (item.isDisplayedSignal?.()) {
+      this.isDisplayedSignal = item.isDisplayedSignal;
+    }
   }
 
 }
@@ -125,6 +139,10 @@ export class textAreaInterface extends formItemBase {
   constructor(item: textAreaInterface) {
     super(item);
     this.bindItem = item.bindItem;
+
+    if(item.isDisplayedSignal?.()){
+      this.isDisplayedSignal = item.isDisplayedSignal;
+    }
   }
 }
 
@@ -137,6 +155,10 @@ export class switchInterface extends formItemBase {
     super(item)
     this.bindItem = item.bindItem;
     this.isSelect = item.isSelect;
+
+    if(item.isDisplayedSignal?.()){
+      this.isDisplayedSignal = item.isDisplayedSignal;
+    }
   }
 }
 
@@ -149,6 +171,11 @@ export class formGroups extends formItemBase {
     super(item)
     this.formItems = item.formItems;
     this.bindItem = item.bindItem;
+    if (item.isDisplayedSignal?.()) {
+      this.isDisplayedSignal = item.isDisplayedSignal;
+
+    }
+
   }
 }
 
