@@ -157,7 +157,7 @@ export class TestFormComponent implements OnInit {
   }
 
   checkIsFill(value: any) {
-    if( value.$event && value.$event.length !== 0){
+    if( value.$event && value.$event=='isValid'){
       this.disabledName.set(true);
     }else {
       this.disabledName.set(false);
