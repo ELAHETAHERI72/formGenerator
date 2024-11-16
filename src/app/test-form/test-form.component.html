@@ -11,7 +11,7 @@
                  bindValue="id"
                  [required]="value.isRequired"
                  [name]="value.bindItem"
-                 (ngModelChange)="changeStatus$.next($event)"
+                 (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
                  [id]="value.id"
                  #statusIdRef="ngModel"
                  [(ngModel)]="bindItems[value?.bindItem]">

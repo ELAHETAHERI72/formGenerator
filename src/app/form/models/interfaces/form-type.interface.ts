@@ -1,6 +1,6 @@
-import { BehaviorSubject, Observable } from "rxjs";
-import { NgForm } from "@angular/forms";
-import { TemplateRef } from "@angular/core";
+import {BehaviorSubject, Observable} from "rxjs";
+import {NgForm} from "@angular/forms";
+import {effect, EventEmitter, signal, TemplateRef, WritableSignal} from "@angular/core";
 
 
 export class formItemBase {
@@ -14,7 +14,9 @@ export class formItemBase {
   defaultValue?: any;
   errorItems?: ErrorInterface | any;
   pattern?: string | any;
-  isDisplayed?:boolean;
+  isDisPlayed?: boolean = false;
+  emitFormItems?: (item: any) => void;
+
   constructor(item: formItemBase) {
     this.placeholder = item.placeholder;
     this.name = item.name;
@@ -26,7 +28,9 @@ export class formItemBase {
     this.changeValue$ = item.changeValue$;
     this.errorItems = item.errorItems;
     this.pattern = item.pattern;
-    this.isDisplayed =  item.isDisplayed ?? true;
+    this.isDisPlayed = item.isDisPlayed;
+    this.emitFormItems = item.emitFormItems;
+
   }
 
 }
@@ -46,10 +50,14 @@ export enum Types {
 export class inputInterface extends formItemBase {
 
   bindItem: string;
+  isDisplayedSignal?: WritableSignal<any> = signal(true);
 
   constructor(item: inputInterface) {
     super(item);
     this.bindItem = item.bindItem;
+    this.isDisplayedSignal = item.isDisplayedSignal;
+    console.log(item.isDisplayedSignal?.(),'displayeddddd');
+
   }
 
 }
@@ -66,6 +74,7 @@ export class CustomItem extends formItemBase {
   template?: TemplateRef<string>;
   templateName?: string;
   bindItem?: string;
+  isDisplayedSignal?: WritableSignal<any> = signal(true);
 
   constructor(item: CustomItem) {
     super(item);
@@ -81,6 +90,7 @@ export class selectInterface extends formItemBase {
   bindItem?: string | number | any;
   hasApi?: boolean;
   apiUrl?: string;
+  isDisplayedSignal?: WritableSignal<any> = signal(true);
 
   constructor(item: selectInterface) {
     super(item);
@@ -97,6 +107,7 @@ export class dateInterface extends formItemBase {
   minDate?: string;
   bindItem?: string;
   maxDate?: string;
+  isDisplayedSignal?: WritableSignal<any> = signal(true);
 
   constructor(item: dateInterface) {
     super(item);
@@ -109,6 +120,7 @@ export class dateInterface extends formItemBase {
 
 export class textAreaInterface extends formItemBase {
   bindItem?: string;
+  isDisplayedSignal?: WritableSignal<any> = signal(true);
 
   constructor(item: textAreaInterface) {
     super(item);
@@ -119,6 +131,7 @@ export class textAreaInterface extends formItemBase {
 export class switchInterface extends formItemBase {
   bindItem?: any;
   isSelect?: boolean;
+  isDisplayedSignal?: WritableSignal<any> = signal(true);
 
   constructor(item: switchInterface) {
     super(item)
@@ -130,6 +143,7 @@ export class switchInterface extends formItemBase {
 export class formGroups extends formItemBase {
   formItems?: Array<inputTYpe>;
   bindItem: any;
+  isDisplayedSignal?: WritableSignal<any> = signal(true);
 
   constructor(item: formGroups) {
     super(item)
@@ -150,6 +164,7 @@ export class formConfig {
   formId?: string;
   isCheckFormValid?: boolean;
   initialCal: boolean;
+
   constructor(
     config: {
       items: Array<inputTYpe>,

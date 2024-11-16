@@ -1,4 +1,4 @@
-import {Component, inject, Input, TemplateRef} from '@angular/core';
+import {Component, EventEmitter, inject, Input, TemplateRef} from '@angular/core';
 import { CustomItem, formGroups, inputTYpe, selectInterface, Types } from '../models/interfaces/form-type.interface';
 import {ControlContainer, FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule, JsonPipe, NgIf } from '@angular/common';
@@ -69,5 +69,6 @@ export class FormItemsComponent {
   getTemplate(item:CustomItem | any){
     return item.template ? item.template : null;
   }
+
 
 }

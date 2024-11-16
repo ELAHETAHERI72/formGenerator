@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, effect, OnInit, signal, WritableSignal} from '@angular/core';
 import {BaseTableComponent} from "../base-table/base-table/base-table.component";
 import {FormComponent} from "../form/form/form.component";
 import {RouterOutlet} from "@angular/router";
@@ -48,6 +48,7 @@ export class TestFormComponent implements OnInit {
   changeStatus$ = new BehaviorSubject(null);
   changeNationalId$ = new BehaviorSubject(null);
 
+  disabledName: WritableSignal<any> = signal(false);
 
   config!: formConfig;
 
@@ -55,18 +56,22 @@ export class TestFormComponent implements OnInit {
     this.initialCall();
   }
 
+  constructor() {
+    effect(()=>{
+
+    })
+  }
   initialCall() {
     this.config = {
       classList: 'd-flex',
       formName: this.testForm,
       formId: 'testForm',
-      isCheckFormValid:false,
-      initialCal :true,
-      apiCall:'',
-      
+      isCheckFormValid: false,
+      initialCal: true,
+      apiCall: '',
+
       submitted: ((v: formModel) => {
-        console.log(v,'form');
-        
+        console.log(v, 'form');
         this.formItem = v;
       }),
 
@@ -79,10 +84,11 @@ export class TestFormComponent implements OnInit {
           placeholder: 'name',
           bindItem: 'name',
           isRequired: true,
-          errorItems:{
-            oneRequiredErrorMsg:'این فیلد اجباری می باشد',
-            waitForTouch:true,
-            showRequiredError:true,
+          isDisplayedSignal:this.disabledName,
+          errorItems: {
+            oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
+            waitForTouch: true,
+            showRequiredError: true,
           }
         }),
 
@@ -94,8 +100,8 @@ export class TestFormComponent implements OnInit {
           id: 'status',
           bindItem: 'statusId',
           defaultValue: '',
-          templateName: 'customStatusTempRef',
-          errorItems:{}
+          emitFormItems: (value: any) => this.checkIsFill(value),
+          errorItems: {}
         }),
 
         new CustomItem({
@@ -107,12 +113,12 @@ export class TestFormComponent implements OnInit {
           bindItem: 'nationalId',
           defaultValue: '',
           templateName: 'customNationalTempRef',
-          errorItems:{}
+          errorItems: {}
         }),
         // new dateInterface({
         //   id: 'fromDate',
         //   name: 'fromDate',
-        //   bindItem: 'fromDarte',
+        //   bindItem: 'fromDate',
         //   isRequired: false,
         //   inputType: Types.DATE_TYPE,
         //   labelName: 'از تاریخ'
@@ -135,7 +141,7 @@ export class TestFormComponent implements OnInit {
                 fields: [{id: 'male', name: 'مرد', value: 'مرد'}, {id: 'female', name: 'زن', value: 'زن'}],
                 bindItem: 'fullName',
                 isRequired: true,
-                errorItems:{}
+                errorItems: {}
               }),
             ]
 
@@ -143,6 +149,12 @@ export class TestFormComponent implements OnInit {
         )
       ],
     };
+  }
+
+  checkIsFill(value: any) {
+    if(value.$event.length !== 0){
+      this.disabledName.set(true);
+    }
   }
 
 }
