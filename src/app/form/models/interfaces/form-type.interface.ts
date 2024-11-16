@@ -15,6 +15,10 @@ export class formItemBase {
   errorItems?: ErrorInterface | any;
   pattern?: string | any;
   isDisPlayed?: boolean = false;
+  min?: string;
+  minLength?:number | string;
+  max?: string;
+  maxLength?:number | string;
   emitFormItems?: (item: any) => void;
 
   constructor(item: formItemBase) {
@@ -29,6 +33,10 @@ export class formItemBase {
     this.errorItems = item.errorItems;
     this.pattern = item.pattern;
     this.isDisPlayed = item.isDisPlayed;
+    this.min = item.min;
+    this.minLength = item.minLength;
+    this.max = item.max;
+    this.maxLength = item.maxLength;
     this.emitFormItems = item.emitFormItems;
   }
 }

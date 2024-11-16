@@ -8,6 +8,7 @@ import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
 import { Observable, of } from 'rxjs';
 import {ShowErrorComponent} from "../../components/show-error/show-error.component";
 import {ShowErrorsComponent} from "../show-errors/show-errors.component";
+import {Jalali} from "jalali-ts";
 
 @Component({
   selector: 'app-form-items',
@@ -71,4 +72,5 @@ export class FormItemsComponent {
   }
 
 
+  protected readonly Jalali = Jalali;
 }

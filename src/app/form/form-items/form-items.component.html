@@ -8,9 +8,8 @@
           <hr class="dotted border my-5">
         }
         @case (Types.SECTION_TITLE) {
-         <h5 class="card-title">{{value.labelName}}</h5>
+          <h5 class="card-title">{{ value.labelName }}</h5>
         }
-
         @case (Types.INPUT_TYPE) {
           @if (value?.isDisplayedSignal()) {
             <div class="form-group col-3">
@@ -18,6 +17,10 @@
               <input type="text" class="form-control"
                      [required]="value.isRequired"
                      [id]="value.id" [name]="value.name!"
+                     [min]="value.min"
+                     [minLength]="value.minLength"
+                     [max]="value.max"
+                     [maxLength]="value.maxLength"
                      [pattern]="value.pattern" #input1Ref="ngModel"
                      (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
                      [(ngModel)]="bindItems[value.bindItem!]">
@@ -39,6 +42,7 @@
               <ng-select class="custom-select"
                          (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
                          [items]="returnArray(value) |async" bindLabel="name" bindValue="id"
+
                          [required]="value.isRequired" #input2Ref="ngModel" [name]="value.bindItem" [id]="value.id"
                          [(ngModel)]="bindItems[value.bindItem!]">
               </ng-select>
@@ -57,7 +61,9 @@
               <label>{{ value.labelName }}</label>
               <textarea [name]="value.name!"
                         (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
-                        #input3Ref="ngModel" [id]="value.id" [required]="value.isRequired"
+                        #input3Ref="ngModel" [id]="value.id"
+                        [pattern]="value.pattern"
+                        [required]="value.isRequired"
                         class="form-control" [(ngModel)]="bindItems[value.bindItem!]"></textarea>
 
               <app-show-errors [ctrl]="input3Ref.control" [patternErrorMsg]="value.errorItems.patternErrorMsg"
@@ -93,8 +99,12 @@
             <div class="form-group col-3">
               <label for="">{{ value.labelName }}</label>
               <div class="datepicker-wrapper">
-                <ng-persian-datepicker [dateGregorianFormat]="'YYYY-MM-DD HH:mm:ss'" [uiYearView]="uiYearView"
-                                       [uiMonthView]="uiMonthView" [uiTodayBtnEnable]="uiTodayBtnEnable"
+                <ng-persian-datepicker [dateGregorianFormat]="'YYYY-MM-DD HH:mm:ss'"
+                                       [dateMax]="Jalali.parse(value.max!).valueOf()"
+                                       [dateMin]="Jalali.parse(value.min!).valueOf()"
+                                       [uiMonthView]="true"
+                                       [uiYearView]="true"
+                                       [uiMonthView]="uiMonthView"
                                        [timeEnable]="false">
                   <div class="input-field">
                     <input type="text" class="form-control"
