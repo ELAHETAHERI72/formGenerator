@@ -26,7 +26,7 @@
              [id]="value.id"
              [name]="value.name"
              #nationalIdRef="ngModel"
-             (ngModelChange)="changeNationalId$.next($event)"
+             (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
              [(ngModel)]="bindItems[value?.bindItem]">
     </div>
   </ng-template>

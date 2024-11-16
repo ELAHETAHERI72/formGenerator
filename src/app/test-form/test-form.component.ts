@@ -46,9 +46,6 @@ export class TestFormComponent implements OnInit {
     {id: 'notValid', name: 'غیرقابل قبول', value: 'notValid'}
   ])
 
-  changeStatus$ = new BehaviorSubject(null);
-  changeNationalId$ = new BehaviorSubject(null);
-
   disabledName: WritableSignal<any> = signal(false);
 
   config!: formConfig;
