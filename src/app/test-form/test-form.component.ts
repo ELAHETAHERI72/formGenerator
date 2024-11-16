@@ -3,6 +3,7 @@ import {BaseTableComponent} from "../base-table/base-table/base-table.component"
 import {FormComponent} from "../form/form/form.component";
 import {RouterOutlet} from "@angular/router";
 import {
+  borderLine,
   CustomItem,
   formConfig,
   formGroups,
@@ -104,10 +105,6 @@ export class TestFormComponent implements OnInit {
           errorItems: {}
         }),
 
-        {
-          inputType:Types.BORDER_LINE
-        } as any,
-
         new CustomItem({
           isRequired: true,
           inputType: Types.CUSTOM_FORM_ITEM,
@@ -119,6 +116,10 @@ export class TestFormComponent implements OnInit {
           templateName: 'customNationalTempRef',
           errorItems: {}
         }),
+        {
+          "inputType":Types.BORDER_LINE,
+        } as any,
+
         // new dateInterface({
         //   id: 'fromDate',
         //   name: 'fromDate',

@@ -4,6 +4,13 @@
 
       @switch (value.inputType) {
 
+        @case (Types.BORDER_LINE) {
+          <hr class="dotted border my-5">
+        }
+        @case (Types.SECTION_TITLE) {
+         <h3>{{value.title}}</h3>
+        }
+
         @case (Types.INPUT_TYPE) {
           @if (value?.isDisplayedSignal()) {
             <div class="form-group col-3">

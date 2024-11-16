@@ -30,11 +30,8 @@ export class formItemBase {
     this.pattern = item.pattern;
     this.isDisPlayed = item.isDisPlayed;
     this.emitFormItems = item.emitFormItems;
-
   }
-
 }
-
 
 export enum Types {
   INPUT_TYPE = 'INPUT_TYPE',
@@ -45,7 +42,10 @@ export enum Types {
   FORM_GROUP = 'FORM_GROUP',
   CUSTOM_FORM_ITEM = 'CUSTOM_FORM_ITEM',
   BORDER_LINE = 'BORDER_LINE',
+  SECTION_TITLE = 'SECTION_TITLE',
 }
+
+export type borderLine = Pick<formItemBase, 'inputType'>;
 
 export class inputInterface extends formItemBase {
 
@@ -140,7 +140,7 @@ export class textAreaInterface extends formItemBase {
     super(item);
     this.bindItem = item.bindItem;
 
-    if(item.isDisplayedSignal?.()){
+    if (item.isDisplayedSignal?.()) {
       this.isDisplayedSignal = item.isDisplayedSignal;
     }
   }
@@ -156,7 +156,7 @@ export class switchInterface extends formItemBase {
     this.bindItem = item.bindItem;
     this.isSelect = item.isSelect;
 
-    if(item.isDisplayedSignal?.()){
+    if (item.isDisplayedSignal?.()) {
       this.isDisplayedSignal = item.isDisplayedSignal;
     }
   }
@@ -179,7 +179,8 @@ export class formGroups extends formItemBase {
   }
 }
 
-export type inputTYpe = selectInterface | inputInterface | textAreaInterface | switchInterface;
+export type inputTYpe = selectInterface | inputInterface | textAreaInterface | switchInterface | CustomItem;
+
 
 export class formConfig {
   items: Array<inputTYpe>;

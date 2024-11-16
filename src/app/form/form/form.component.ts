@@ -4,26 +4,21 @@ import {
   effect,
   forwardRef,
   inject,
-  Input, Renderer2,
+  Input,
+  Renderer2,
   signal,
-  TemplateRef, ViewContainerRef,
+  TemplateRef,
+  ViewContainerRef,
   WritableSignal
 } from '@angular/core';
-import {
-  CustomItem,
-  formConfig,
-  inputTYpe,
-  Types
-} from "../models/interfaces/form-type.interface";
-import { FormsModule, NgForm, ReactiveFormsModule } from "@angular/forms";
-import { CommonModule, JsonPipe, NgIf } from "@angular/common";
-import {
-  NgSelectModule
-} from "@ng-select/ng-select";
-import { SwitchButtonComponent } from "../../components/switch-button/switch-button.component";
-import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
-import { FormItemsComponent } from "../form-items/form-items.component";
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {CustomItem, formConfig, inputTYpe, Types} from "../models/interfaces/form-type.interface";
+import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
+import {CommonModule, JsonPipe, NgIf} from "@angular/common";
+import {NgSelectModule} from "@ng-select/ng-select";
+import {SwitchButtonComponent} from "../../components/switch-button/switch-button.component";
+import {NgPersianDatepickerModule} from 'ng-persian-datepicker';
+import {FormItemsComponent} from "../form-items/form-items.component";
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-form',
@@ -52,7 +47,7 @@ export class FormComponent {
   formItems: any;
   bindItems?: any = {};
 
-  baseService:any;
+  baseService: any;
 
   _tempRefs: WritableSignal<Array<{ template: TemplateRef<any>, id: any }>> =
     signal<Array<{ template: TemplateRef<any>, id: any }>>([]);
@@ -76,7 +71,7 @@ export class FormComponent {
   @Input() set formConfig(config: formConfig) {
     this._formConfig = config;
     if (config.initialCal) {
-        this.createFormItems(this.deepClone(config) as formConfig);
+      this.createFormItems(this.deepClone(config) as formConfig);
     }
   }
 
@@ -91,23 +86,24 @@ export class FormComponent {
     if (config.items) {
 
       config.items?.forEach((element: inputTYpe) => {
+        if (!(element.inputType == Types.BORDER_LINE || element.inputType == Types.SECTION_TITLE)) {
 
-        if (element.inputType == Types.SWITCH_TYPE) {
+          if (element.inputType == Types.SWITCH_TYPE) {
 
-          this.bindItems[element?.bindItem!] = element.defaultValue ?? false;
-        } else if (element.inputType == Types.FORM_GROUP) {
-          this.bindItems[element.bindItem] = element.defaultValue ?? {}
-        } else if (element.inputType == Types.CUSTOM_FORM_ITEM) {
-          this.bindItems[element.bindItem] = element.defaultValue ?? '';
+            this.bindItems[element?.bindItem!] = element.defaultValue ?? false;
+          } else if (element.inputType == Types.FORM_GROUP) {
+            this.bindItems[element.bindItem] = element.defaultValue ?? {}
+          } else if (element.inputType == Types.CUSTOM_FORM_ITEM) {
+            this.bindItems[element.bindItem] = element.defaultValue ?? '';
 
-          if (this.bindItems[element.bindItem]) {
-            this.customFormItemSetValue();
+            if (this.bindItems[element.bindItem]) {
+              this.customFormItemSetValue();
+            }
+
+          } else {
+            this.bindItems[element?.bindItem!] = element.defaultValue ?? '';
           }
-
-        } else {
-          this.bindItems[element?.bindItem!] = element.defaultValue ?? '';
         }
-
         // if(config.apiCall){
         //   // this.baseService.
         // }
