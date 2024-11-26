@@ -109,7 +109,9 @@ export class TestFormComponent implements OnInit {
           bindItem: 'statusId',
           defaultValue: '',
           emitFormItems: (value: any) => this.checkIsFill(value),
-          errorItems: {}
+          maxLength:10,
+          errorItems: {
+          }
         }),
 
         // new CustomItem({
