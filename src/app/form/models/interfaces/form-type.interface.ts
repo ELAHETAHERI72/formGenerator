@@ -195,7 +195,9 @@ export class formConfig {
   items: Array<inputTYpe>;
   classList: string;
   formName: NgForm;
-  apiCall?: string;
+  apiCall?: {path:string,
+    method: 'get' | 'post' | 'delete' | 'put'
+  };
 
   submitted?: (items: any) => void;
   formId?: string;
@@ -211,7 +213,7 @@ export class formConfig {
       formId: string,
       isCheckFormValid: boolean,
       initialCal: boolean,
-      apiCall: string,
+      apiCall: {path:'',method:'get'},
     }) {
     this.items = config.items;
     this.classList = config.classList;

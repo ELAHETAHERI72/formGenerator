@@ -13,9 +13,8 @@ import {
 } from '@angular/core';
 import {CustomItem, formConfig, inputTYpe, Types} from "../models/interfaces/form-type.interface";
 import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
-import {CommonModule, JsonPipe, NgIf} from "@angular/common";
+import {CommonModule} from "@angular/common";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {SwitchButtonComponent} from "../../components/switch-button/switch-button.component";
 import {NgPersianDatepickerModule} from 'ng-persian-datepicker';
 import {FormItemsComponent} from "../form-items/form-items.component";
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
@@ -25,11 +24,8 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
   standalone: true,
   imports: [
     FormsModule,
-    JsonPipe,
-    NgIf,
     CommonModule,
     NgSelectModule,
-    SwitchButtonComponent,
     NgPersianDatepickerModule,
     ReactiveFormsModule,
     forwardRef(() => FormItemsComponent)
@@ -104,9 +100,11 @@ export class FormComponent {
             this.bindItems[element?.bindItem!] = element.defaultValue ?? '';
           }
         }
-        // if(config.apiCall){
-        //   // this.baseService.
-        // }
+        if(config.apiCall && config.apiCall.path.length){
+           console.log('here api call');
+          //  https://mocki.io/v1/d65c6f4c-3e1d-4201-b7dd-42d168cf4400
+           
+         }
 
       });
       this.formConfig.submitted?.(this.deepClone(this.bindItems));

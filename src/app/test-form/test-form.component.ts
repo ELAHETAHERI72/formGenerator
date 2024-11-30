@@ -14,7 +14,7 @@ import {formModel} from "../app.component";
 import {Test2Component} from "../test2/test2.component";
 import {FormsModule, NgForm} from "@angular/forms";
 import {NgSelectModule} from '@ng-select/ng-select';
-import {BehaviorSubject, of} from 'rxjs';
+import { of} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
 
 @Component({
@@ -60,7 +60,7 @@ export class TestFormComponent implements OnInit {
       formId: 'testForm',
       isCheckFormValid: true,
       initialCal: true,
-      apiCall: '',
+      apiCall: {path:'path/flunchi',method:'get'},
 
       submitted: ((v: formModel) => {
         console.log(v, 'form');
