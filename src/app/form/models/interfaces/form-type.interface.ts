@@ -48,6 +48,7 @@ export enum Types {
   SWITCH_TYPE = 'SWITCH_TYPE',
   DATE_TYPE = 'DATE_TYPE',
   FORM_GROUP = 'FORM_GROUP',
+  FORM_ARRAY = 'FORM_ARRAY',
   CUSTOM_FORM_ITEM = 'CUSTOM_FORM_ITEM',
   BORDER_LINE = 'BORDER_LINE',
   SECTION_TITLE = 'SECTION_TITLE',
@@ -179,6 +180,28 @@ export class formGroups extends formItemBase {
     super(item)
     this.formItems = item.formItems;
     this.bindItem = item.bindItem;
+    if (item.isDisplayedSignal?.()) {
+      this.isDisplayedSignal = item.isDisplayedSignal;
+
+    }
+
+  }
+}
+
+export class formArray extends formItemBase {
+
+  hasAddButton?:boolean;
+  formArrayFields?:Array<{
+    formItems?: Array<inputTYpe>;
+    bindItem: any;
+  }>
+  isDisplayedSignal?: WritableSignal<any> = signal(true);
+
+  constructor(item: formArray) {
+    super(item)
+    // this.formItems = item.formItems;
+    // this.bindItem = item.bindItem;
+    // this.hasAddButton = item.hasAddButton;
     if (item.isDisplayedSignal?.()) {
       this.isDisplayedSignal = item.isDisplayedSignal;
 

@@ -3,7 +3,7 @@ import {BaseTableComponent} from "../base-table/base-table/base-table.component"
 import {FormComponent} from "../form/form/form.component";
 import {RouterOutlet} from "@angular/router";
 import {
-  CustomItem,
+  CustomItem, formArray,
   formConfig,
   formGroups,
   inputInterface,
@@ -168,7 +168,8 @@ export class TestFormComponent implements OnInit {
             ]
 
           }
-        )
+        ),
+        // new s
       ],
     };
   }

@@ -23,7 +23,7 @@
                      [(ngModel)]="bindItems[value.bindItem!]">
 
               <app-show-errors [ctrl]="input1Ref.control"
-               [patternErrorMsg]="value.errorItems?.patternErrorMsg"
+                               [patternErrorMsg]="value.errorItems?.patternErrorMsg"
                                [oneRequiredErrorMsg]="value.errorItems?.oneRequiredErrorMsg"
                                [errorMessage]="value.errorItems?.errorMessage"
                                [waitForTouch]="value.errorItems?.waitForTouch"
@@ -32,8 +32,7 @@
 
           }
         }
-
-        @case(Types.INPUT_NUMBER_TYPE){
+        @case (Types.INPUT_NUMBER_TYPE) {
           <div class="form-group col-3">
             <label>{{ value.labelName }}</label>
             <input type="text" class="form-control"
@@ -59,7 +58,6 @@
           </div>
 
         }
-
         @case (Types.SELECT_TYPE) {
           @if (value?.isDisplayedSignal()) {
 
@@ -162,7 +160,19 @@
 
             <label for="">{{ value.labelName }}</label>
             <app-form-items [items]="getFormGroup(value)"
-            [bindItems]="bindItems[value.bindItem]"></app-form-items>
+                            [bindItems]="bindItems[value.bindItem]"></app-form-items>
+          }
+        }
+        @case (Types.FORM_ARRAY) {
+          @if (value?.isDisplayedSignal()) {
+            <label for="">{{ value.labelName }}</label>
+            @if (value.hasAddButton) {
+              <button class="btn btn-primary" (click)="addFormItem()">افزودن</button>
+            }
+            @for (formArrayItem of value.formArrayFields) {
+              <app-form-items [items]="getFormGroup(formArrayItem)"
+                              [bindItems]="bindItems[formArrayItem.bindItem]"></app-form-items>
+            }
           }
         }
       }
