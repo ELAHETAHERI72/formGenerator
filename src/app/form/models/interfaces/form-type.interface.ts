@@ -72,11 +72,11 @@ export class inputInterface extends formItemBase {
 }
 
 export interface ErrorInterface {
-  patternErrorMsg: string;
-  oneRequiredErrorMsg: string;
-  errorMessage: string;
-  waitForTouch: boolean;
-  showRequiredError: boolean;
+  patternErrorMsg?: string;
+  oneRequiredErrorMsg?: string;
+  errorMessage?: string;
+  waitForTouch?: boolean;
+  showRequiredError?: boolean;
 }
 
 export class CustomItem extends formItemBase {
@@ -84,7 +84,6 @@ export class CustomItem extends formItemBase {
   templateName?: string;
   bindItem?: string;
   isDisplayedSignal?: WritableSignal<any> = signal(true);
-
 
   constructor(item: CustomItem) {
     super(item);
@@ -189,7 +188,6 @@ export class formGroups extends formItemBase {
 }
 
 export type inputTYpe = selectInterface | inputInterface | textAreaInterface | switchInterface | CustomItem;
-
 
 export class formConfig {
   items: Array<inputTYpe>;
