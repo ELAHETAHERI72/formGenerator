@@ -3,7 +3,7 @@ import {BaseTableComponent} from "../base-table/base-table/base-table.component"
 import {FormComponent} from "../form/form/form.component";
 import {RouterOutlet} from "@angular/router";
 import {
-  CustomItem,
+  CustomItem, formArray,
   formConfig,
   formGroups,
   inputInterface,
@@ -76,7 +76,7 @@ export class TestFormComponent implements OnInit {
           placeholder: 'name',
           bindItem: 'name',
           isRequired: true,
-          isDisplayedSignal:this.disabledName,
+          isDisplayedSignal: this.disabledName,
           errorItems: {
             oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
             waitForTouch: true,
@@ -91,15 +91,15 @@ export class TestFormComponent implements OnInit {
           name: 'nationalId',
           id: 'nationalId',
           bindItem: 'nationalId',
-          maxLength:10,
-          minLength:10,
+          maxLength: 10,
+          minLength: 10,
           defaultValue: '',
           errorItems: {
             oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
             waitForTouch: true,
             showRequiredError: true,
           }
-                }),
+        }),
         new CustomItem({
           isRequired: true,
           inputType: Types.CUSTOM_FORM_ITEM,
@@ -109,28 +109,33 @@ export class TestFormComponent implements OnInit {
           bindItem: 'statusId',
           defaultValue: '',
           emitFormItems: (value: any) => this.checkIsFill(value),
-          maxLength:10,
-          errorItems: {
-          }
+          errorItems: {}
         }),
-
-        // new CustomItem({
-        //   isRequired: true,
-        //   inputType: Types.CUSTOM_FORM_ITEM,
-        //   labelName: 'کد ملی',
-        //   name: 'nationalId',
-        //   id: 'nationalId',
-        //   bindItem: 'nationalId',
-        //   defaultValue: '',
-        //   templateName: 'customNationalTempRef',
-        //   errorItems: {}
-        // }),
+        new selectInterface({
+          id: 'city',
+          inputType: Types.SELECT_TYPE,
+          labelName: 'شهر',
+          name: 'city',
+          placeholder: 'شهر',
+          isRequired: true,
+          // errorItems: {},
+          fields: of([
+            {"name": "تبريز", "id": 1},
+            {"name": "مراغه", "id": 2},
+            {"name": "ميانه", "id": 3},
+            {"name": "شبستر", "id": 4},
+            {"name": "مرند", "id": 5},
+            {"name": "جلفا", "id": 6},
+            {"name": "سراب", "id": 7}
+          ]),
+          bindItem: 'cityId'
+        }),
         {
-          "inputType":Types.BORDER_LINE,
+          "inputType": Types.BORDER_LINE,
         } as any,
         {
-          "inputType":Types.SECTION_TITLE,
-          labelName:'اطلاعات'
+          "inputType": Types.SECTION_TITLE,
+          labelName: 'اطلاعات'
         } as any,
         // new dateInterface({
         //   id: 'fromDate',
@@ -163,15 +168,16 @@ export class TestFormComponent implements OnInit {
             ]
 
           }
-        )
+        ),
+        // new s
       ],
     };
   }
 
   checkIsFill(value: any) {
-    if( value.$event && value.$event=='isValid'){
+    if (value.$event && value.$event == 'isValid') {
       this.disabledName.set(true);
-    }else {
+    } else {
       this.disabledName.set(false);
     }
   }

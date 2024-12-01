@@ -70,4 +70,8 @@ export class FormItemsComponent {
 
 
   protected readonly Jalali = Jalali;
+
+  addFormItem() {
+
+  }
 }

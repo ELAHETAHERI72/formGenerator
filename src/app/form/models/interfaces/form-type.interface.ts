@@ -48,6 +48,7 @@ export enum Types {
   SWITCH_TYPE = 'SWITCH_TYPE',
   DATE_TYPE = 'DATE_TYPE',
   FORM_GROUP = 'FORM_GROUP',
+  FORM_ARRAY = 'FORM_ARRAY',
   CUSTOM_FORM_ITEM = 'CUSTOM_FORM_ITEM',
   BORDER_LINE = 'BORDER_LINE',
   SECTION_TITLE = 'SECTION_TITLE',
@@ -72,11 +73,11 @@ export class inputInterface extends formItemBase {
 }
 
 export interface ErrorInterface {
-  patternErrorMsg: string;
-  oneRequiredErrorMsg: string;
-  errorMessage: string;
-  waitForTouch: boolean;
-  showRequiredError: boolean;
+  patternErrorMsg?: string;
+  oneRequiredErrorMsg?: string;
+  errorMessage?: string;
+  waitForTouch?: boolean;
+  showRequiredError?: boolean;
 }
 
 export class CustomItem extends formItemBase {
@@ -84,7 +85,6 @@ export class CustomItem extends formItemBase {
   templateName?: string;
   bindItem?: string;
   isDisplayedSignal?: WritableSignal<any> = signal(true);
-
 
   constructor(item: CustomItem) {
     super(item);
@@ -188,8 +188,29 @@ export class formGroups extends formItemBase {
   }
 }
 
-export type inputTYpe = selectInterface | inputInterface | textAreaInterface | switchInterface | CustomItem;
+export class formArray extends formItemBase {
 
+  hasAddButton?:boolean;
+  formArrayFields?:Array<{
+    formItems?: Array<inputTYpe>;
+    bindItem: any;
+  }>
+  isDisplayedSignal?: WritableSignal<any> = signal(true);
+
+  constructor(item: formArray) {
+    super(item)
+    // this.formItems = item.formItems;
+    // this.bindItem = item.bindItem;
+    // this.hasAddButton = item.hasAddButton;
+    if (item.isDisplayedSignal?.()) {
+      this.isDisplayedSignal = item.isDisplayedSignal;
+
+    }
+
+  }
+}
+
+export type inputTYpe = selectInterface | inputInterface | textAreaInterface | switchInterface | CustomItem;
 
 export class formConfig {
   items: Array<inputTYpe>;
