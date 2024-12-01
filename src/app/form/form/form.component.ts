@@ -80,7 +80,6 @@ export class FormComponent {
   createFormItems(config: formConfig) {
 
     if (config.items) {
-
       config.items?.forEach((element: inputTYpe) => {
         if (!(element.inputType == Types.BORDER_LINE || element.inputType == Types.SECTION_TITLE)) {
 
@@ -89,7 +88,11 @@ export class FormComponent {
             this.bindItems[element?.bindItem!] = element.defaultValue ?? false;
           } else if (element.inputType == Types.FORM_GROUP) {
             this.bindItems[element.bindItem] = element.defaultValue ?? {}
-          } else if (element.inputType == Types.CUSTOM_FORM_ITEM) {
+          }
+          else if (element.inputType == Types.FORM_ARRAY) {
+            this.bindItems[element.bindItem] = element.defaultValue ?? []
+          }
+          else if (element.inputType == Types.CUSTOM_FORM_ITEM) {
             this.bindItems[element.bindItem] = element.defaultValue ?? '';
 
             if (this.bindItems[element.bindItem]) {

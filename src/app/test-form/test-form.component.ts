@@ -169,7 +169,63 @@ export class TestFormComponent implements OnInit {
 
           }
         ),
-        // new s
+
+        {
+          "inputType": Types.BORDER_LINE,
+        } as any,
+
+        {
+          "inputType": Types.SECTION_TITLE,
+          labelName: 'آرایه تستی'
+        } as any,
+
+        new formArray({
+          hasAddButton:true,
+          inputType: Types.FORM_ARRAY,
+          id: 'information',
+          labelName: '',
+          name: 'information',
+          isRequired: true,
+          bindItem:'information',
+          formArrayFields:[
+              {
+                inputType: Types.FORM_GROUP,
+                id: 'information',
+                labelName: '',
+                bindItem: 'information',
+                name: 'information',
+                isRequired: true,
+                formItems: [
+                  new selectInterface({
+                    id: 'information',
+                    inputType: Types.SELECT_TYPE,
+                    labelName: 'اطلاعات فردی',
+                    name: 'information',
+                    placeholder: 'اطلاعات فردی',
+                    fields: [{id: 'male', name: 'مراد', value: 'مراد'}, {id: 'female', name: 'جمیله', value: 'جمیله'}],
+                    bindItem: 'information',
+                    isRequired: true,
+                    errorItems: {}
+                  }),
+                  new inputInterface({
+                    id: 'name',
+                    inputType: Types.INPUT_TYPE,
+                    labelName: 'نام',
+                    name: 'name',
+                    placeholder: 'name',
+                    bindItem: 'name',
+                    isRequired: true,
+                    errorItems: {
+                      oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
+                      waitForTouch: true,
+                      showRequiredError: true,
+                    }
+                  }),
+                ]
+              }
+          ]
+
+        })
       ],
     };
   }

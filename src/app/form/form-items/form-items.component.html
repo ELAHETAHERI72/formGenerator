@@ -166,10 +166,12 @@
         @case (Types.FORM_ARRAY) {
           @if (value?.isDisplayedSignal()) {
             <label for="">{{ value.labelName }}</label>
-            @if (value.hasAddButton) {
-              <button class="btn btn-primary" (click)="addFormItem()">افزودن</button>
+            @if (getFormArray(value,'hasAddButton')) {
+              <div class=''>
+                <button class="btn btn-primary" type="button" (click)="addFormItem(value)">افزودن</button>
+              </div>
             }
-            @for (formArrayItem of value.formArrayFields) {
+            @for (formArrayItem of getFormArray(value,'formArrayFields');track formArrayItem) {
               <app-form-items [items]="getFormGroup(formArrayItem)"
                               [bindItems]="bindItems[formArrayItem.bindItem]"></app-form-items>
             }
