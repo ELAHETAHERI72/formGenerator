@@ -207,6 +207,20 @@ export class TestFormComponent implements OnInit {
                     isRequired: true,
                     errorItems: {}
                   }),
+                  new inputInterface({
+                    id: 'name',
+                    inputType: Types.INPUT_TYPE,
+                    labelName: 'نام',
+                    name: 'name',
+                    placeholder: 'name',
+                    bindItem: 'name',
+                    isRequired: true,
+                    errorItems: {
+                      oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
+                      waitForTouch: true,
+                      showRequiredError: true,
+                    }
+                  }),
                 ]
               }
           ]
