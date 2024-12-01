@@ -1,5 +1,12 @@
 import {Component, EventEmitter, inject, Input, TemplateRef} from '@angular/core';
-import { CustomItem, formGroups, inputTYpe, selectInterface, Types } from '../models/interfaces/form-type.interface';
+import {
+  CustomItem,
+  formArray,
+  formGroups,
+  inputTYpe,
+  selectInterface,
+  Types
+} from '../models/interfaces/form-type.interface';
 import {ControlContainer, FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule, NgIf } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -68,10 +75,13 @@ export class FormItemsComponent {
     return item.template ? item.template : null;
   }
 
+  getFormArray(item:formArray,formField:string){
+    return item[formField as keyof formArray] ? item[formField as keyof formArray]  : null;
+  }
 
   protected readonly Jalali = Jalali;
 
-  addFormItem() {
-
+  addFormItem(formItem:any) {
+    console.log(formItem,'formItem');
   }
 }

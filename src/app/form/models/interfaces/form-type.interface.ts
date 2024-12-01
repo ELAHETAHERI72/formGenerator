@@ -173,7 +173,7 @@ export class switchInterface extends formItemBase {
 
 export class formGroups extends formItemBase {
   formItems?: Array<inputTYpe>;
-  bindItem: any;
+  bindItem?: any;
   isDisplayedSignal?: WritableSignal<any> = signal(true);
 
   constructor(item: formGroups) {
@@ -182,26 +182,20 @@ export class formGroups extends formItemBase {
     this.bindItem = item.bindItem;
     if (item.isDisplayedSignal?.()) {
       this.isDisplayedSignal = item.isDisplayedSignal;
-
     }
-
   }
 }
 
 export class formArray extends formItemBase {
-
   hasAddButton?:boolean;
-  formArrayFields?:Array<{
-    formItems?: Array<inputTYpe>;
-    bindItem: any;
-  }>
+  formArrayFields?:Array<formGroups>;
   isDisplayedSignal?: WritableSignal<any> = signal(true);
-
+  bindItem?: any;
   constructor(item: formArray) {
     super(item)
-    // this.formItems = item.formItems;
-    // this.bindItem = item.bindItem;
-    // this.hasAddButton = item.hasAddButton;
+    this.hasAddButton = item.hasAddButton;
+    this.formArrayFields = item.formArrayFields;
+    this.bindItem = item.bindItem;
     if (item.isDisplayedSignal?.()) {
       this.isDisplayedSignal = item.isDisplayedSignal;
 
