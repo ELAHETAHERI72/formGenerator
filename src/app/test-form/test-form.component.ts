@@ -183,8 +183,8 @@ export class TestFormComponent implements OnInit {
           hasAddButton:true,
           inputType: Types.FORM_ARRAY,
           id: 'information',
-          labelName: '',
           name: 'information',
+          labelName: '',
           isRequired: true,
           bindItem:'information',
           formArrayFields:[

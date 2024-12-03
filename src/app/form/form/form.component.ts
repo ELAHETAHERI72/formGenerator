@@ -11,7 +11,7 @@ import {
   ViewContainerRef,
   WritableSignal
 } from '@angular/core';
-import {CustomItem, formConfig, inputTYpe, Types} from "../models/interfaces/form-type.interface";
+import {CustomItem, formArray, formConfig, inputTYpe, Types} from "../models/interfaces/form-type.interface";
 import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule, JsonPipe, NgIf} from "@angular/common";
 import {NgSelectModule} from "@ng-select/ng-select";
@@ -94,7 +94,13 @@ export class FormComponent {
             this.bindItems[element.bindItem] = element.defaultValue ?? {}
           }
           else if (element.inputType == Types.FORM_ARRAY) {
-            this.bindItems[element.bindItem] = element.defaultValue ?? []
+            this.bindItems[element.bindItem] = <Array<any>>element.defaultValue ?? [];
+            (element as formArray).formArrayFields?.map(field=> {
+              this.bindItems[element.bindItem][field.bindItem] = field.defaultValue ?? {};
+
+            })
+
+
           }
           else if (element.inputType == Types.CUSTOM_FORM_ITEM) {
             this.bindItems[element.bindItem] = element.defaultValue ?? '';
