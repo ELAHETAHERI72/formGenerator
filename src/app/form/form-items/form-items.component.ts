@@ -40,8 +40,9 @@ export class FormItemsComponent {
   _bindItems: any = {};
 
   @Input() set bindItems(bindItem: any) {
-    console.log(bindItem, 'bbb');
-    this._bindItems = bindItem;
+    if(bindItem){
+      this._bindItems = bindItem;
+    }
   };
 
   get bindItems(){
@@ -62,7 +63,7 @@ export class FormItemsComponent {
 
   @Input() set items(config: Array<inputTYpe>) {
     this._items = config;
-    this.bindItems = this.createModel(config);
+    // this.bindItems = this.createModel(config);
   }
 
   get items() {
@@ -94,48 +95,6 @@ export class FormItemsComponent {
 
   addFormItem(formItem: any) {
     console.log(formItem, 'formItem');
-  }
-
-  createModel(items: Array<inputTYpe>) {
-    let formDto: any = {};
-    items?.forEach((element: inputTYpe) => {
-      if (!(element.inputType == Types.BORDER_LINE || element.inputType == Types.SECTION_TITLE)) {
-
-        if (element.inputType == Types.SWITCH_TYPE) {
-
-          formDto[element?.bindItem!] = element.defaultValue ?? false;
-        }
-        else if(element.inputType == Types.SELECT_TYPE){
-          formDto[element.bindItem] = element.defaultValue ?? '';
-
-        }
-        else if (element.inputType == Types.CUSTOM_FORM_ITEM) {
-          formDto[element.bindItem] = element.defaultValue ?? '';
-
-          // if (formDto[element.bindItem]) {
-          //   this.customFormItemSetValue();
-          // }
-
-        }
-        else if (element.inputType == Types.FORM_GROUP) {
-          formDto[element.bindItem] = this.createModel((element as formGroups).formItems) ?? {};
-
-        } else if (element.inputType == Types.FORM_ARRAY) {
-          formDto[element.bindItem] = <Array<any>>element.defaultValue ?? [];
-          (element as formArray).formArrayFields?.map(field => {
-            formDto[element.bindItem].push(this.createModel(field.formItems));
-          })
-        }
-        else {
-          formDto[element?.bindItem!] = element.defaultValue ?? '';
-        }
-      }
-      // if(config.apiCall){
-      //   // this.baseService.
-      // }
-
-    });
-    return formDto;
   }
 
 }

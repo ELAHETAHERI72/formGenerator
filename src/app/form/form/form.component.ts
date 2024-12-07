@@ -95,20 +95,22 @@ export class FormComponent {
         if (element.inputType == Types.SWITCH_TYPE) {
 
           formDto[element?.bindItem!] = element.defaultValue ?? false;
-        }
-        else if(element.inputType == Types.SELECT_TYPE){
+        } else if (element.inputType == Types.SELECT_TYPE) {
           formDto[element.bindItem] = element.defaultValue ?? '';
 
-        }
-        else if (element.inputType == Types.CUSTOM_FORM_ITEM) {
+        } else if (element.inputType == Types.CUSTOM_FORM_ITEM) {
           formDto[element.bindItem] = element.defaultValue ?? '';
 
           if (formDto[element.bindItem]) {
             this.customFormItemSetValue();
           }
 
+        } else {
+          formDto[element?.bindItem!] = element.defaultValue ?? '';
         }
-        else if (element.inputType == Types.FORM_GROUP) {
+      }
+      if (element.inputType == Types.FORM_GROUP || element.inputType == Types.FORM_ARRAY) {
+        if (element.inputType == Types.FORM_GROUP) {
           formDto[element.bindItem] = this.createModel((element as formGroups).formItems) ?? {};
 
         } else if (element.inputType == Types.FORM_ARRAY) {
@@ -116,9 +118,6 @@ export class FormComponent {
           (element as formArray).formArrayFields?.map(field => {
             formDto[element.bindItem].push(this.createModel(field.formItems));
           })
-        }
-        else {
-          formDto[element?.bindItem!] = element.defaultValue ?? '';
         }
       }
       // if(config.apiCall){
@@ -167,7 +166,7 @@ export class FormComponent {
       this.formConfig.submitted?.(this.deepClone(this.bindItems));
     }
 
-    console.log(this.formItems,'formItems');
+    console.log(this.formItems, 'formItems');
 
   }
 
