@@ -64,7 +64,7 @@ export class TestFormComponent implements OnInit {
 
       submitted: ((v: formModel) => {
         console.log(v, 'form');
-        this.formItem = v;
+        // this.formItem = v;
       }),
 
       items: [
@@ -161,7 +161,7 @@ export class TestFormComponent implements OnInit {
                 name: 'gender',
                 placeholder: 'جنسیت',
                 fields: [{id: 'male', name: 'مرد', value: 'مرد'}, {id: 'female', name: 'زن', value: 'زن'}],
-                bindItem: 'fullName',
+                bindItem: 'gender',
                 isRequired: true,
                 errorItems: {}
               }),
@@ -197,13 +197,13 @@ export class TestFormComponent implements OnInit {
                 isRequired: true,
                 formItems: [
                   new selectInterface({
-                    id: 'information',
+                    id: 'info',
                     inputType: Types.SELECT_TYPE,
                     labelName: 'اطلاعات فردی',
-                    name: 'information',
+                    name: 'info',
                     placeholder: 'اطلاعات فردی',
                     fields: [{id: 'male', name: 'مراد', value: 'مراد'}, {id: 'female', name: 'جمیله', value: 'جمیله'}],
-                    bindItem: 'information',
+                    bindItem: 'info',
                     isRequired: true,
                     errorItems: {}
                   }),

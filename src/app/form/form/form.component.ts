@@ -11,7 +11,14 @@ import {
   ViewContainerRef,
   WritableSignal
 } from '@angular/core';
-import {CustomItem, formArray, formConfig, inputTYpe, Types} from "../models/interfaces/form-type.interface";
+import {
+  CustomItem,
+  formArray,
+  formConfig,
+  formGroups,
+  inputTYpe,
+  Types
+} from "../models/interfaces/form-type.interface";
 import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule, JsonPipe, NgIf} from "@angular/common";
 import {NgSelectModule} from "@ng-select/ng-select";
@@ -75,52 +82,92 @@ export class FormComponent {
     }
   }
 
-
   submitApiForm(form: NgForm) {
     this.customFormItemSetValue();
     this.formConfig.submitted?.(this.deepClone(this.bindItems));
   }
 
-  createFormItems(config: formConfig) {
+  createModel(items: Array<inputTYpe>) {
+    let formDto: any = {};
+    items?.forEach((element: inputTYpe) => {
+      if (!(element.inputType == Types.BORDER_LINE || element.inputType == Types.SECTION_TITLE)) {
 
-    if (config.items) {
-      config.items?.forEach((element: inputTYpe) => {
-        if (!(element.inputType == Types.BORDER_LINE || element.inputType == Types.SECTION_TITLE)) {
+        if (element.inputType == Types.SWITCH_TYPE) {
 
-          if (element.inputType == Types.SWITCH_TYPE) {
-
-            this.bindItems[element?.bindItem!] = element.defaultValue ?? false;
-          } else if (element.inputType == Types.FORM_GROUP) {
-            this.bindItems[element.bindItem] = element.defaultValue ?? {}
-          }
-          else if (element.inputType == Types.FORM_ARRAY) {
-            this.bindItems[element.bindItem] = <Array<any>>element.defaultValue ?? [];
-            (element as formArray).formArrayFields?.map(field=> {
-              this.bindItems[element.bindItem][field.bindItem] = field.defaultValue ?? {};
-
-            })
-
-
-          }
-          else if (element.inputType == Types.CUSTOM_FORM_ITEM) {
-            this.bindItems[element.bindItem] = element.defaultValue ?? '';
-
-            if (this.bindItems[element.bindItem]) {
-              this.customFormItemSetValue();
-            }
-
-          } else {
-            this.bindItems[element?.bindItem!] = element.defaultValue ?? '';
-          }
+          formDto[element?.bindItem!] = element.defaultValue ?? false;
         }
-        console.log(this.bindItems,'bindItems');
-        // if(config.apiCall){
-        //   // this.baseService.
-        // }
-      });
-      this.formConfig.submitted?.(this.deepClone(this.bindItems));
+        else if(element.inputType == Types.SELECT_TYPE){
+          formDto[element.bindItem] = element.defaultValue ?? '';
 
+        }
+        else if (element.inputType == Types.CUSTOM_FORM_ITEM) {
+          formDto[element.bindItem] = element.defaultValue ?? '';
+
+          if (formDto[element.bindItem]) {
+            this.customFormItemSetValue();
+          }
+
+        }
+        else if (element.inputType == Types.FORM_GROUP) {
+          formDto[element.bindItem] = this.createModel((element as formGroups).formItems) ?? {};
+
+        } else if (element.inputType == Types.FORM_ARRAY) {
+          formDto[element.bindItem] = <Array<any>>element.defaultValue ?? [];
+          (element as formArray).formArrayFields?.map(field => {
+            formDto[element.bindItem].push(this.createModel(field.formItems));
+          })
+        }
+        else {
+          formDto[element?.bindItem!] = element.defaultValue ?? '';
+        }
+      }
+      // if(config.apiCall){
+      //   // this.baseService.
+      // }
+
+    });
+    return formDto;
+  }
+
+  createFormItems(config: formConfig) {
+    if (config.items.length !== 0) {
+      // config.items?.forEach((element: inputTYpe) => {
+      //   if (!(element.inputType == Types.BORDER_LINE || element.inputType == Types.SECTION_TITLE)) {
+      //
+      //     if (element.inputType == Types.SWITCH_TYPE) {
+      //
+      //       this.bindItems[element?.bindItem!] = element.defaultValue ?? false;
+      //     } else if (element.inputType == Types.FORM_GROUP) {
+      //       this.bindItems[element.bindItem] = element.defaultValue ?? {}
+      //     } else if (element.inputType == Types.FORM_ARRAY) {
+      //       this.bindItems[element.bindItem] = <Array<any>>element.defaultValue ?? [];
+      //       (element as formArray).formArrayFields?.map(field => {
+      //         // this.bindItems[element.bindItem][field.bindItem] = field.defaultValue ?? {};
+      //         this.bindItems[element.bindItem].push(field.defaultValue ?? {});
+      //
+      //       })
+      //
+      //     } else if (element.inputType == Types.CUSTOM_FORM_ITEM) {
+      //       this.bindItems[element.bindItem] = element.defaultValue ?? '';
+      //
+      //       if (this.bindItems[element.bindItem]) {
+      //         this.customFormItemSetValue();
+      //       }
+      //
+      //     } else {
+      //       this.bindItems[element?.bindItem!] = element.defaultValue ?? '';
+      //     }
+      //   }
+      //   console.log(this.bindItems, 'bindItems');
+      //   // if(config.apiCall){
+      //   //   // this.baseService.
+      //   // }
+      // });
+      this.formItems = this.createModel(config.items);
+      this.formConfig.submitted?.(this.deepClone(this.bindItems));
     }
+
+    console.log(this.formItems,'formItems');
 
   }
 

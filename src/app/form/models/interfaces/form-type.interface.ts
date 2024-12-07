@@ -172,7 +172,7 @@ export class switchInterface extends formItemBase {
 }
 
 export class formGroups extends formItemBase {
-  formItems?: Array<inputTYpe>;
+  formItems: Array<inputTYpe>;
   bindItem?: any;
   isDisplayedSignal?: WritableSignal<any> = signal(true);
 

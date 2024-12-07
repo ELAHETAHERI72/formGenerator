@@ -8,11 +8,11 @@ import {
   Types
 } from '../models/interfaces/form-type.interface';
 import {ControlContainer, FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
-import { CommonModule, NgIf } from '@angular/common';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { SwitchButtonComponent } from '../../components/switch-button/switch-button.component';
-import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
-import { Observable, of } from 'rxjs';
+import {CommonModule, NgIf} from '@angular/common';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {SwitchButtonComponent} from '../../components/switch-button/switch-button.component';
+import {NgPersianDatepickerModule} from 'ng-persian-datepicker';
+import {Observable, of} from 'rxjs';
 import {ShowErrorsComponent} from "../show-errors/show-errors.component";
 import {Jalali} from "jalali-ts";
 
@@ -31,18 +31,28 @@ import {Jalali} from "jalali-ts";
   ],
   templateUrl: './form-items.component.html',
   styleUrl: './form-items.component.scss',
-    viewProviders: [{provide: ControlContainer, useExisting: NgForm}]
+  viewProviders: [{provide: ControlContainer, useExisting: NgForm}]
 })
 
 export class FormItemsComponent {
 
   _items: Array<inputTYpe> = [];
-  @Input() bindItems?: any = {};
-  @Input() templateRefs!:Array<TemplateRef<any>>;
+  _bindItems: any = {};
+
+  @Input() set bindItems(bindItem: any) {
+    console.log(bindItem, 'bbb');
+    this._bindItems = bindItem;
+  };
+
+  get bindItems(){
+    return this._bindItems;
+  }
+
+  @Input() templateRefs!: Array<TemplateRef<any>>;
 
   Types = Types;
 
- protected ControlContainer = inject(ControlContainer);
+  protected ControlContainer = inject(ControlContainer);
 
   // ng-persian variables
   uiYearView: boolean = true;
@@ -52,6 +62,7 @@ export class FormItemsComponent {
 
   @Input() set items(config: Array<inputTYpe>) {
     this._items = config;
+    this.bindItems = this.createModel(config);
   }
 
   get items() {
@@ -59,7 +70,7 @@ export class FormItemsComponent {
   }
 
   returnArray(_t7: selectInterface | any): Observable<Array<any>> {
-    if ( _t7 && typeof _t7.fields.subscribe === 'function') {
+    if (_t7 && typeof _t7.fields.subscribe === 'function') {
       return _t7.fields;
     } else {
       return of(_t7.fields); // wrap the array in an Observable
@@ -71,17 +82,60 @@ export class FormItemsComponent {
     return _t7.formItems;
   }
 
-  getTemplate(item:CustomItem | any){
+  getTemplate(item: CustomItem | any) {
     return item.template ? item.template : null;
   }
 
-  getFormArray(item:formArray,formField:string){
-    return item[formField as keyof formArray] ? item[formField as keyof formArray]  : null;
+  getFormArray(item: formArray, formField: string) {
+    return item[formField as keyof formArray] ? item[formField as keyof formArray] : null;
   }
 
   protected readonly Jalali = Jalali;
 
-  addFormItem(formItem:any) {
-    console.log(formItem,'formItem');
+  addFormItem(formItem: any) {
+    console.log(formItem, 'formItem');
   }
+
+  createModel(items: Array<inputTYpe>) {
+    let formDto: any = {};
+    items?.forEach((element: inputTYpe) => {
+      if (!(element.inputType == Types.BORDER_LINE || element.inputType == Types.SECTION_TITLE)) {
+
+        if (element.inputType == Types.SWITCH_TYPE) {
+
+          formDto[element?.bindItem!] = element.defaultValue ?? false;
+        }
+        else if(element.inputType == Types.SELECT_TYPE){
+          formDto[element.bindItem] = element.defaultValue ?? '';
+
+        }
+        else if (element.inputType == Types.CUSTOM_FORM_ITEM) {
+          formDto[element.bindItem] = element.defaultValue ?? '';
+
+          // if (formDto[element.bindItem]) {
+          //   this.customFormItemSetValue();
+          // }
+
+        }
+        else if (element.inputType == Types.FORM_GROUP) {
+          formDto[element.bindItem] = this.createModel((element as formGroups).formItems) ?? {};
+
+        } else if (element.inputType == Types.FORM_ARRAY) {
+          formDto[element.bindItem] = <Array<any>>element.defaultValue ?? [];
+          (element as formArray).formArrayFields?.map(field => {
+            formDto[element.bindItem].push(this.createModel(field.formItems));
+          })
+        }
+        else {
+          formDto[element?.bindItem!] = element.defaultValue ?? '';
+        }
+      }
+      // if(config.apiCall){
+      //   // this.baseService.
+      // }
+
+    });
+    return formDto;
+  }
+
 }
