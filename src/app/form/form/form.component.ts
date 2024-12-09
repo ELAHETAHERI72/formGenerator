@@ -77,7 +77,7 @@ export class FormComponent {
 
   @Input() set formConfig(config: formConfig) {
     this._formConfig = config;
-    if (config.initialCal) {
+    if (config.initialCall) {
       this.createFormItems(this.deepClone(config) as formConfig);
     }
   }
@@ -162,11 +162,9 @@ export class FormComponent {
       //   //   // this.baseService.
       //   // }
       // });
-      this.formItems = this.createModel(config.items);
+      this.bindItems = this.createModel(config.items);
       this.formConfig.submitted?.(this.deepClone(this.bindItems));
     }
-
-    console.log(this.formItems, 'formItems');
 
   }
 

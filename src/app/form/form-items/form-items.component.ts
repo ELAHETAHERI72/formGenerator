@@ -1,7 +1,7 @@
 import {Component, EventEmitter, inject, Input, TemplateRef} from '@angular/core';
 import {
   CustomItem,
-  formArray,
+  formArray, formConfig,
   formGroups,
   inputTYpe,
   selectInterface,
@@ -40,8 +40,11 @@ export class FormItemsComponent {
   _bindItems: any = {};
 
   @Input() set bindItems(bindItem: any) {
+    debugger
     if(bindItem){
       this._bindItems = bindItem;
+    }else {
+      this._bindItems = {};
     }
   };
 

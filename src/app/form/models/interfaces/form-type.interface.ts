@@ -16,9 +16,9 @@ export class formItemBase {
   pattern?: string | any;
   isDisPlayed?: boolean = false;
   min?: string;
-  minLength?:number;
+  minLength?: number;
   max?: string;
-  maxLength?:number;
+  maxLength?: number;
   emitFormItems?: (item: any) => void;
 
   constructor(item: formItemBase) {
@@ -187,10 +187,11 @@ export class formGroups extends formItemBase {
 }
 
 export class formArray extends formItemBase {
-  hasAddButton?:boolean;
-  formArrayFields?:Array<formGroups>;
+  hasAddButton?: boolean;
+  formArrayFields?: Array<formGroups>;
   isDisplayedSignal?: WritableSignal<any> = signal(true);
   bindItem?: any;
+
   constructor(item: formArray) {
     super(item)
     this.hasAddButton = item.hasAddButton;
@@ -215,7 +216,7 @@ export class formConfig {
   submitted?: (items: any) => void;
   formId?: string;
   isCheckFormValid?: boolean;
-  initialCal: boolean;
+  initialCall: boolean;
 
   constructor(
     config: {
@@ -225,7 +226,7 @@ export class formConfig {
       formName: NgForm,
       formId: string,
       isCheckFormValid: boolean,
-      initialCal: boolean,
+      initialCall: boolean,
       apiCall: string,
     }) {
     this.items = config.items;
@@ -234,7 +235,7 @@ export class formConfig {
       this.submitted = config.submited;
     this.formName = config.formName;
     this.isCheckFormValid = config.isCheckFormValid;
-    this.initialCal = config.initialCal ?? true;
+    this.initialCall = config.initialCall ?? true;
     this.apiCall = config.apiCall;
   }
 }

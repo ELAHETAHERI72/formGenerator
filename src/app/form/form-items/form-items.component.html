@@ -1,6 +1,6 @@
 <ng-container>
   <section class="row">
-    @for (value of items;track value) {
+    @for (value of items;track value ;let index = $index) {
 
       @switch (value.inputType) {
 
@@ -137,7 +137,8 @@
                            aria-label="Datepicker Input"/>
                   </div>
                 </ng-persian-datepicker>
-                <app-show-errors [ctrl]="input5Ref.control" [patternErrorMsg]="value.errorItems?.patternErrorMsg"
+                <app-show-errors [ctrl]="input5Ref.control"
+                                 [patternErrorMsg]="value.errorItems?.patternErrorMsg"
                                  [oneRequiredErrorMsg]="value.errorItems?.oneRequiredErrorMsg"
                                  [errorMessage]="value.errorItems?.errorMessage"
                                  [waitForTouch]="value.errorItems?.waitForTouch"
@@ -159,7 +160,12 @@
           @if (value?.isDisplayedSignal() && getFormGroup(value).length) {
 
             <label for="">{{ value.labelName }}</label>
-            <app-form-items [items]="getFormGroup(value)"
+            {{bindItems[value.bindItem]}}
+            <app-form-items
+              ngDefaultControl
+              name="{{value.bindItem}}{{index}}"
+              [(ngModel)]="bindItems[value.bindItem]"
+                            [items]="getFormGroup(value)"
                             [bindItems]="bindItems[value.bindItem]"></app-form-items>
           }
         }
@@ -171,8 +177,14 @@
                 <button class="btn btn-primary" type="button" (click)="addFormItem(value)">افزودن</button>
               </div>
             }
-            @for (formArrayItem of getFormArray(value, 'formArrayFields');track formArrayItem) {
-              <app-form-items [items]="getFormGroup(formArrayItem)"
+            @for (formArrayItem of getFormArray(value, 'formArrayFields');track formArrayItem; let i = $index) {
+              {{bindItems[formArrayItem.bindItem] | json}}
+              <app-form-items
+                ngDefaultControl
+                name="{{value.bindItem}}{{i}}"
+                id="{{value.bindItem}}{{i}}"
+                [(ngModel)]="bindItems[formArrayItem.bindItem]"
+                              [items]="getFormGroup(formArrayItem)"
                               [bindItems]="bindItems[formArrayItem.bindItem]"></app-form-items>
             }
           }

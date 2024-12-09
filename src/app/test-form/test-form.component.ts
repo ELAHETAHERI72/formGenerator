@@ -59,7 +59,7 @@ export class TestFormComponent implements OnInit {
       formName: this.testForm,
       formId: 'testForm',
       isCheckFormValid: true,
-      initialCal: true,
+      initialCall: true,
       apiCall: '',
 
       submitted: ((v: formModel) => {
@@ -188,7 +188,8 @@ export class TestFormComponent implements OnInit {
           isRequired: true,
           bindItem:'information',
           formArrayFields:[
-              {
+              new formGroups(
+            {
                 inputType: Types.FORM_GROUP,
                 id: 'information',
                 labelName: '',
@@ -207,22 +208,22 @@ export class TestFormComponent implements OnInit {
                     isRequired: true,
                     errorItems: {}
                   }),
-                  new inputInterface({
-                    id: 'name',
-                    inputType: Types.INPUT_TYPE,
-                    labelName: 'نام',
-                    name: 'name',
-                    placeholder: 'name',
-                    bindItem: 'name',
-                    isRequired: true,
-                    errorItems: {
-                      oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
-                      waitForTouch: true,
-                      showRequiredError: true,
-                    }
-                  }),
+                  // new inputInterface({
+                  //   id: 'name',
+                  //   inputType: Types.INPUT_TYPE,
+                  //   labelName: 'نام',
+                  //   name: 'name',
+                  //   placeholder: 'name',
+                  //   bindItem: 'name',
+                  //   isRequired: true,
+                  //   errorItems: {
+                  //     oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
+                  //     waitForTouch: true,
+                  //     showRequiredError: true,
+                  //   }
+                  // }),
                 ]
-              }
+              })
           ]
 
         })
