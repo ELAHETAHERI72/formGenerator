@@ -38,7 +38,7 @@ export class FormItemsComponent {
   _items: Array<inputTYpe> = [];
   _bindItems: any = {};
 
-  @Input() set bindItems(bindItem: any) {
+  @Input() set bindItems(bindItem: any) {    
     if(bindItem){
       this._bindItems = bindItem;
     }

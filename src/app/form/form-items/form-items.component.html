@@ -177,14 +177,14 @@
               </div>
             }
             @for (formArrayItem of getFormArray(value, 'formArrayFields');track formArrayItem; let i = $index) {
-              {{bindItems[formArrayItem.bindItem] | json}}
-              <app-form-items
+                <app-form-items
                 ngDefaultControl
                 name="{{formArrayItem.bindItem}}{{i}}"
                 id="{{formArrayItem.bindItem}}{{i}}"
                 [(ngModel)]="bindItems[formArrayItem.bindItem]"
                               [items]="getFormGroup(formArrayItem)"
-                              [bindItems]="bindItems[formArrayItem.bindItem]"></app-form-items>
+                              [bindItems]="bindItems[value.bindItem][i]"></app-form-items>
+             
             }
           }
         }

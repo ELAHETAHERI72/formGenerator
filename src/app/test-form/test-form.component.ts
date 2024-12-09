@@ -198,13 +198,13 @@ export class TestFormComponent implements OnInit {
                 isRequired: true,
                 formItems: [
                   new selectInterface({
-                    id: 'information',
+                    id: 'info',
                     inputType: Types.SELECT_TYPE,
                     labelName: 'اطلاعات فردی',
-                    name: 'information',
+                    name: 'info',
                     placeholder: 'اطلاعات فردی',
                     fields: [{id: 'male', name: 'مراد', value: 'مراد'}, {id: 'female', name: 'جمیله', value: 'جمیله'}],
-                    bindItem: 'information',
+                    bindItem: 'info',
                     isRequired: true,
                     errorItems: {}
                   }),
