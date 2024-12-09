@@ -21,7 +21,6 @@ import {Jalali} from "jalali-ts";
   standalone: true,
   imports: [
     FormsModule,
-    NgIf,
     CommonModule,
     NgSelectModule,
     SwitchButtonComponent,
@@ -40,7 +39,6 @@ export class FormItemsComponent {
   _bindItems: any = {};
 
   @Input() set bindItems(bindItem: any) {
-    debugger
     if(bindItem){
       this._bindItems = bindItem;
     }

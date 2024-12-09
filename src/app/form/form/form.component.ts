@@ -101,9 +101,9 @@ export class FormComponent {
           if (element.inputType == Types.FORM_GROUP) {
             formDto[element.bindItem] = this.createModel((element as formGroups | any).formItems) ?? {};
 
-          } else if (element.inputType == Types.FORM_ARRAY) {
-            console.log(formDto[element.bindItem],'[[');
-            debugger
+          } 
+          else if (element.inputType == Types.FORM_ARRAY) {
+          
             formDto[element.bindItem] = element.defaultValue as Array<any> ?? [];
             formDto[element.bindItem] = (element as formArray).formArrayFields?.map(field => {
                 return formDto[element.bindItem][field.bindItem] = this.createModel((field as formGroups | any).formItems) ?? {};
