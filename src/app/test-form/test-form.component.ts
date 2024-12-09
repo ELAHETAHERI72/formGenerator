@@ -161,7 +161,7 @@ export class TestFormComponent implements OnInit {
                 name: 'gender',
                 placeholder: 'جنسیت',
                 fields: [{id: 'male', name: 'مرد', value: 'مرد'}, {id: 'female', name: 'زن', value: 'زن'}],
-                bindItem: 'fullName',
+                bindItem: 'gender',
                 isRequired: true,
                 errorItems: {}
               }),
@@ -208,20 +208,20 @@ export class TestFormComponent implements OnInit {
                     isRequired: true,
                     errorItems: {}
                   }),
-                  // new inputInterface({
-                  //   id: 'name',
-                  //   inputType: Types.INPUT_TYPE,
-                  //   labelName: 'نام',
-                  //   name: 'name',
-                  //   placeholder: 'name',
-                  //   bindItem: 'name',
-                  //   isRequired: true,
-                  //   errorItems: {
-                  //     oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
-                  //     waitForTouch: true,
-                  //     showRequiredError: true,
-                  //   }
-                  // }),
+                  new inputInterface({
+                    id: 'specialCode',
+                    inputType: Types.INPUT_TYPE,
+                    labelName: 'کد ویژه',
+                    name: 'specialCode',
+                    placeholder: 'specialCode',
+                    bindItem: 'specialCode',
+                    isRequired: true,
+                    errorItems: {
+                      oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
+                      waitForTouch: true,
+                      showRequiredError: true,
+                    }
+                  }),
                 ]
               })
           ]
