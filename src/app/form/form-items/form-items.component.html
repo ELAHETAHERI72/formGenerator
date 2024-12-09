@@ -160,7 +160,6 @@
           @if (value?.isDisplayedSignal() && getFormGroup(value).length) {
 
             <label for="">{{ value.labelName }}</label>
-            {{bindItems[value.bindItem]}}
             <app-form-items
               ngDefaultControl
               name="{{value.bindItem}}{{index}}"
@@ -181,8 +180,8 @@
               {{bindItems[formArrayItem.bindItem] | json}}
               <app-form-items
                 ngDefaultControl
-                name="{{value.bindItem}}{{i}}"
-                id="{{value.bindItem}}{{i}}"
+                name="{{formArrayItem.bindItem}}{{i}}"
+                id="{{formArrayItem.bindItem}}{{i}}"
                 [(ngModel)]="bindItems[formArrayItem.bindItem]"
                               [items]="getFormGroup(formArrayItem)"
                               [bindItems]="bindItems[formArrayItem.bindItem]"></app-form-items>

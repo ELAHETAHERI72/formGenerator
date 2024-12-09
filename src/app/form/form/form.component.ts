@@ -116,7 +116,7 @@ export class FormComponent {
         } else if (element.inputType == Types.FORM_ARRAY) {
           formDto[element.bindItem] = <Array<any>>element.defaultValue ?? [];
           (element as formArray).formArrayFields?.map(field => {
-            formDto[element.bindItem].push(this.createModel(field.formItems));
+            formDto[element.bindItem] = [...formDto[element.bindItem],this.createModel(field.formItems)];
           })
         }
       }
