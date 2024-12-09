@@ -59,8 +59,8 @@ export class TestFormComponent implements OnInit {
       formName: this.testForm,
       formId: 'testForm',
       isCheckFormValid: true,
-      initialCal: true,
-      apiCall: {path:'path/flunchi',method:'get'},
+      initialCall: true,
+      apiCall: {method:'get',path:''},
 
       submitted: ((v: formModel) => {
         console.log(v, 'form');
@@ -182,13 +182,14 @@ export class TestFormComponent implements OnInit {
         new formArray({
           hasAddButton:true,
           inputType: Types.FORM_ARRAY,
-          id: 'information',
+          id: 'informations',
+          name: 'informations',
           labelName: '',
-          name: 'information',
           isRequired: true,
-          bindItem:'information',
+          bindItem:'informations',
           formArrayFields:[
-              {
+              new formGroups(
+            {
                 inputType: Types.FORM_GROUP,
                 id: 'information',
                 labelName: '',
@@ -207,22 +208,22 @@ export class TestFormComponent implements OnInit {
                     isRequired: true,
                     errorItems: {}
                   }),
-                  new inputInterface({
-                    id: 'name',
-                    inputType: Types.INPUT_TYPE,
-                    labelName: 'نام',
-                    name: 'name',
-                    placeholder: 'name',
-                    bindItem: 'name',
-                    isRequired: true,
-                    errorItems: {
-                      oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
-                      waitForTouch: true,
-                      showRequiredError: true,
-                    }
-                  }),
+                  // new inputInterface({
+                  //   id: 'name',
+                  //   inputType: Types.INPUT_TYPE,
+                  //   labelName: 'نام',
+                  //   name: 'name',
+                  //   placeholder: 'name',
+                  //   bindItem: 'name',
+                  //   isRequired: true,
+                  //   errorItems: {
+                  //     oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
+                  //     waitForTouch: true,
+                  //     showRequiredError: true,
+                  //   }
+                  // }),
                 ]
-              }
+              })
           ]
 
         })

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, inject, Input, TemplateRef} from '@angular/core';
 import {
   CustomItem,
-  formArray,
+  formArray, formConfig,
   formGroups,
   inputTYpe,
   selectInterface,
@@ -37,8 +37,20 @@ import {Jalali} from "jalali-ts";
 export class FormItemsComponent {
 
   _items: Array<inputTYpe> = [];
-  @Input() bindItems?: any = {};
-  @Input() templateRefs!:Array<TemplateRef<any>>;
+  _bindItems: any = {};
+
+  @Input() set bindItems(bindItem: any) {
+    debugger
+    if(bindItem){
+      this._bindItems = bindItem;
+    }
+  };
+
+  get bindItems(){
+    return this._bindItems;
+  }
+
+  @Input() templateRefs!: Array<TemplateRef<any>>;
 
   Types = Types;
 

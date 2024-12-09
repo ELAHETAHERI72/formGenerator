@@ -11,7 +11,7 @@ import {
   ViewContainerRef,
   WritableSignal
 } from '@angular/core';
-import {CustomItem, formConfig, inputTYpe, Types} from "../models/interfaces/form-type.interface";
+import {CustomItem, formArray, formConfig, formGroups, inputTYpe, Types} from "../models/interfaces/form-type.interface";
 import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {NgSelectModule} from "@ng-select/ng-select";
@@ -66,7 +66,7 @@ export class FormComponent {
 
   @Input() set formConfig(config: formConfig) {
     this._formConfig = config;
-    if (config.initialCal) {
+    if (config.initialCall) {
       this.createFormItems(this.deepClone(config) as formConfig);
     }
   }
@@ -77,41 +77,88 @@ export class FormComponent {
     this.formConfig.submitted?.(this.deepClone(this.bindItems));
   }
 
-  createFormItems(config: formConfig) {
+  createModel(items: Array<inputTYpe>) {
+    let formDto: any = {};
+    items?.forEach((element: inputTYpe) => {
+      debugger
+      if (!(element.inputType == Types.BORDER_LINE || element.inputType == Types.SECTION_TITLE)) {
 
-    if (config.items) {
-      config.items?.forEach((element: inputTYpe) => {
-        if (!(element.inputType == Types.BORDER_LINE || element.inputType == Types.SECTION_TITLE)) {
+        if (element.inputType == Types.SWITCH_TYPE) {
 
-          if (element.inputType == Types.SWITCH_TYPE) {
+          formDto[element?.bindItem!] = element.defaultValue ?? false;
+        } else if (element.inputType == Types.SELECT_TYPE) {
+          formDto[element.bindItem] = element.defaultValue ?? '';
 
-            this.bindItems[element?.bindItem!] = element.defaultValue ?? false;
-          } else if (element.inputType == Types.FORM_GROUP) {
-            this.bindItems[element.bindItem] = element.defaultValue ?? {}
+        } else if (element.inputType == Types.CUSTOM_FORM_ITEM) {
+          formDto[element.bindItem] = element.defaultValue ?? '';
+
+          if (formDto[element.bindItem]) {
+            this.customFormItemSetValue();
           }
-          else if (element.inputType == Types.FORM_ARRAY) {
-            this.bindItems[element.bindItem] = element.defaultValue ?? []
-          }
-          else if (element.inputType == Types.CUSTOM_FORM_ITEM) {
-            this.bindItems[element.bindItem] = element.defaultValue ?? '';
 
-            if (this.bindItems[element.bindItem]) {
-              this.customFormItemSetValue();
-            }
+        }
+        else if (element.inputType == Types.FORM_GROUP || element.inputType == Types.FORM_ARRAY) {
+          if (element.inputType == Types.FORM_GROUP) {
+            formDto[element.bindItem] = this.createModel((element as formGroups | any).formItems) ?? {};
 
-          } else {
-            this.bindItems[element?.bindItem!] = element.defaultValue ?? '';
+          } else if (element.inputType == Types.FORM_ARRAY) {
+            console.log(formDto[element.bindItem],'[[');
+            debugger
+            formDto[element.bindItem] = element.defaultValue as Array<any> ?? [];
+            formDto[element.bindItem] = (element as formArray).formArrayFields?.map(field => {
+                return formDto[element.bindItem][field.bindItem] = this.createModel((field as formGroups | any).formItems) ?? {};
+              }) ?? []
           }
         }
-        if(config.apiCall && config.apiCall.path.length){
-           console.log('here api call');
-          //  https://mocki.io/v1/d65c6f4c-3e1d-4201-b7dd-42d168cf4400
-           
-         }
+        else  {
+          formDto[element?.bindItem!] = element.defaultValue ?? '';
+        }
+      }
 
-      });
+      // if(config.apiCall){
+      //   // this.baseService.
+      // }
+
+    });
+    return formDto;
+  }
+
+  createFormItems(config: formConfig) {
+    if (config.items.length !== 0) {
+      // config.items?.forEach((element: inputTYpe) => {
+      //   if (!(element.inputType == Types.BORDER_LINE || element.inputType == Types.SECTION_TITLE)) {
+      //
+      //     if (element.inputType == Types.SWITCH_TYPE) {
+      //
+      //       this.bindItems[element?.bindItem!] = element.defaultValue ?? false;
+      //     } else if (element.inputType == Types.FORM_GROUP) {
+      //       this.bindItems[element.bindItem] = element.defaultValue ?? {}
+      //     } else if (element.inputType == Types.FORM_ARRAY) {
+      //       this.bindItems[element.bindItem] = <Array<any>>element.defaultValue ?? [];
+      //       (element as formArray).formArrayFields?.map(field => {
+      //         // this.bindItems[element.bindItem][field.bindItem] = field.defaultValue ?? {};
+      //         this.bindItems[element.bindItem].push(field.defaultValue ?? {});
+      //
+      //       })
+      //
+      //     } else if (element.inputType == Types.CUSTOM_FORM_ITEM) {
+      //       this.bindItems[element.bindItem] = element.defaultValue ?? '';
+      //
+      //       if (this.bindItems[element.bindItem]) {
+      //         this.customFormItemSetValue();
+      //       }
+      //
+      //     } else {
+      //       this.bindItems[element?.bindItem!] = element.defaultValue ?? '';
+      //     }
+      //   }
+      //   console.log(this.bindItems, 'bindItems');
+      //   // if(config.apiCall){
+      //   //   // this.baseService.
+      //   // }
+      // });
+      this.bindItems = this.createModel(config.items);
       this.formConfig.submitted?.(this.deepClone(this.bindItems));
-
     }
 
   }
