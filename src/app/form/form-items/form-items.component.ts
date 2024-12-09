@@ -43,8 +43,6 @@ export class FormItemsComponent {
     debugger
     if(bindItem){
       this._bindItems = bindItem;
-    }else {
-      this._bindItems = {};
     }
   };
 

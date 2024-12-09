@@ -116,7 +116,7 @@ export class FormComponent {
             debugger
             formDto[element.bindItem] = element.defaultValue as Array<any> ?? [];
             formDto[element.bindItem] = (element as formArray).formArrayFields?.map(field => {
-                formDto[element.bindItem][field.bindItem] = this.createModel((field as formGroups).formItems) as {};
+                formDto[element.bindItem][field.bindItem] = this.createModel((field as formGroups).formItems) ?? {};
               }) ?? []
           }
         }
