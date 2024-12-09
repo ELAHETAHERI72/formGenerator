@@ -182,11 +182,11 @@ export class TestFormComponent implements OnInit {
         new formArray({
           hasAddButton:true,
           inputType: Types.FORM_ARRAY,
-          id: 'information',
-          name: 'information',
+          id: 'informations',
+          name: 'informations',
           labelName: '',
           isRequired: true,
-          bindItem:'information',
+          bindItem:'informations',
           formArrayFields:[
               new formGroups(
             {

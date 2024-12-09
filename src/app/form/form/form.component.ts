@@ -90,6 +90,7 @@ export class FormComponent {
   createModel(items: Array<inputTYpe>) {
     let formDto: any = {};
     items?.forEach((element: inputTYpe) => {
+      debugger
       if (!(element.inputType == Types.BORDER_LINE || element.inputType == Types.SECTION_TITLE)) {
 
         if (element.inputType == Types.SWITCH_TYPE) {
@@ -105,21 +106,25 @@ export class FormComponent {
             this.customFormItemSetValue();
           }
 
-        } else {
+        }
+        else if (element.inputType == Types.FORM_GROUP || element.inputType == Types.FORM_ARRAY) {
+          if (element.inputType == Types.FORM_GROUP) {
+            formDto[element.bindItem] = this.createModel((element as formGroups).formItems) ?? {};
+
+          } else if (element.inputType == Types.FORM_ARRAY) {
+            console.log(formDto[element.bindItem],'[[');
+            debugger
+            formDto[element.bindItem] = element.defaultValue as Array<any> ?? [];
+            formDto[element.bindItem] = (element as formArray).formArrayFields?.map(field => {
+                formDto[element.bindItem][field.bindItem] = this.createModel((field as formGroups).formItems) as {};
+              }) ?? []
+          }
+        }
+        else  {
           formDto[element?.bindItem!] = element.defaultValue ?? '';
         }
       }
-      if (element.inputType == Types.FORM_GROUP || element.inputType == Types.FORM_ARRAY) {
-        if (element.inputType == Types.FORM_GROUP) {
-          formDto[element.bindItem] = this.createModel((element as formGroups).formItems) ?? {};
 
-        } else if (element.inputType == Types.FORM_ARRAY) {
-          formDto[element.bindItem] = <Array<any>>element.defaultValue ?? [];
-          (element as formArray).formArrayFields?.map(field => {
-            formDto[element.bindItem] = [...formDto[element.bindItem],this.createModel(field.formItems)];
-          })
-        }
-      }
       // if(config.apiCall){
       //   // this.baseService.
       // }
