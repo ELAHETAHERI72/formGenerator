@@ -11,13 +11,13 @@ import {
   ViewContainerRef,
   WritableSignal
 } from '@angular/core';
-import {CustomItem, formArray, formConfig, formGroups, inputTYpe, Types} from "../models/interfaces/form-type.interface";
-import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
-import {CommonModule} from "@angular/common";
-import {NgSelectModule} from "@ng-select/ng-select";
-import {NgPersianDatepickerModule} from 'ng-persian-datepicker';
-import {FormItemsComponent} from "../form-items/form-items.component";
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import { CustomItem, formArray, formConfig, formGroups, inputTYpe, Types } from "../models/interfaces/form-type.interface";
+import { FormsModule, NgForm, ReactiveFormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
+import { NgSelectModule } from "@ng-select/ng-select";
+import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
+import { FormItemsComponent } from "../form-items/form-items.component";
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-form',
@@ -96,7 +96,7 @@ export class FormComponent {
           }
 
         }
-        else  {
+        else {
           formDto[element?.bindItem!] = element.defaultValue ?? '';
         }
       }
@@ -104,13 +104,13 @@ export class FormComponent {
         if (element.inputType == Types.FORM_GROUP) {
           formDto[element.bindItem] = this.createModel((element as formGroups | any).formItems) ?? {};
 
-        } 
+        }
         else if (element.inputType == Types.FORM_ARRAY) {
-        
+
           formDto[element.bindItem] = element.defaultValue as Array<any> ?? [];
           formDto[element.bindItem] = (element as formArray).formArrayFields?.map(field => {
-              return formDto[element.bindItem][field.bindItem] = this.createModel((field as formGroups | any).formItems) ?? {};
-            }) ?? []
+            return formDto[element.bindItem][field.bindItem] = this.createModel((field as formGroups | any).formItems) ?? {};
+          }) ?? []
         }
       }
       // if(config.apiCall){
@@ -123,38 +123,6 @@ export class FormComponent {
 
   createFormItems(config: formConfig) {
     if (config.items.length !== 0) {
-      // config.items?.forEach((element: inputTYpe) => {
-      //   if (!(element.inputType == Types.BORDER_LINE || element.inputType == Types.SECTION_TITLE)) {
-      //
-      //     if (element.inputType == Types.SWITCH_TYPE) {
-      //
-      //       this.bindItems[element?.bindItem!] = element.defaultValue ?? false;
-      //     } else if (element.inputType == Types.FORM_GROUP) {
-      //       this.bindItems[element.bindItem] = element.defaultValue ?? {}
-      //     } else if (element.inputType == Types.FORM_ARRAY) {
-      //       this.bindItems[element.bindItem] = <Array<any>>element.defaultValue ?? [];
-      //       (element as formArray).formArrayFields?.map(field => {
-      //         // this.bindItems[element.bindItem][field.bindItem] = field.defaultValue ?? {};
-      //         this.bindItems[element.bindItem].push(field.defaultValue ?? {});
-      //
-      //       })
-      //
-      //     } else if (element.inputType == Types.CUSTOM_FORM_ITEM) {
-      //       this.bindItems[element.bindItem] = element.defaultValue ?? '';
-      //
-      //       if (this.bindItems[element.bindItem]) {
-      //         this.customFormItemSetValue();
-      //       }
-      //
-      //     } else {
-      //       this.bindItems[element?.bindItem!] = element.defaultValue ?? '';
-      //     }
-      //   }
-      //   console.log(this.bindItems, 'bindItems');
-      //   // if(config.apiCall){
-      //   //   // this.baseService.
-      //   // }
-      // });
       this.bindItems = this.createModel(config.items);
       this.formConfig.submitted?.(this.deepClone(this.bindItems));
     }
