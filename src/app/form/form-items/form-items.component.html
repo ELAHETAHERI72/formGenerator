@@ -173,7 +173,7 @@
             <label for="">{{ value.labelName }}</label>
             @if (getFormArray(value,'hasAddButton')) {
               <div class=''>
-                <button class="btn btn-primary" type="button" (click)="addFormItem(value)">افزودن</button>
+                <button class="btn btn-primary" type="button" (click)="addFormItem(value,'formArrayFields')">افزودن</button>
               </div>
             }
             @for (formArrayItem of getFormArray(value, 'formArrayFields');track formArrayItem; let i = $index) {
@@ -184,7 +184,7 @@
                 [(ngModel)]="bindItems[formArrayItem.bindItem]"
                               [items]="getFormGroup(formArrayItem)"
                               [bindItems]="bindItems[value.bindItem][i]"></app-form-items>
-             
+
             }
           }
         }

@@ -191,28 +191,28 @@ export class TestFormComponent implements OnInit {
               new formGroups(
             {
                 inputType: Types.FORM_GROUP,
-                id: 'information',
+                id: `information${Math.random()}`,
                 labelName: '',
                 bindItem: 'information',
-                name: 'information',
+                name: `information${Math.random()}`,
                 isRequired: true,
                 formItems: [
                   new selectInterface({
-                    id: 'info',
+                    id: `info${Math.random()}`,
                     inputType: Types.SELECT_TYPE,
                     labelName: 'اطلاعات فردی',
-                    name: 'info',
+                    name: `info${Math.random()}`,
                     placeholder: 'اطلاعات فردی',
-                    fields: [{id: 'male', name: 'مراد', value: 'مراد'}, {id: 'female', name: 'جمیله', value: 'جمیله'}],
+                    fields: [{id: 'مراد', name: 'مراد', value: 'مراد'}, {id: 'جمیله', name: 'جمیله', value: 'جمیله'}],
                     bindItem: 'info',
                     isRequired: true,
                     errorItems: {}
                   }),
                   new inputInterface({
-                    id: 'specialCode',
+                    id: `specialCode${Math.random()}`,
                     inputType: Types.INPUT_TYPE,
                     labelName: 'کد ویژه',
-                    name: 'specialCode',
+                    name: `specialCode${Math.random()}`,
                     placeholder: 'specialCode',
                     bindItem: 'specialCode',
                     isRequired: true,

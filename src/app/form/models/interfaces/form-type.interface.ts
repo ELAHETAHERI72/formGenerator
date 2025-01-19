@@ -188,7 +188,7 @@ export class formGroups extends formItemBase {
 
 export class formArray extends formItemBase {
   hasAddButton?: boolean;
-  formArrayFields?: Array<formGroups>;
+  formArrayFields?: Array<formGroups> = [];
   isDisplayedSignal?: WritableSignal<any> = signal(true);
   bindItem?: any;
 
@@ -211,7 +211,8 @@ export class formConfig {
   items: Array<inputTYpe>;
   classList: string;
   formName: NgForm;
-  apiCall?: {path:string,
+  apiCall?: {
+    path: string,
     method: 'get' | 'post' | 'delete' | 'put'
   };
 
@@ -229,7 +230,8 @@ export class formConfig {
       formId: string,
       isCheckFormValid: boolean,
       initialCall: boolean,
-      apiCall: {path:string,
+      apiCall: {
+        path: string,
         method: 'get' | 'post' | 'delete' | 'put'
       },
     }) {
