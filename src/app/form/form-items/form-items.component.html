@@ -1,6 +1,6 @@
 <ng-container>
   <section class="row">
-    @for (value of items;track value ;let index = $index) {
+    @for (value of items; track value; let index = $index) {
 
       @switch (value.inputType) {
 
@@ -164,27 +164,29 @@
               ngDefaultControl
               name="{{value.bindItem}}{{index}}"
               [(ngModel)]="bindItems[value.bindItem]"
-                            [items]="getFormGroup(value)"
-                            [bindItems]="bindItems[value.bindItem]"></app-form-items>
+              [items]="getFormGroup(value)"
+              [bindItems]="bindItems[value.bindItem]"></app-form-items>
           }
         }
         @case (Types.FORM_ARRAY) {
           @if (value?.isDisplayedSignal()) {
             <label for="">{{ value.labelName }}</label>
-            @if (getFormArray(value,'hasAddButton')) {
+            @if (getFormArray(value, 'hasAddButton')) {
               <div class=''>
                 <button class="btn btn-primary" type="button" (click)="addFormItem(value)">افزودن</button>
-<!--                <button class="btn btn-primary" type="button" (click)="value.addFormArrayField()">افزودن</button>-->
+                <!--                <button class="btn btn-primary" type="button" (click)="value.addFormArrayField()">افزودن</button>-->
               </div>
             }
-            @for (formArrayItem of getFormArray(value, 'formArrayFields');track formArrayItem; let i = $index) {
-                <app-form-items
+            @for (formArrayItem of getFormArray(value, 'formArrayFields'); track formArrayItem; let i = $index) {
+              <app-form-items
                 ngDefaultControl
                 name="{{formArrayItem.bindItem}}{{i}}"
                 id="{{formArrayItem.bindItem}}{{i}}"
                 [(ngModel)]="bindItems[formArrayItem.bindItem]"
-                              [items]="getFormGroup(formArrayItem)"
-                              [bindItems]="bindItems[value.bindItem][i]"></app-form-items>
+                [items]="getFormGroup(formArrayItem)"
+                [bindItems]="bindItems[value.bindItem][i]"></app-form-items>
+
+              <span (click)="deleteFormArrayItemHandler(value,formArrayItem)">حذف</span>
 
             }
           }

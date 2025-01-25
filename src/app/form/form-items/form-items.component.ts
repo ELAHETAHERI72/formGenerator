@@ -104,4 +104,8 @@ export class FormItemsComponent {
     this.bindItems[formItem.bindItem].push(bindItemModel)
 
   }
+
+  deleteFormArrayItemHandler(value: inputTYpe, formArrayItem: any) {
+
+  }
 }
