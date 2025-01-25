@@ -177,7 +177,7 @@
                 <!--                <button class="btn btn-primary" type="button" (click)="value.addFormArrayField()">افزودن</button>-->
               </div>
             }
-            @for (formArrayItem of getFormArray(value, 'formArrayFields'); track formArrayItem; let i = $index) {
+            @for (formArrayItem of getFormArray(value, 'formArrayFields'); track i; let i = $index) {
               <app-form-items
                 ngDefaultControl
                 name="{{formArrayItem.bindItem}}{{i}}"
@@ -186,7 +186,7 @@
                 [items]="getFormGroup(formArrayItem)"
                 [bindItems]="bindItems[value.bindItem][i]"></app-form-items>
 
-              <span (click)="deleteFormArrayItemHandler(value,formArrayItem)">حذف</span>
+              <span (click)="deleteFormArrayItemHandler(value,formArrayItem,i)">حذف</span>
 
             }
           }

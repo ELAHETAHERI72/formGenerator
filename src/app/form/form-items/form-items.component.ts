@@ -97,7 +97,7 @@ export class FormItemsComponent {
     let bindItemModel: any = {};
     Object.keys(this.bindItems[formItem.bindItem][0]).forEach(value => {
 
-      bindItemModel[value] = undefined
+        bindItemModel[value] = undefined
 
       }
     );
@@ -105,7 +105,9 @@ export class FormItemsComponent {
 
   }
 
-  deleteFormArrayItemHandler(value: inputTYpe, formArrayItem: any) {
-
+  deleteFormArrayItemHandler(value: inputTYpe, formArrayItem: any, i: number) {
+    let formItem: Array<formGroups> = this.getFormArray(value, 'formArrayFields')
+    formItem.splice(i, 1);
+    this.bindItems[value.bindItem].splice(i, 1);
   }
 }
