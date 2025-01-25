@@ -15,6 +15,7 @@ import {NgPersianDatepickerModule} from 'ng-persian-datepicker';
 import {Observable, of} from 'rxjs';
 import {ShowErrorsComponent} from "../show-errors/show-errors.component";
 import {Jalali} from "jalali-ts";
+import {isArray} from "node:util";
 
 @Component({
   selector: 'app-form-items',
@@ -85,20 +86,22 @@ export class FormItemsComponent {
     return item.template ? item.template : null;
   }
 
-  getFormArray(item: formArray, formField: string) {
-    return item[formField as keyof formArray] ? item[formField as keyof formArray] : null;
+  getFormArray(item: formArray | inputTYpe, formField: string) {
+    return (item as formArray)[formField as keyof formArray] ? (item as formArray)[formField as keyof formArray] : null;
   }
 
   protected readonly Jalali = Jalali;
 
-  addFormItem(formItem: formArray, formField: string) {
-    const newItem = formItem.formArrayFields?.[0] ?? undefined;
+  addFormItem(formItem: formArray | inputTYpe) {
+    (formItem as formArray).addFormArrayField((formItem as formArray).formArrayFields as formGroups[]);
     let bindItemModel: any = {};
-    formItem.formArrayFields?.push(newItem as formGroups);
     Object.keys(this.bindItems[formItem.bindItem][0]).forEach(value => {
-        return bindItemModel[value] = undefined
+
+      bindItemModel[value] = undefined
+
       }
     );
     this.bindItems[formItem.bindItem].push(bindItemModel)
+
   }
 }

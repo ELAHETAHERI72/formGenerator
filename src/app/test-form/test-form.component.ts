@@ -14,7 +14,7 @@ import {formModel} from "../app.component";
 import {Test2Component} from "../test2/test2.component";
 import {FormsModule, NgForm} from "@angular/forms";
 import {NgSelectModule} from '@ng-select/ng-select';
-import { of} from 'rxjs';
+import {of} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
 
 @Component({
@@ -60,7 +60,7 @@ export class TestFormComponent implements OnInit {
       formId: 'testForm',
       isCheckFormValid: true,
       initialCall: true,
-      apiCall: {method:'get',path:''},
+      apiCall: {method: 'get', path: ''},
 
       submitted: ((v: formModel) => {
         console.log(v, 'form');
@@ -145,6 +145,8 @@ export class TestFormComponent implements OnInit {
         //   inputType: Types.DATE_TYPE,
         //   labelName: 'از تاریخ'
         // }),
+
+        // add form group inside form
         new formGroups(
           {
             inputType: Types.FORM_GROUP,
@@ -169,32 +171,32 @@ export class TestFormComponent implements OnInit {
 
           }
         ),
-
+        // add line separator
         {
           "inputType": Types.BORDER_LINE,
         } as any,
-
+        // add section title
         {
           "inputType": Types.SECTION_TITLE,
           labelName: 'آرایه تستی'
         } as any,
 
+        // add form array inside form
         new formArray({
-          hasAddButton:true,
+          hasAddButton: true,
           inputType: Types.FORM_ARRAY,
           id: 'informations',
-          name: 'informations',
           labelName: '',
           isRequired: true,
-          bindItem:'informations',
-          formArrayFields:[
-              new formGroups(
-            {
+          bindItem: 'informations',
+          addFormArrayField: (item) => this.addFormArrayField(item),
+          formArrayFields: [
+            new formGroups(
+              {
                 inputType: Types.FORM_GROUP,
                 id: `information${Math.random()}`,
                 labelName: '',
                 bindItem: 'information',
-                name: `information${Math.random()}`,
                 isRequired: true,
                 formItems: [
                   new selectInterface({
@@ -212,7 +214,6 @@ export class TestFormComponent implements OnInit {
                     id: `specialCode${Math.random()}`,
                     inputType: Types.INPUT_TYPE,
                     labelName: 'کد ویژه',
-                    name: `specialCode${Math.random()}`,
                     placeholder: 'specialCode',
                     bindItem: 'specialCode',
                     isRequired: true,
@@ -239,6 +240,46 @@ export class TestFormComponent implements OnInit {
     }
   }
 
+  addFormArrayField(value: formGroups[]) {
+    value.push(
+      new formGroups(
+        {
+          inputType: Types.FORM_GROUP,
+          id: `information${Math.random()}`,
+          labelName: '',
+          bindItem: 'information',
+          name: `information${Math.random()}`,
+          isRequired: true,
+          formItems: [
+            new selectInterface({
+              id: `info${Math.random()}`,
+              inputType: Types.SELECT_TYPE,
+              labelName: 'اطلاعات فردی',
+              name: `info${Math.random()}`,
+              placeholder: 'اطلاعات فردی',
+              fields: [{id: 'مراد', name: 'مراد', value: 'مراد'}, {id: 'جمیله', name: 'جمیله', value: 'جمیله'}],
+              bindItem: 'info',
+              isRequired: true,
+              errorItems: {}
+            }),
+            new inputInterface({
+              id: `specialCode${Math.random()}`,
+              inputType: Types.INPUT_TYPE,
+              labelName: 'کد ویژه',
+              name: `specialCode${Math.random()}`,
+              placeholder: 'specialCode',
+              bindItem: 'specialCode',
+              isRequired: true,
+              errorItems: {
+                oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
+                waitForTouch: true,
+                showRequiredError: true,
+              }
+            }),
+          ]
+        }))
+    debugger
+  }
 }
 
 

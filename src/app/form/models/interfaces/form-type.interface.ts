@@ -5,8 +5,8 @@ import {effect, EventEmitter, signal, TemplateRef, WritableSignal} from "@angula
 
 export class formItemBase {
   placeholder?: string;
-  name!: string;
-  id?: string;
+  name?: string;
+  id: string;
   labelName?: string;
   inputType?: Types;
   isRequired: boolean | string;
@@ -23,7 +23,6 @@ export class formItemBase {
 
   constructor(item: formItemBase) {
     this.placeholder = item.placeholder;
-    this.name = item.name;
     this.id = item.id;
     this.labelName = item.labelName;
     this.inputType = item.inputType;
@@ -191,6 +190,7 @@ export class formArray extends formItemBase {
   formArrayFields?: Array<formGroups> = [];
   isDisplayedSignal?: WritableSignal<any> = signal(true);
   bindItem?: any;
+  addFormArrayField: (formArrayFields: Array<formGroups>) => void;
 
   constructor(item: formArray) {
     super(item)
@@ -202,6 +202,7 @@ export class formArray extends formItemBase {
 
     }
 
+    this.addFormArrayField = item.addFormArrayField;
   }
 }
 

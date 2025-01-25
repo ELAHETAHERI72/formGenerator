@@ -17,7 +17,7 @@
               <input type="text" class="form-control"
                      [required]="value.isRequired"
                      [id]="value.id"
-                     [name]="value.name!"
+                     [name]="value.id!"
                      [pattern]="value.pattern" #input1Ref="ngModel"
                      (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
                      [(ngModel)]="bindItems[value.bindItem!]">
@@ -38,7 +38,7 @@
             <input type="text" class="form-control"
                    [required]="value.isRequired"
                    [id]="value.id"
-                   [name]="value.name!"
+                   [name]="value.id!"
                    [min]="value.min"
                    [minLength]="value.minLength"
                    [max]="value.max"
@@ -66,7 +66,7 @@
               <ng-select class="custom-select"
                          (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
                          [items]="returnArray(value) |async" bindLabel="name" bindValue="id"
-                         [required]="value.isRequired" #input2Ref="ngModel" [name]="value.bindItem" [id]="value.id"
+                         [required]="value.isRequired" #input2Ref="ngModel" [name]="value.id" [id]="value.id"
                          [(ngModel)]="bindItems[value.bindItem!]">
               </ng-select>
               <app-show-errors [ctrl]="input2Ref.control" [patternErrorMsg]="value.errorItems?.patternErrorMsg"
@@ -82,7 +82,7 @@
 
             <div class="form-group col-3">
               <label>{{ value.labelName }}</label>
-              <textarea [name]="value.name!"
+              <textarea [name]="value.id!"
                         (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
                         #input3Ref="ngModel" [id]="value.id"
                         [pattern]="value.pattern"
@@ -104,7 +104,7 @@
               <switch-button [(ngModel)]="bindItems[value.bindItem!]"
                              (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
                              [isChecked]="bindItems[value.bindItem!]"
-                             [labelName]="value.labelName" [name]="value.bindItem" [required]="value.isRequired"
+                             [labelName]="value.labelName" [name]="value.id" [required]="value.isRequired"
                              #input4Ref="ngModel"
                              (emitValue)="bindItems[value.bindItem!] = $event"></switch-button>
 
@@ -132,7 +132,7 @@
                   <div class="input-field">
                     <input type="text" class="form-control"
                            (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
-                           #input5Ref="ngModel" [id]="value.id" [name]="value.name"
+                           #input5Ref="ngModel" [id]="value.id" [name]="value.id"
                            [required]="value.isRequired" [(ngModel)]="bindItems[value.bindItem!]"
                            aria-label="Datepicker Input"/>
                   </div>
@@ -173,7 +173,8 @@
             <label for="">{{ value.labelName }}</label>
             @if (getFormArray(value,'hasAddButton')) {
               <div class=''>
-                <button class="btn btn-primary" type="button" (click)="addFormItem(value,'formArrayFields')">افزودن</button>
+                <button class="btn btn-primary" type="button" (click)="addFormItem(value)">افزودن</button>
+<!--                <button class="btn btn-primary" type="button" (click)="value.addFormArrayField()">افزودن</button>-->
               </div>
             }
             @for (formArrayItem of getFormArray(value, 'formArrayFields');track formArrayItem; let i = $index) {
