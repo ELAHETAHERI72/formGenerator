@@ -40,15 +40,14 @@
                    [id]="value.id"
                    [name]="value.id!"
                    [min]="value.min"
-                   [minLength]="value.minLength"
                    [max]="value.max"
-                   [maxLength]="value.maxLength"
-                   [inputMode]="'numeric'"
+                   [minlength]="value.minLength!"
+                   [maxlength]="value.maxLength!"
+                   inputMode="numeric"
                    [pattern]="value.pattern"
                    #input6Ref="ngModel"
                    (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
                    [(ngModel)]="bindItems[value.bindItem!]">
-
             <app-show-errors [ctrl]="input6Ref.control"
                              [patternErrorMsg]="value.errorItems?.patternErrorMsg"
                              [oneRequiredErrorMsg]="value.errorItems?.oneRequiredErrorMsg"

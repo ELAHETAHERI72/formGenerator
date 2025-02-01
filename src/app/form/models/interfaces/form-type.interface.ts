@@ -16,9 +16,9 @@ export class formItemBase {
   pattern?: string | any;
   isDisPlayed?: boolean = false;
   min?: string;
-  minLength?: number;
+  minLength?: number | string | null;
   max?: string;
-  maxLength?: number;
+  maxLength?: number | string | null;
   emitFormItems?: (item: any) => void;
 
   constructor(item: formItemBase) {
@@ -33,9 +33,9 @@ export class formItemBase {
     this.pattern = item.pattern;
     this.isDisPlayed = item.isDisPlayed;
     this.min = item.min ?? undefined;
-    this.minLength = item.minLength ?? undefined;
+    this.minLength = item.minLength ?? null;
     this.max = item.max ?? undefined;
-    this.maxLength = item.maxLength ?? undefined;
+    this.maxLength = item.maxLength ?? null;
     this.emitFormItems = item.emitFormItems;
   }
 }

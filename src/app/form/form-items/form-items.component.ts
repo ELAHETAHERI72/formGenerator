@@ -1,21 +1,20 @@
-import {Component, EventEmitter, inject, Input, TemplateRef} from '@angular/core';
+import {Component, inject, Input, TemplateRef} from '@angular/core';
 import {
   CustomItem,
-  formArray, formConfig,
+  formArray,
   formGroups,
   inputTYpe,
   selectInterface,
   Types
 } from '../models/interfaces/form-type.interface';
 import {ControlContainer, FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
-import {CommonModule, NgIf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {SwitchButtonComponent} from '../../components/switch-button/switch-button.component';
 import {NgPersianDatepickerModule} from 'ng-persian-datepicker';
 import {Observable, of} from 'rxjs';
 import {ShowErrorsComponent} from "../show-errors/show-errors.component";
 import {Jalali} from "jalali-ts";
-import {isArray} from "node:util";
 
 @Component({
   selector: 'app-form-items',

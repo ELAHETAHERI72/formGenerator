@@ -21,10 +21,7 @@ import {AsyncPipe} from '@angular/common';
   selector: 'app-test-form',
   standalone: true,
   imports: [
-    BaseTableComponent,
     FormComponent,
-    RouterOutlet,
-    Test2Component,
     NgSelectModule,
     FormsModule,
     AsyncPipe
@@ -35,7 +32,6 @@ import {AsyncPipe} from '@angular/common';
 
 export class TestFormComponent implements OnInit {
 
-  tableConfig: any;
   testForm!: NgForm;
 
   formItem: any = {};
@@ -91,8 +87,9 @@ export class TestFormComponent implements OnInit {
           name: 'nationalId',
           id: 'nationalId',
           bindItem: 'nationalId',
-          maxLength: 10,
-          minLength: 10,
+          pattern: /^\d{10}$/,
+          maxLength: '10',
+          minLength: '10',
           defaultValue: '',
           errorItems: {
             oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
