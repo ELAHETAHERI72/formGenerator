@@ -173,7 +173,6 @@
             @if (getFormArray(value, 'hasAddButton')) {
               <div class=''>
                 <button class="btn btn-primary" type="button" (click)="addFormItem(value)">افزودن</button>
-                <!--                <button class="btn btn-primary" type="button" (click)="value.addFormArrayField()">افزودن</button>-->
               </div>
             }
             @for (formArrayItem of getFormArray(value, 'formArrayFields'); track i; let i = $index) {
