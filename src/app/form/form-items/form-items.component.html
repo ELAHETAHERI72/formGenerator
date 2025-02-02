@@ -12,9 +12,10 @@
         }
         @case (Types.INPUT_TYPE) {
           @if (value?.isDisplayedSignal()) {
-            <div class="form-group col-3">
+            <div class="form-group col-3 has-validation">
               <label>{{ value.labelName }}</label>
               <input type="text" class="form-control"
+                     handelError
                      [required]="value.isRequired"
                      [id]="value.id"
                      [name]="value.id!"
@@ -22,21 +23,16 @@
                      (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
                      [(ngModel)]="bindItems[value.bindItem!]">
 
-              <app-show-errors [ctrl]="input1Ref.control"
-                               [patternErrorMsg]="value.errorItems?.patternErrorMsg"
-                               [oneRequiredErrorMsg]="value.errorItems?.oneRequiredErrorMsg"
-                               [errorMessage]="value.errorItems?.errorMessage"
-                               [waitForTouch]="value.errorItems?.waitForTouch"
-                               [showRequiredError]="value.errorItems?.showRequiredError"></app-show-errors>
             </div>
 
           }
         }
         @case (Types.INPUT_NUMBER_TYPE) {
-          <div class="form-group col-3">
+          <div class="form-group col-3 has-validation">
             <label>{{ value.labelName }}</label>
             <input type="text" class="form-control"
                    [required]="value.isRequired"
+                   handelError
                    [id]="value.id"
                    [name]="value.id!"
                    [min]="value.min"
@@ -48,12 +44,7 @@
                    #input6Ref="ngModel"
                    (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
                    [(ngModel)]="bindItems[value.bindItem!]">
-            <app-show-errors [ctrl]="input6Ref.control"
-                             [patternErrorMsg]="value.errorItems?.patternErrorMsg"
-                             [oneRequiredErrorMsg]="value.errorItems?.oneRequiredErrorMsg"
-                             [errorMessage]="value.errorItems?.errorMessage"
-                             [waitForTouch]="value.errorItems?.waitForTouch"
-                             [showRequiredError]="value.errorItems?.showRequiredError"></app-show-errors>
+
           </div>
 
         }
@@ -68,11 +59,7 @@
                          [required]="value.isRequired" #input2Ref="ngModel" [name]="value.id" [id]="value.id"
                          [(ngModel)]="bindItems[value.bindItem!]">
               </ng-select>
-              <app-show-errors [ctrl]="input2Ref.control" [patternErrorMsg]="value.errorItems?.patternErrorMsg"
-                               [oneRequiredErrorMsg]="value.errorItems?.oneRequiredErrorMsg"
-                               [errorMessage]="value.errorItems?.errorMessage"
-                               [waitForTouch]="value.errorItems?.waitForTouch"
-                               [showRequiredError]="value.errorItems?.showRequiredError"></app-show-errors>
+
             </div>
           }
         }
@@ -88,11 +75,7 @@
                         [required]="value.isRequired"
                         class="form-control" [(ngModel)]="bindItems[value.bindItem!]"></textarea>
 
-              <app-show-errors [ctrl]="input3Ref.control" [patternErrorMsg]="value.errorItems.patternErrorMsg"
-                               [oneRequiredErrorMsg]="value.errorItems?.oneRequiredErrorMsg"
-                               [errorMessage]="value.errorItems?.errorMessage"
-                               [waitForTouch]="value.errorItems?.waitForTouch"
-                               [showRequiredError]="value.errorItems?.showRequiredError"></app-show-errors>
+
             </div>
           }
         }
@@ -107,11 +90,7 @@
                              #input4Ref="ngModel"
                              (emitValue)="bindItems[value.bindItem!] = $event"></switch-button>
 
-              <app-show-errors [ctrl]="input4Ref.control" [patternErrorMsg]="value.errorItems?.patternErrorMsg"
-                               [oneRequiredErrorMsg]="value.errorItems?.oneRequiredErrorMsg"
-                               [errorMessage]="value.errorItems?.errorMessage"
-                               [waitForTouch]="value.errorItems?.waitForTouch"
-                               [showRequiredError]="value.errorItems?.showRequiredError"></app-show-errors>
+
             </div>
           }
         }
@@ -136,12 +115,7 @@
                            aria-label="Datepicker Input"/>
                   </div>
                 </ng-persian-datepicker>
-                <app-show-errors [ctrl]="input5Ref.control"
-                                 [patternErrorMsg]="value.errorItems?.patternErrorMsg"
-                                 [oneRequiredErrorMsg]="value.errorItems?.oneRequiredErrorMsg"
-                                 [errorMessage]="value.errorItems?.errorMessage"
-                                 [waitForTouch]="value.errorItems?.waitForTouch"
-                                 [showRequiredError]="value.errorItems?.showRequiredError"></app-show-errors>
+
               </div>
             </div>
           }

@@ -13,8 +13,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {SwitchButtonComponent} from '../../components/switch-button/switch-button.component';
 import {NgPersianDatepickerModule} from 'ng-persian-datepicker';
 import {Observable, of} from 'rxjs';
-import {ShowErrorsComponent} from "../show-errors/show-errors.component";
 import {Jalali} from "jalali-ts";
+import {ErrorHandlingDirective} from "../directives/error-handling.directive";
 
 @Component({
   selector: 'app-form-items',
@@ -26,7 +26,7 @@ import {Jalali} from "jalali-ts";
     SwitchButtonComponent,
     NgPersianDatepickerModule,
     ReactiveFormsModule,
-    ShowErrorsComponent,
+    ErrorHandlingDirective,
   ],
   templateUrl: './form-items.component.html',
   styleUrl: './form-items.component.scss',

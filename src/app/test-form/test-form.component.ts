@@ -90,6 +90,8 @@ export class TestFormComponent implements OnInit {
           pattern: /^\d{10}$/,
           maxLength: '10',
           minLength: '10',
+          min:'10',
+          max:'10',
           defaultValue: '',
           errorItems: {
             oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
