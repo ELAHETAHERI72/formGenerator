@@ -42,8 +42,6 @@ export class ErrorHandlingDirective implements OnInit {
         if (this.ngControl.errors &&
           Array.from(Object.keys(this.ngControl.errors!))?.length) {
           this.showError()
-        } else {
-
         }
       })
     })
@@ -52,8 +50,8 @@ export class ErrorHandlingDirective implements OnInit {
   private showError() {
     let p = null;
     let text = null;
+    debugger
     const hasPChild = Array.from(this.elementRef.nativeElement.parentElement.children).some((child: any) => child.tagName === 'P');
-
 
     if (this.errorMessage) {
       p = this.renderer.createElement('p');
@@ -66,13 +64,17 @@ export class ErrorHandlingDirective implements OnInit {
         this.renderer.addClass(p, 'invalid-feedback');
         this.renderer.addClass(p, 'd-inline-block');
       } else if (this.ngControl.value.length == 0 && hasPChild) {
-        debugger
-        this.renderer.removeClass(p, 'd-inline-block');
+        const element = this.renderer.selectRootElement('.invalid-feedback');
+        this.renderer.removeClass(element, 'd-inline-block');
       }
-
+    } else if (hasPChild) {
+      const element = this.renderer.selectRootElement('.invalid-feedback');
+      this.renderer.removeClass(element, 'd-inline-block');
+    } else if (hasPChild && this.ngControl.value.length > 0) {
+      const element = this.renderer.selectRootElement('.invalid-feedback');
+      this.renderer.addClass(element, 'd-inline-block');
 
     }
-
 
   }
 
