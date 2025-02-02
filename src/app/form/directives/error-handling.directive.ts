@@ -62,9 +62,14 @@ export class ErrorHandlingDirective implements OnInit {
     const hasPChild = Array.from(this.elementRef.nativeElement.parentElement.children).some((child: any) => child.tagName === 'P');
 
     if (this.errorMessage) {
-      if ((this.ngControl.value.length > 0) && !(this.p.innerText==this.errorMessage)) {
+
+      if (!(this.p.innerText.length)) {
         this.text = this.renderer.createText(this.errorMessage);
         this.renderer.appendChild(this.p, this.text);
+      }
+
+      if ((this.ngControl.value.length > 0)) {
+
         // Append the paragraph to the host element
         this.renderer.addClass(this.p, 'd-inline-block');
       } else if (this.ngControl.value.length == 0) {
