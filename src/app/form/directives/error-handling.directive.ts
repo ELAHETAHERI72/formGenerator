@@ -18,6 +18,9 @@ export const ERROR_MESSAGES = {
 
 export class ErrorHandlingDirective implements OnInit {
 
+  p: any = null;
+  text: any = null;
+
   constructor(
     @Optional() @Self() public ngControl: NgControl,
     private elementRef: ElementRef,
@@ -36,6 +39,7 @@ export class ErrorHandlingDirective implements OnInit {
   }
 
   ngOnInit() {
+    this.appendErrorMessageWrapper();
 
     this.ngControl.valueChanges && this.ngControl.valueChanges.subscribe({
       next: (response => {
@@ -47,33 +51,27 @@ export class ErrorHandlingDirective implements OnInit {
     })
   }
 
+  private appendErrorMessageWrapper() {
+    this.p = this.renderer.createElement('p');
+    this.renderer.appendChild(this.elementRef.nativeElement.parentElement, this.p);
+    this.renderer.addClass(this.p, 'invalid-feedback');
+  }
+
   private showError() {
-    let p = null;
-    let text = null;
-    debugger
+
     const hasPChild = Array.from(this.elementRef.nativeElement.parentElement.children).some((child: any) => child.tagName === 'P');
 
     if (this.errorMessage) {
-      p = this.renderer.createElement('p');
-      // Add the class to the element
-      if ((this.ngControl.value.length > 0) && !hasPChild) {
-        text = this.renderer.createText(this.errorMessage);
-        this.renderer.appendChild(p, text);
+      if ((this.ngControl.value.length > 0) && !(this.p.innerText==this.errorMessage)) {
+        this.text = this.renderer.createText(this.errorMessage);
+        this.renderer.appendChild(this.p, this.text);
         // Append the paragraph to the host element
-        this.renderer.appendChild(this.elementRef.nativeElement.parentElement, p);
-        this.renderer.addClass(p, 'invalid-feedback');
-        this.renderer.addClass(p, 'd-inline-block');
-      } else if (this.ngControl.value.length == 0 && hasPChild) {
-        const element = this.renderer.selectRootElement('.invalid-feedback');
-        this.renderer.removeClass(element, 'd-inline-block');
+        this.renderer.addClass(this.p, 'd-inline-block');
+      } else if (this.ngControl.value.length == 0) {
+        this.renderer.removeClass(this.p, 'd-inline-block');
       }
-    } else if (hasPChild) {
-      const element = this.renderer.selectRootElement('.invalid-feedback');
-      this.renderer.removeClass(element, 'd-inline-block');
-    } else if (hasPChild && this.ngControl.value.length > 0) {
-      const element = this.renderer.selectRootElement('.invalid-feedback');
-      this.renderer.addClass(element, 'd-inline-block');
-
+    } else if (!this.errorMessage && this.ngControl.valid) {
+      this.renderer.removeClass(this.p, 'd-inline-block');
     }
 
   }
