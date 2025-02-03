@@ -43,7 +43,6 @@ export class ErrorHandlingDirective implements OnInit {
 
     this.ngControl.valueChanges && this.ngControl.valueChanges.subscribe({
       next: (response => {
-        console.log(this.ngControl,'ngControl');
         if (this.ngControl.errors &&
           Array.from(Object.keys(this.ngControl.errors!))?.length) {
           this.showError()

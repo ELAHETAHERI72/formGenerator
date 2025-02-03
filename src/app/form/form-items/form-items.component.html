@@ -88,11 +88,11 @@
               <switch-button
                 handelError
                 [(ngModel)]="bindItems[value.bindItem!]"
-                             (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
-                             [isChecked]="bindItems[value.bindItem!]"
-                             [labelName]="value.labelName" [name]="value.id" [required]="value.isRequired"
-                             #input4Ref="ngModel"
-                             (emitValue)="bindItems[value.bindItem!] = $event"></switch-button>
+                (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
+                [isChecked]="bindItems[value.bindItem!]"
+                [labelName]="value.labelName" [name]="value.id" [required]="value.isRequired"
+                #input4Ref="ngModel"
+                (emitValue)="bindItems[value.bindItem!] = $event"></switch-button>
 
 
             </div>
@@ -107,12 +107,12 @@
                 <ng-persian-datepicker
                   handelError
                   [dateGregorianFormat]="'YYYY-MM-DD HH:mm:ss'"
-                                       [dateMax]="Jalali.parse(value.max!).valueOf()"
-                                       [dateMin]="Jalali.parse(value.min!).valueOf()"
-                                       [uiMonthView]="true"
-                                       [uiYearView]="true"
-                                       [uiMonthView]="uiMonthView"
-                                       [timeEnable]="false">
+                  [dateMax]="Jalali.parse(value.max!).valueOf()"
+                  [dateMin]="Jalali.parse(value.min!).valueOf()"
+                  [uiMonthView]="true"
+                  [uiYearView]="true"
+                  [uiMonthView]="uiMonthView"
+                  [timeEnable]="false">
                   <div class="input-field">
                     <input type="text" class="form-control"
                            (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
@@ -157,16 +157,22 @@
               </div>
             }
             @for (formArrayItem of getFormArray(value, 'formArrayFields'); track i; let i = $index) {
-              <app-form-items
-                handelError
-                ngDefaultControl
-                name="{{formArrayItem.bindItem}}{{i}}"
-                id="{{formArrayItem.bindItem}}{{i}}"
-                [(ngModel)]="bindItems[formArrayItem.bindItem]"
-                [items]="getFormGroup(formArrayItem)"
-                [bindItems]="bindItems[value.bindItem][i]"></app-form-items>
+              <div class="d-flex align-items-end">
+                <div class="flex-grow-1">
+                  <app-form-items
+                    handelError
+                    ngDefaultControl
+                    name="{{formArrayItem.bindItem}}{{i}}"
+                    id="{{formArrayItem.bindItem}}{{i}}"
+                    [(ngModel)]="bindItems[formArrayItem.bindItem]"
+                    [items]="getFormGroup(formArrayItem)"
+                    [bindItems]="bindItems[value.bindItem][i]"></app-form-items>
+                </div>
 
-              <span (click)="deleteFormArrayItemHandler(value,formArrayItem,i)">حذف</span>
+                <div class="flex-grow-1 ">
+                  <span class="btn btn-outline-danger" (click)="deleteFormArrayItemHandler(value,formArrayItem,i)">حذف</span>
+                </div>
+              </div>
 
             }
           }
