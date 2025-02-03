@@ -13,7 +13,7 @@
         @case (Types.INPUT_TYPE) {
           @if (value?.isDisplayedSignal()) {
             <div class="form-group col-3 has-validation">
-              <label>{{ value.labelName }}</label>
+              <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>
               <input type="text" class="form-control"
                      handelError
                      [required]="value.isRequired"
@@ -29,7 +29,7 @@
         }
         @case (Types.INPUT_NUMBER_TYPE) {
           <div class="form-group col-3 has-validation">
-            <label>{{ value.labelName }}</label>
+            <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>
             <input type="text" class="form-control"
                    [required]="value.isRequired"
                    handelError
@@ -52,8 +52,9 @@
           @if (value?.isDisplayedSignal()) {
 
             <div class="form-group col-3">
-              <label>{{ value.labelName }}</label>
+              <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>
               <ng-select class="custom-select"
+                         handelError
                          (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
                          [items]="returnArray(value) |async" bindLabel="name" bindValue="id"
                          [required]="value.isRequired" #input2Ref="ngModel" [name]="value.id" [id]="value.id"
@@ -67,8 +68,9 @@
           @if (value?.isDisplayedSignal()) {
 
             <div class="form-group col-3">
-              <label>{{ value.labelName }}</label>
+              <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>
               <textarea [name]="value.id!"
+                        handelError
                         (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
                         #input3Ref="ngModel" [id]="value.id"
                         [pattern]="value.pattern"
@@ -83,7 +85,9 @@
           @if (value?.isDisplayedSignal()) {
 
             <div class="col-3">
-              <switch-button [(ngModel)]="bindItems[value.bindItem!]"
+              <switch-button
+                handelError
+                [(ngModel)]="bindItems[value.bindItem!]"
                              (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
                              [isChecked]="bindItems[value.bindItem!]"
                              [labelName]="value.labelName" [name]="value.id" [required]="value.isRequired"
@@ -98,9 +102,11 @@
           @if (value?.isDisplayedSignal()) {
 
             <div class="form-group col-3">
-              <label for="">{{ value.labelName }}</label>
+              <label [ngClass]="{'required':value.isRequired}" for="">{{ value.labelName }}</label>
               <div class="datepicker-wrapper">
-                <ng-persian-datepicker [dateGregorianFormat]="'YYYY-MM-DD HH:mm:ss'"
+                <ng-persian-datepicker
+                  handelError
+                  [dateGregorianFormat]="'YYYY-MM-DD HH:mm:ss'"
                                        [dateMax]="Jalali.parse(value.max!).valueOf()"
                                        [dateMin]="Jalali.parse(value.min!).valueOf()"
                                        [uiMonthView]="true"
@@ -132,8 +138,9 @@
         @case (Types.FORM_GROUP) {
           @if (value?.isDisplayedSignal()) {
 
-            <label for="">{{ value.labelName }}</label>
+            <label [ngClass]="{'required':value.isRequired}" for="">{{ value.labelName }}</label>
             <app-form-items
+              handelError
               ngDefaultControl
               name="{{value.bindItem}}{{index}}"
               [(ngModel)]="bindItems[value.bindItem]"
@@ -143,7 +150,7 @@
         }
         @case (Types.FORM_ARRAY) {
           @if (value?.isDisplayedSignal()) {
-            <label for="">{{ value.labelName }}</label>
+            <label [ngClass]="{'required':value.isRequired}" for="">{{ value.labelName }}</label>
             @if (getFormArray(value, 'hasAddButton')) {
               <div class=''>
                 <button class="btn btn-primary" type="button" (click)="addFormItem(value)">افزودن</button>
@@ -151,6 +158,7 @@
             }
             @for (formArrayItem of getFormArray(value, 'formArrayFields'); track i; let i = $index) {
               <app-form-items
+                handelError
                 ngDefaultControl
                 name="{{formArrayItem.bindItem}}{{i}}"
                 id="{{formArrayItem.bindItem}}{{i}}"

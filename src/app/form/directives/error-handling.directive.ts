@@ -12,7 +12,7 @@ export const ERROR_MESSAGES = {
 
 
 @Directive({
-  selector: 'input[handelError]',
+    selector: '[handelError]',
   standalone: true,
 })
 
@@ -43,9 +43,12 @@ export class ErrorHandlingDirective implements OnInit {
 
     this.ngControl.valueChanges && this.ngControl.valueChanges.subscribe({
       next: (response => {
+        console.log(this.ngControl,'ngControl');
         if (this.ngControl.errors &&
           Array.from(Object.keys(this.ngControl.errors!))?.length) {
           this.showError()
+        } else {
+          this.renderer.removeClass(this.p, 'd-inline-block');
         }
       })
     })
@@ -59,17 +62,13 @@ export class ErrorHandlingDirective implements OnInit {
 
   private showError() {
 
-    const hasPChild = Array.from(this.elementRef.nativeElement.parentElement.children).some((child: any) => child.tagName === 'P');
-
     if (this.errorMessage) {
-
       if (!(this.p.innerText.length)) {
         this.text = this.renderer.createText(this.errorMessage);
         this.renderer.appendChild(this.p, this.text);
       }
 
       if ((this.ngControl.value.length > 0)) {
-
         // Append the paragraph to the host element
         this.renderer.addClass(this.p, 'd-inline-block');
       } else if (this.ngControl.value.length == 0) {
