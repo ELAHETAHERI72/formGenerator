@@ -1,9 +1,7 @@
 import {Component, effect, OnInit, signal, WritableSignal} from '@angular/core';
-import {BaseTableComponent} from "../base-table/base-table/base-table.component";
 import {FormComponent} from "../form/form/form.component";
-import {RouterOutlet} from "@angular/router";
 import {
-  CustomItem, formArray,
+  CustomItem, dateInterface, formArray,
   formConfig,
   formGroups,
   inputInterface,
@@ -11,7 +9,6 @@ import {
   Types
 } from "../form/models/interfaces/form-type.interface";
 import {formModel} from "../app.component";
-import {Test2Component} from "../test2/test2.component";
 import {FormsModule, NgForm} from "@angular/forms";
 import {NgSelectModule} from '@ng-select/ng-select';
 import {of} from 'rxjs';
@@ -51,6 +48,7 @@ export class TestFormComponent implements OnInit {
 
   initialCall() {
     this.config = {
+
       classList: 'd-flex',
       formName: this.testForm,
       formId: 'testForm',
@@ -60,10 +58,13 @@ export class TestFormComponent implements OnInit {
 
       submitted: ((v: formModel) => {
         console.log(v, 'form');
+
+        // for initial call && submit form answer
         this.formItem = v;
       }),
 
       items: [
+        // add text input
         new inputInterface({
           id: 'name',
           inputType: Types.INPUT_TYPE,
@@ -72,6 +73,7 @@ export class TestFormComponent implements OnInit {
           placeholder: 'name',
           bindItem: 'name',
           isRequired: true,
+          //displayed depends on another section
           isDisplayedSignal: this.disabledName,
           errorItems: {
             oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
@@ -79,7 +81,7 @@ export class TestFormComponent implements OnInit {
             showRequiredError: true,
           }
         }),
-
+        // add only number
         new inputInterface({
           isRequired: true,
           inputType: Types.INPUT_NUMBER_TYPE,
@@ -90,8 +92,8 @@ export class TestFormComponent implements OnInit {
           pattern: /^\d{10}$/,
           maxLength: '10',
           minLength: '10',
-          min:'10',
-          max:'10',
+          min: '10',
+          max: '10',
           defaultValue: '',
           errorItems: {
             oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
@@ -99,6 +101,7 @@ export class TestFormComponent implements OnInit {
             showRequiredError: true,
           }
         }),
+        // add custom template
         new CustomItem({
           isRequired: true,
           inputType: Types.CUSTOM_FORM_ITEM,
@@ -107,9 +110,11 @@ export class TestFormComponent implements OnInit {
           id: 'status',
           bindItem: 'statusId',
           defaultValue: '',
+          // for check changes , for example if some section we want show or not depend on this field
           emitFormItems: (value: any) => this.checkIsFill(value),
           errorItems: {}
         }),
+        // add select box
         new selectInterface({
           id: 'city',
           inputType: Types.SELECT_TYPE,
@@ -129,21 +134,24 @@ export class TestFormComponent implements OnInit {
           ]),
           bindItem: 'cityId'
         }),
+        //  add divider line
         {
           "inputType": Types.BORDER_LINE,
         } as any,
+        // add title for each section
         {
           "inputType": Types.SECTION_TITLE,
           labelName: 'اطلاعات'
         } as any,
-        // new dateInterface({
-        //   id: 'fromDate',
-        //   name: 'fromDate',
-        //   bindItem: 'fromDate',
-        //   isRequired: false,
-        //   inputType: Types.DATE_TYPE,
-        //   labelName: 'از تاریخ'
-        // }),
+        // add date picker
+        new dateInterface({
+          id: 'fromDate',
+          name: 'fromDate',
+          bindItem: 'fromDate',
+          isRequired: false,
+          inputType: Types.DATE_TYPE,
+          labelName: 'از تاریخ'
+        }),
 
         // add form group inside form
         new formGroups(
@@ -180,7 +188,7 @@ export class TestFormComponent implements OnInit {
           labelName: 'آرایه تستی'
         } as any,
 
-        // add form array inside form
+        // add formArray inside form
         new formArray({
           hasAddButton: true,
           inputType: Types.FORM_ARRAY,
@@ -188,6 +196,7 @@ export class TestFormComponent implements OnInit {
           labelName: '',
           isRequired: true,
           bindItem: 'informations',
+          // how you can add form item inside form array dynamic
           addFormArrayField: (item) => this.addFormArrayField(item),
           formArrayFields: [
             new formGroups(
