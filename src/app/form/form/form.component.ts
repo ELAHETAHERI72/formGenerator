@@ -149,6 +149,7 @@ export class FormComponent {
     )
   }
 
+  // deep clone for manage memory
   deepClone(obj: any, hash = new WeakMap()) {
     if (obj === null || typeof obj !== "object") {
       return obj; // Return the value if obj is not an object

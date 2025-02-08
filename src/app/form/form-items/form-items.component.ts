@@ -37,6 +37,7 @@ export class FormItemsComponent {
 
   _items: Array<inputTYpe> = [];
   _bindItems: any = {};
+  ngForm = inject(NgForm);
 
   @Input() set bindItems(bindItem: any) {
     if (bindItem) {

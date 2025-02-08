@@ -72,8 +72,7 @@ export class TestFormComponent implements OnInit {
           name: 'name',
           placeholder: 'name',
           bindItem: 'name',
-          isRequired: true,
-          //displayed depends on another section
+          isRequired: true,  //displayed depends on another section
           isDisplayedSignal: this.disabledName,
           errorItems: {
             oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
@@ -109,8 +108,8 @@ export class TestFormComponent implements OnInit {
           name: 'status',
           id: 'status',
           bindItem: 'statusId',
-          defaultValue: '',
-          // for check changes , for example if some section we want show or not depend on this field
+          defaultValue: '',// for check changes , for example if some section we want show or not depend on this field
+
           emitFormItems: (value: any) => this.checkIsFill(value),
           errorItems: {}
         }),
@@ -195,8 +194,7 @@ export class TestFormComponent implements OnInit {
           id: 'informations',
           labelName: '',
           isRequired: true,
-          bindItem: 'informations',
-          // how you can add form item inside form array dynamic
+          bindItem: 'informations',// how you can add form item inside form array dynamic
           addFormArrayField: (item) => this.addFormArrayField(item),
           formArrayFields: [
             new formGroups(

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {RouterLink, RouterOutlet} from '@angular/router';
+import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import { FormComponent } from "./form/form/form.component";
-import { dateInterface, formConfig, formGroups, inputInterface, selectInterface, switchInterface, textAreaInterface, Types } from './form/models/interfaces/form-type.interface';
-import { of, Subject } from 'rxjs';
-import { BaseTableComponent } from "./base-table/base-table/base-table.component";
+
 
 export interface formModel {
   name: string;
@@ -15,7 +13,7 @@ export interface formModel {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FormComponent, BaseTableComponent, RouterLink],
+  imports: [RouterOutlet, FormComponent, RouterLink, RouterLinkActive],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

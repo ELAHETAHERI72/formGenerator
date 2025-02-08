@@ -7,12 +7,12 @@ export const ERROR_MESSAGES = {
   required: 'this field is required',
   minlength: 'this field must be greater than',
   maxlength: 'this field must be greater than',
-
+  pattern: ''
 }
 
 
 @Directive({
-    selector: '[handelError]',
+  selector: '[handelError]',
   standalone: true,
 })
 
@@ -41,7 +41,7 @@ export class ErrorHandlingDirective implements OnInit {
   ngOnInit() {
     this.appendErrorMessageWrapper();
 
-    this.ngControl.valueChanges && this.ngControl.valueChanges.subscribe({
+    this.ngControl?.valueChanges && this.ngControl.valueChanges.subscribe({
       next: (response => {
         if (this.ngControl.errors &&
           Array.from(Object.keys(this.ngControl.errors!))?.length) {
