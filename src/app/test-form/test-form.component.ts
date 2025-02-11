@@ -34,8 +34,8 @@ export class TestFormComponent implements OnInit {
   formItem: any = {};
 
   statuses = of([
-    {id: 'isValid', name: 'قابل قبول', value: 'isValid'},
-    {id: 'notValid', name: 'غیرقابل قبول', value: 'notValid'}
+    {id: 'isValid', name: 'isValid', value: 'isValid'},
+    {id: 'notValid', name: 'notValid', value: 'notValid'}
   ])
 
   disabledName: WritableSignal<any> = signal(false);
@@ -68,14 +68,14 @@ export class TestFormComponent implements OnInit {
         new inputInterface({
           id: 'name',
           inputType: Types.INPUT_TYPE,
-          labelName: 'نام',
+          labelName: 'name',
           name: 'name',
           placeholder: 'name',
           bindItem: 'name',
           isRequired: true,  //displayed depends on another section
           isDisplayedSignal: this.disabledName,
           errorItems: {
-            oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
+            oneRequiredErrorMsg: 'this field is required',
             waitForTouch: true,
             showRequiredError: true,
           }
@@ -84,7 +84,7 @@ export class TestFormComponent implements OnInit {
         new inputInterface({
           isRequired: true,
           inputType: Types.INPUT_NUMBER_TYPE,
-          labelName: 'کد ملی',
+          labelName: 'nationalId',
           name: 'nationalId',
           id: 'nationalId',
           bindItem: 'nationalId',
@@ -95,7 +95,7 @@ export class TestFormComponent implements OnInit {
           max: '10',
           defaultValue: '',
           errorItems: {
-            oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
+            oneRequiredErrorMsg: '',
             waitForTouch: true,
             showRequiredError: true,
           }
@@ -104,7 +104,7 @@ export class TestFormComponent implements OnInit {
         new CustomItem({
           isRequired: true,
           inputType: Types.CUSTOM_FORM_ITEM,
-          labelName: 'وضعیت',
+          labelName: 'status',
           name: 'status',
           id: 'status',
           bindItem: 'statusId',
@@ -117,9 +117,9 @@ export class TestFormComponent implements OnInit {
         new selectInterface({
           id: 'city',
           inputType: Types.SELECT_TYPE,
-          labelName: 'شهر',
+          labelName: 'city',
           name: 'city',
-          placeholder: 'شهر',
+          placeholder: 'city',
           isRequired: true,
           // errorItems: {},
           fields: of([
@@ -140,7 +140,7 @@ export class TestFormComponent implements OnInit {
         // add title for each section
         {
           "inputType": Types.SECTION_TITLE,
-          labelName: 'اطلاعات'
+          labelName: 'information'
         } as any,
         // add date picker
         new dateInterface({
@@ -149,7 +149,7 @@ export class TestFormComponent implements OnInit {
           bindItem: 'fromDate',
           isRequired: false,
           inputType: Types.DATE_TYPE,
-          labelName: 'از تاریخ'
+          labelName: 'from date'
         }),
 
         // add form group inside form
@@ -165,10 +165,10 @@ export class TestFormComponent implements OnInit {
               new selectInterface({
                 id: 'gender',
                 inputType: Types.SELECT_TYPE,
-                labelName: 'جنسیت',
+                labelName: 'gender',
                 name: 'gender',
-                placeholder: 'جنسیت',
-                fields: [{id: 'male', name: 'مرد', value: 'مرد'}, {id: 'female', name: 'زن', value: 'زن'}],
+                placeholder: 'gender',
+                fields: [{id: 'male', name: 'male', value: 'male'}, {id: 'female', name: 'female', value: 'female'}],
                 bindItem: 'gender',
                 isRequired: true,
                 errorItems: {}
@@ -184,7 +184,7 @@ export class TestFormComponent implements OnInit {
         // add section title
         {
           "inputType": Types.SECTION_TITLE,
-          labelName: 'آرایه تستی'
+          labelName: 'array list'
         } as any,
 
         // add formArray inside form
@@ -208,9 +208,9 @@ export class TestFormComponent implements OnInit {
                   new selectInterface({
                     id: `info${Math.random()}`,
                     inputType: Types.SELECT_TYPE,
-                    labelName: 'اطلاعات فردی',
+                    labelName: 'personal information',
                     name: `info${Math.random()}`,
-                    placeholder: 'اطلاعات فردی',
+                    placeholder: 'personal information',
                     fields: [{id: 'مراد', name: 'مراد', value: 'مراد'}, {id: 'جمیله', name: 'جمیله', value: 'جمیله'}],
                     bindItem: 'info',
                     isRequired: true,
@@ -219,12 +219,12 @@ export class TestFormComponent implements OnInit {
                   new inputInterface({
                     id: `specialCode${Math.random()}`,
                     inputType: Types.INPUT_TYPE,
-                    labelName: 'کد ویژه',
+                    labelName: 'special code',
                     placeholder: 'specialCode',
                     bindItem: 'specialCode',
                     isRequired: true,
                     errorItems: {
-                      oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
+                      oneRequiredErrorMsg: '',
                       waitForTouch: true,
                       showRequiredError: true,
                     }
@@ -260,9 +260,9 @@ export class TestFormComponent implements OnInit {
             new selectInterface({
               id: `info${Math.random()}`,
               inputType: Types.SELECT_TYPE,
-              labelName: 'اطلاعات فردی',
+              labelName:  'personal information',
               name: `info${Math.random()}`,
-              placeholder: 'اطلاعات فردی',
+              placeholder: 'personal information',
               fields: [{id: 'مراد', name: 'مراد', value: 'مراد'}, {id: 'جمیله', name: 'جمیله', value: 'جمیله'}],
               bindItem: 'info',
               isRequired: true,
@@ -271,13 +271,13 @@ export class TestFormComponent implements OnInit {
             new inputInterface({
               id: `specialCode${Math.random()}`,
               inputType: Types.INPUT_TYPE,
-              labelName: 'کد ویژه',
+              labelName: 'special code',
               name: `specialCode${Math.random()}`,
               placeholder: 'specialCode',
               bindItem: 'specialCode',
               isRequired: true,
               errorItems: {
-                oneRequiredErrorMsg: 'این فیلد اجباری می باشد',
+                oneRequiredErrorMsg: '',
                 waitForTouch: true,
                 showRequiredError: true,
               }

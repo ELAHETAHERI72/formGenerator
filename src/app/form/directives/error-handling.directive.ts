@@ -60,6 +60,7 @@ export class ErrorHandlingDirective implements OnInit {
   }
 
   private showError() {
+    this.p.innerText = '';
 
     if (this.errorMessage) {
       if (!(this.p.innerText.length)) {
@@ -75,6 +76,7 @@ export class ErrorHandlingDirective implements OnInit {
       }
     } else if (!this.errorMessage && this.ngControl.valid) {
       this.renderer.removeClass(this.p, 'd-inline-block');
+      this.text = undefined;
     }
 
   }

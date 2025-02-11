@@ -10,8 +10,8 @@ body, * {
 }
 
 ::ng-deep {
-  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {            
- 
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+
   border: 1px solid gray !important;
   border-radius: 12px !important;
 }
@@ -21,7 +21,7 @@ body, * {
   min-height: 0px;
   border-radius: 0;
 }
-.ng-select.custom .ng-select-container  {            
+.ng-select.custom .ng-select-container  {
   min-height: 0px;
   border-radius: 0;
 }

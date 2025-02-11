@@ -55,10 +55,12 @@ export class FormComponent {
   }
 
   @Input() set tempRefs(arr: Array<{ template: TemplateRef<any>, id: any }>) {
+    // get custom template from outside
     this._tempRefs.set(arr);
   };
 
   constructor(private vcRef: ViewContainerRef, private renderer: Renderer2) {
+    // if we have custom template
     effect(() => {
       this.customFormItemSetValue();
     })
@@ -71,12 +73,13 @@ export class FormComponent {
     }
   }
 
-
+  //submit api call
   submitApiForm(form: NgForm) {
     this.customFormItemSetValue();
     this.formConfig.submitted?.(this.deepClone(this.bindItems));
   }
 
+  // create dto model
   createModel(items: Array<inputTYpe>) {
     let formDto: any = {};
     items?.forEach((element: inputTYpe) => {
@@ -113,6 +116,8 @@ export class FormComponent {
           }) ?? []
         }
       }
+      // api call coming soon
+
       // if(config.apiCall){
       //   // this.baseService.
       // }
@@ -129,6 +134,7 @@ export class FormComponent {
 
   }
 
+  // add custom template to dto
   customFormItemSetValue() {
     this._formConfig.items.filter(item => item.inputType === Types.CUSTOM_FORM_ITEM).forEach(
       element => {
