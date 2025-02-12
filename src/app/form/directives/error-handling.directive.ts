@@ -7,7 +7,8 @@ export const ERROR_MESSAGES = {
   required: () => 'this field is required',
   minlength: (value: any) => `this field must be greater than${value.requiredLength}`,
   maxlength: (value: any) => `this field must be greater than${value.requiredLength}`,
-  pattern: () => 'incorrect format'
+  pattern: () => 'incorrect format',
+  email:() => 'incorrect format',
 }
 
 
