@@ -89,10 +89,10 @@ export class FormComponent {
 
           formDto[element?.bindItem!] = element.defaultValue ?? false;
         } else if (element.inputType == Types.SELECT_TYPE) {
-          formDto[element.bindItem] = element.defaultValue ?? '';
+          formDto[element.bindItem] = element.defaultValue ?? undefined;
 
         } else if (element.inputType == Types.CUSTOM_FORM_ITEM) {
-          formDto[element.bindItem] = element.defaultValue ?? '';
+          formDto[element.bindItem] = element.defaultValue ?? undefined;
 
           if (formDto[element.bindItem]) {
             this.customFormItemSetValue();
@@ -100,7 +100,7 @@ export class FormComponent {
 
         }
         else {
-          formDto[element?.bindItem!] = element.defaultValue ?? '';
+          formDto[element?.bindItem!] = element.defaultValue ?? undefined;
         }
       }
       if (element.inputType == Types.FORM_GROUP || element.inputType == Types.FORM_ARRAY) {
