@@ -157,7 +157,7 @@ export class TestFormComponent implements OnInit {
           {
             inputType: Types.FORM_GROUP,
             id: 'gender',
-            labelName: '',
+            labelName: 'info',
             bindItem: 'gender',
             name: 'gender',
             isRequired: true,
@@ -192,7 +192,7 @@ export class TestFormComponent implements OnInit {
           hasAddButton: true,
           inputType: Types.FORM_ARRAY,
           id: 'informations',
-          labelName: '',
+          labelName: 'info',
           isRequired: true,
           bindItem: 'informations',// how you can add form item inside form array dynamic
           addFormArrayField: (item) => this.addFormArrayField(item),
@@ -201,7 +201,7 @@ export class TestFormComponent implements OnInit {
               {
                 inputType: Types.FORM_GROUP,
                 id: `information${Math.random()}`,
-                labelName: '',
+                labelName: 'extraInformations',
                 bindItem: 'information',
                 isRequired: true,
                 formItems: [

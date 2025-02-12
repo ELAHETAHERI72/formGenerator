@@ -139,7 +139,7 @@
         @case (Types.FORM_GROUP) {
           @if (value?.isDisplayedSignal()) {
 
-            <label [ngClass]="{'required':value.isRequired}" for="">{{ value.labelName }}</label>
+<!--            <label [ngClass]="{'required':value.isRequired}" for="">{{ value.labelName }}</label>-->
             <app-form-items
               handelError
               ngDefaultControl
@@ -151,7 +151,7 @@
         }
         @case (Types.FORM_ARRAY) {
           @if (value?.isDisplayedSignal()) {
-            <label [ngClass]="{'required':value.isRequired}" for="">{{ value.labelName }}</label>
+<!--            <label [ngClass]="{'required':value.isRequired}" for="">{{ value.labelName }}</label>-->
             @if (getFormArray(value, 'hasAddButton')) {
               <div class=''>
                 <button class="btn btn-primary" type="button" (click)="addFormItem(value)">add</button>

@@ -1,3 +1,9 @@
 :root{
     width: 100% !important;
 }
+
+.required::after {
+  content: "*";
+  color: red;
+  margin-left:2px
+}
