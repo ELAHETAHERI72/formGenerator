@@ -143,14 +143,14 @@ export class TestFormComponent implements OnInit {
           labelName: 'information'
         } as any,
         // add date picker
-        new dateInterface({
-          id: 'fromDate',
-          name: 'fromDate',
-          bindItem: 'fromDate',
-          isRequired: false,
-          inputType: Types.DATE_TYPE,
-          labelName: 'from date'
-        }),
+        // new dateInterface({
+        //   id: 'fromDate',
+        //   name: 'fromDate',
+        //   bindItem: 'fromDate',
+        //   isRequired: false,
+        //   inputType: Types.DATE_TYPE,
+        //   labelName: 'from date'
+        // }),
 
         // add form group inside form
         new formGroups(
