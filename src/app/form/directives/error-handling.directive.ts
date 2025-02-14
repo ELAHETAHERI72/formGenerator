@@ -1,14 +1,14 @@
-import {Directive, ElementRef, HostListener, Inject, Input, OnInit, Optional, Renderer2, Self} from "@angular/core";
-import {NgControl} from "@angular/forms";
-import {DOCUMENT} from "@angular/common";
-
+import { DestroyRef, Directive, ElementRef, HostListener, inject, Inject, Input, OnInit, Optional, Renderer2, Self } from "@angular/core";
+import { NgControl } from "@angular/forms";
+import { DOCUMENT } from "@angular/common";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 export const ERROR_MESSAGES = {
   required: () => 'this field is required',
   minlength: (value: any) => `this field must be greater than${value.requiredLength}`,
   maxlength: (value: any) => `this field must be greater than${value.requiredLength}`,
   pattern: () => 'incorrect format',
-  email:() => 'incorrect format',
+  email: () => 'incorrect format',
 }
 
 
@@ -19,9 +19,9 @@ export const ERROR_MESSAGES = {
 
 export class ErrorHandlingDirective implements OnInit {
 
-  p: any = null;
+  p: any;
   text: any = null;
-
+  private destroyRef = inject(DestroyRef);
   constructor(
     @Optional() @Self() public ngControl: NgControl,
     private elementRef: ElementRef,
@@ -42,30 +42,45 @@ export class ErrorHandlingDirective implements OnInit {
   ngOnInit() {
     this.appendErrorMessageWrapper();
 
-    this.ngControl?.valueChanges && this.ngControl.valueChanges.subscribe({
+    this.ngControl?.valueChanges?.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
       next: (response => {
-        if (this.ngControl.errors &&
+
+        if (response && this.ngControl.errors &&
           Array.from(Object.keys(this.ngControl.errors!))?.length) {
           this.showError();
         } else {
-          this.renderer.removeClass(this.p, 'd-inline-block');
+          if (this.p) {
+            this.renderer.removeClass(this.p, 'd-inline-block');
+
+          }
         }
       })
     })
   }
 
   private appendErrorMessageWrapper() {
-    this.p = this.renderer.createElement('p');
-    this.renderer.appendChild(this.elementRef.nativeElement.parentElement, this.p);
-    this.renderer.addClass(this.p, 'invalid-feedback');
+    const parentElement = this.elementRef.nativeElement.parentElement;
+    const existingParagraph = parentElement.querySelector('p.invalid-feedback');
+    if (!existingParagraph) {
+      this.p = this.renderer.createElement('p');
+      this.renderer.appendChild(this.elementRef.nativeElement.parentElement, this.p);
+      this.renderer.addClass(this.p, 'invalid-feedback');
+    }
   }
 
   addMessageInsideP() {
-    this.p.innerText = '';
-    if (!(this.p.innerText.length)) {
-      if (this.errorMessage) {
-        this.text = this.renderer.createText(this.errorMessage);
-        this.renderer.appendChild(this.p, this.text);
+    const parentElement = this.elementRef.nativeElement.parentElement;
+    const existingParagraph = parentElement.querySelector('p.invalid-feedback');
+
+    if (existingParagraph) {
+      existingParagraph.innerText = '';
+      if (!(existingParagraph.innerText.length)) {
+        if (this.errorMessage) {
+          this.text = this.renderer.createText(this.errorMessage);
+          this.renderer.appendChild(existingParagraph, this.text);
+        }
       }
     }
   }
@@ -73,27 +88,36 @@ export class ErrorHandlingDirective implements OnInit {
   private showError() {
     this.addMessageInsideP();
 
-    if (this.errorMessage) {
-      if ((this.ngControl.value && this.ngControl.value.length > 0)) {
-        // Append the paragraph to the host element
-        this.renderer.addClass(this.p, 'd-inline-block');
-      } else if (this.ngControl.value && this.ngControl.value.length == 0) {
-        this.renderer.removeClass(this.p, 'd-inline-block');
+    const parentElement = this.elementRef.nativeElement.parentElement;
+    const existingParagraph = parentElement.querySelector('p.invalid-feedback');
+
+    if (existingParagraph) {
+      if (this.errorMessage) {
+        if ((this.ngControl.value && this.ngControl.value.length > 0)) {
+          // Append the paragraph to the host element
+          this.renderer.addClass(existingParagraph, 'd-inline-block');
+        } else if (this.ngControl.value && this.ngControl.value.length == 0) {
+          this.renderer.removeClass(existingParagraph, 'd-inline-block');
+        }
+      } else if (!this.errorMessage && this.ngControl.valid) {
+        this.renderer.removeClass(existingParagraph, 'd-inline-block');
       }
-    } else if (!this.errorMessage && this.ngControl.valid) {
-      this.renderer.removeClass(this.p, 'd-inline-block');
     }
 
   }
 
   @HostListener('click') onTouched(e: any) {
+
+    const parentElement = this.elementRef.nativeElement.parentElement;
+    const existingParagraph = parentElement.querySelector('p.invalid-feedback');
+
     if (this.errorMessage == ERROR_MESSAGES.required()) {
       this.addMessageInsideP();
       if (this.ngControl.errors &&
         Array.from(Object.keys(this.ngControl.errors!))?.length) {
-        this.renderer.addClass(this.p, 'd-inline-block');
+        this.renderer.addClass(existingParagraph, 'd-inline-block');
       } else {
-        this.renderer.removeClass(this.p, 'd-inline-block');
+        this.renderer.removeClass(existingParagraph, 'd-inline-block');
       }
     }
   }
