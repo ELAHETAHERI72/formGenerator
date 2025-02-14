@@ -47,12 +47,15 @@ export class ErrorHandlingDirective implements OnInit {
     ).subscribe({
       next: (response => {
 
+        const parentElement = this.elementRef.nativeElement.parentElement;
+        const existingParagraph = parentElement.querySelector('p.invalid-feedback');
+
         if (response && this.ngControl.errors &&
           Array.from(Object.keys(this.ngControl.errors!))?.length) {
           this.showError();
         } else {
-          if (this.p) {
-            this.renderer.removeClass(this.p, 'd-inline-block');
+          if (existingParagraph) {
+            this.renderer.removeClass(existingParagraph, 'd-inline-block');
 
           }
         }
