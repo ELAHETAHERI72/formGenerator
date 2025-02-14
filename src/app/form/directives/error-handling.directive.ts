@@ -5,8 +5,8 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 export const ERROR_MESSAGES = {
   required: () => 'this field is required',
-  minlength: (value: any) => `this field must be greater than${value.requiredLength}`,
-  maxlength: (value: any) => `this field must be greater than${value.requiredLength}`,
+  minlength: (value: any) => `this field length must be equal to ${value.requiredLength}`,
+  maxlength: (value: any) => `this field length must be equal to ${value.requiredLength}`,
   pattern: () => 'incorrect format',
   email: () => 'incorrect format',
 }
