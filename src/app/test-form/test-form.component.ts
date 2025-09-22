@@ -1,27 +1,28 @@
-import {Component, effect, OnInit, signal, WritableSignal} from '@angular/core';
-import {FormComponent} from "../form/form/form.component";
-import {
-  CustomItem, dateInterface, formArray,
-  formConfig,
-  formGroups,
-  inputInterface,
-  selectInterface,
-  Types
-} from "../form/models/interfaces/form-type.interface";
+import {Component, DestroyRef, effect, inject, OnInit, signal, WritableSignal} from '@angular/core';
+
 import {formModel} from "../app.component";
 import {FormsModule, NgForm} from "@angular/forms";
 import {NgSelectModule} from '@ng-select/ng-select';
 import {of} from 'rxjs';
-import {AsyncPipe} from '@angular/common';
+import {AsyncPipe, Location} from '@angular/common';
+import {
+  CustomItem,
+  DateInterface,
+  FormConfig, FormGroups, FormItemArray,
+  InputInterface,
+  SelectInterface, TextAreaInterface,
+  Types
+} from "../form-base/classes/form.base-class";
+import {FormBaseComponent} from "../form-base/form-base.component";
 
 @Component({
   selector: 'app-test-form',
   standalone: true,
   imports: [
-    FormComponent,
     NgSelectModule,
     FormsModule,
-    AsyncPipe
+    AsyncPipe,
+    FormBaseComponent
   ],
   templateUrl: './test-form.component.html',
   styleUrl: './test-form.component.scss'
@@ -29,9 +30,16 @@ import {AsyncPipe} from '@angular/common';
 
 export class TestFormComponent implements OnInit {
 
-  testForm!: NgForm;
+  resultPageContent!: NgForm;
 
+  // readonly toasterService = inject(ToastrService);
+  readonly destroyRef = inject(DestroyRef);
+
+  dataWasUpdated?: WritableSignal<boolean> = signal(false);
+
+  requiredFields: Array<keyof any> = [];
   formItem: any = {};
+  readonly location = inject(Location);
 
   statuses = of([
     {id: 'isValid', name: 'isValid', value: 'isValid'},
@@ -40,7 +48,7 @@ export class TestFormComponent implements OnInit {
 
   disabledName: WritableSignal<any> = signal(false);
 
-  config!: formConfig;
+  config!: FormConfig;
 
   ngOnInit() {
     this.initialCall();
@@ -48,193 +56,46 @@ export class TestFormComponent implements OnInit {
 
   initialCall() {
     this.config = {
-
       classList: 'd-flex',
-      formName: this.testForm,
-      formId: 'testForm',
+      formName: this.resultPageContent,
+      hasSaveBtn: true,
+      formId: 'guide',
       isCheckFormValid: true,
-      initialCall: true,
-      apiCall: {method: 'get', path: ''},
-
-      submitted: ((v: formModel) => {
-        console.log(v, 'form');
-
+      hasApiCall: true,
+      dataWasUpdated: this.dataWasUpdated, //get datta if api call success
+      submitted: ((v: any, formStatus: boolean) => {
+        formStatus = true;
         // for initial call && submit form answer
         this.formItem = v;
+        // this.callSubmitApi(formStatus);
       }),
-
       items: [
-        // add text input
-        new inputInterface({
-          id: 'name',
-          inputType: Types.INPUT_TYPE,
-          labelName: 'name',
-          name: 'name',
-          placeholder: 'name',
-          bindItem: 'name',
-          isRequired: true,  //displayed depends on another section
-          isDisplayedSignal: this.disabledName,
-          errorItems: {
-            oneRequiredErrorMsg: 'this field is required',
-            waitForTouch: true,
-            showRequiredError: true,
-          }
+        new TextAreaInterface({
+          id: 'sharePrompt',
+          name: 'sharePrompt',
+          isRequired: false,
+          inputType: Types.TEXTAREA_TYPE,
+          bindItem: 'sharePrompt',
+          labelName: 'متن تشویق به اشتراک گذاری',
+          placeholder: () => 'متن تشویق به اشتراک گذاری',
+          className: 'col-lg-6',
+          maxLength: 100,
+          rows: '5',
         }),
-        // add only number
-        new inputInterface({
-          isRequired: true,
-          inputType: Types.INPUT_NUMBER_TYPE,
-          labelName: 'nationalId',
-          name: 'nationalId',
-          id: 'nationalId',
-          bindItem: 'nationalId',
-          pattern: /^\d{10}$/,
-          maxLength: '10',
-          minLength: '10',
-          min: '10',
-          max: '10',
-          defaultValue: '',
-          errorItems: {
-            oneRequiredErrorMsg: '',
-            waitForTouch: true,
-            showRequiredError: true,
-          }
-        }),
-        // add custom template
-        new CustomItem({
-          isRequired: true,
-          inputType: Types.CUSTOM_FORM_ITEM,
-          labelName: 'status',
-          name: 'status',
-          id: 'status',
-          bindItem: 'statusId',
-          defaultValue: '',// for check changes , for example if some section we want show or not depend on this field
-
-          emitFormItems: (value: any) => this.checkIsFill(value),
-          errorItems: {}
-        }),
-        // add select box
-        new selectInterface({
-          id: 'city',
-          inputType: Types.SELECT_TYPE,
-          labelName: 'city',
-          name: 'city',
-          placeholder: 'city',
-          isRequired: true,
-          // errorItems: {},
-          fields: of([
-            {"name": "تبريز", "id": 1},
-            {"name": "مراغه", "id": 2},
-            {"name": "ميانه", "id": 3},
-            {"name": "شبستر", "id": 4},
-            {"name": "مرند", "id": 5},
-            {"name": "جلفا", "id": 6},
-            {"name": "سراب", "id": 7}
-          ]),
-          bindItem: 'cityId'
-        }),
-        //  add divider line
-        {
-          "inputType": Types.BORDER_LINE,
-        } as any,
-        // add title for each section
-        {
-          "inputType": Types.SECTION_TITLE,
-          labelName: 'information'
-        } as any,
-        // add date picker
-        // new dateInterface({
-        //   id: 'fromDate',
-        //   name: 'fromDate',
-        //   bindItem: 'fromDate',
-        //   isRequired: false,
-        //   inputType: Types.DATE_TYPE,
-        //   labelName: 'from date'
-        // }),
-
-        // add form group inside form
-        new formGroups(
+        new InputInterface(
           {
-            inputType: Types.FORM_GROUP,
-            id: 'gender',
-            labelName: 'info',
-            bindItem: 'gender',
-            name: 'gender',
-            isRequired: true,
-            formItems: [
-              new selectInterface({
-                id: 'gender',
-                inputType: Types.SELECT_TYPE,
-                labelName: 'gender',
-                name: 'gender',
-                placeholder: 'gender',
-                fields: [{id: 'male', name: 'male', value: 'male'}, {id: 'female', name: 'female', value: 'female'}],
-                bindItem: 'gender',
-                isRequired: true,
-                errorItems: {}
-              }),
-            ]
+            id:'shareButtonText',
+            name:'shareButtonText',
+            inputType:Types.INPUT_TYPE,
+            isRequired:true,
+            bindItem:'shareButtonText',
+            className:'col-lg-4',
+            labelName:'متن دکمه اشتراک گذاری',
+            placeholder: (index:number) => 'متن دکمه اشتراک گذاری',
 
           }
         ),
-        // add line separator
-        {
-          "inputType": Types.BORDER_LINE,
-        } as any,
-        // add section title
-        {
-          "inputType": Types.SECTION_TITLE,
-          labelName: 'array list'
-        } as any,
-
-        // add formArray inside form
-        new formArray({
-          hasAddButton: true,
-          inputType: Types.FORM_ARRAY,
-          id: 'informations',
-          labelName: 'info',
-          isRequired: true,
-          bindItem: 'informations',// how you can add form item inside form array dynamic
-          addFormArrayField: (item) => this.addFormArrayField(item),
-          formArrayFields: [
-            new formGroups(
-              {
-                inputType: Types.FORM_GROUP,
-                id: `information${Math.random()}`,
-                labelName: 'extraInformations',
-                bindItem: 'information',
-                isRequired: true,
-                formItems: [
-                  new selectInterface({
-                    id: `info${Math.random()}`,
-                    inputType: Types.SELECT_TYPE,
-                    labelName: 'personal information',
-                    name: `info${Math.random()}`,
-                    placeholder: 'personal information',
-                    fields: [{id: 'مراد', name: 'مراد', value: 'مراد'}, {id: 'جمیله', name: 'جمیله', value: 'جمیله'}],
-                    bindItem: 'info',
-                    isRequired: true,
-                    errorItems: {}
-                  }),
-                  new inputInterface({
-                    id: `specialCode${Math.random()}`,
-                    inputType: Types.INPUT_TYPE,
-                    labelName: 'special code',
-                    placeholder: 'specialCode',
-                    bindItem: 'specialCode',
-                    isRequired: true,
-                    errorItems: {
-                      oneRequiredErrorMsg: '',
-                      waitForTouch: true,
-                      showRequiredError: true,
-                    }
-                  }),
-                ]
-              })
-          ]
-
-        })
-      ],
+      ]
     };
   }
 
@@ -246,44 +107,8 @@ export class TestFormComponent implements OnInit {
     }
   }
 
-  addFormArrayField(value: formGroups[]) {
-    value.push(
-      new formGroups(
-        {
-          inputType: Types.FORM_GROUP,
-          id: `information${Math.random()}`,
-          labelName: '',
-          bindItem: 'information',
-          name: `information${Math.random()}`,
-          isRequired: true,
-          formItems: [
-            new selectInterface({
-              id: `info${Math.random()}`,
-              inputType: Types.SELECT_TYPE,
-              labelName:  'personal information',
-              name: `info${Math.random()}`,
-              placeholder: 'personal information',
-              fields: [{id: 'مراد', name: 'مراد', value: 'مراد'}, {id: 'جمیله', name: 'جمیله', value: 'جمیله'}],
-              bindItem: 'info',
-              isRequired: true,
-              errorItems: {}
-            }),
-            new inputInterface({
-              id: `specialCode${Math.random()}`,
-              inputType: Types.INPUT_TYPE,
-              labelName: 'special code',
-              name: `specialCode${Math.random()}`,
-              placeholder: 'specialCode',
-              bindItem: 'specialCode',
-              isRequired: true,
-              errorItems: {
-                oneRequiredErrorMsg: '',
-                waitForTouch: true,
-                showRequiredError: true,
-              }
-            }),
-          ]
-        }))
+  addFormArrayField(value: FormGroups[]) {
+
   }
 }
 

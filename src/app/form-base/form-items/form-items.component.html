@@ -1,0 +1,316 @@
+@if (items.length) {
+  <ng-container>
+    <section class="row">
+      @for (value of items; track value; let index = $index) {
+
+        @switch (value.inputType) {
+
+          @case (Types.BORDER_LINE) {
+            <hr class="dotted border my-5"/>
+          }
+          @case (Types.SECTION_TITLE) {
+            <h5 class="card-title" [classList]="value.className">{{ value.labelName }}</h5>
+          }
+          @case (Types.INPUT_TYPE) {
+            @if (value.isDisplayedSignal?.()) {
+              <div class="form-group has-validation" [classList]="value.className">
+                <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>
+                <input type="text" class="form-control"
+                       handelError
+                       [customErrorMessage]="value.errorItems?.errorMessage"
+                       [required]="value.isRequired"
+                       [disabled]="(value.disable) ?? false"
+                       [id]="value.id+'_'+ItemIndex"
+                       [name]="value.id+'_'+ItemIndex!"
+                       [placeholder]="value.placeholder?.(ItemIndex) ?? ''"
+                       [pattern]="value.pattern" #input1Ref="ngModel"
+                       (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
+                       [(ngModel)]="bindItems[value.bindItem]">
+              </div>
+            }
+          }
+          @case (Types.INPUT_NUMBER_TYPE) {
+            @if (value.isDisplayedSignal?.()) {
+              <div class="form-group has-validation" [classList]="value.className">
+                <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>
+                <input type="text" class="form-control"
+                       [required]="value.isRequired"
+                       [customErrorMessage]="value.errorItems?.errorMessage"
+                       handelError
+                       [disabled]="value.disable ?? false"
+                       [id]="value.id+'_'+ItemIndex"
+                       [name]="value.id+'_'+ItemIndex!"
+                       [min]="value.min"
+                       [max]="value.max"
+                       [placeholder]="value.placeholder?.(ItemIndex) ?? ''"
+                       [minlength]="value.minLength!"
+                       [maxlength]="value.maxLength!"
+                       inputMode="numeric"
+                       [pattern]="value.pattern"
+                       (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
+                       [(ngModel)]="bindItems[value.bindItem]">
+
+              </div>
+            }
+          }
+          @case (Types.SELECT_TYPE) {
+            @if (value.isDisplayedSignal?.()) {
+
+              <div class="form-group has-validation" [classList]="value.className">
+                <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>
+                <ng-select class="custom-select"
+                           handelError
+                           [disabled]="value.disable ?? false"
+                           [customErrorMessage]="value.errorItems?.errorMessage"
+                           (ngModelChange)="selectionChange(value,$event)"
+                           [bindLabel]="getSelectMode(value).bindLabel!"
+                           [bindValue]="getSelectMode(value).bindId!"
+                           [items]="returnArray(value) | async"
+                           [required]="value.isRequired" #input2Ref="ngModel"
+                           [name]="value.id+'_'+ItemIndex" [id]="value.id+'_'+ItemIndex"
+                           [(ngModel)]="bindItems[value.bindItem]">
+                </ng-select>
+
+              </div>
+            }
+          }
+          @case (Types.TEXTAREA_TYPE) {
+            @if (value.isDisplayedSignal?.()) {
+
+              <div class="form-group has-validation" [classList]="value.className">
+                <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>
+                <textarea [name]="value.id+'_'+ItemIndex!"
+                          handelError
+                          [placeholder]="value.placeholder?.(ItemIndex) ?? ''"
+                          [customErrorMessage]="value.errorItems?.errorMessage"
+                          (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
+                          [id]="value.id+'_'+ItemIndex"
+                          [pattern]="value.pattern"
+                          [disabled]="value.disable ?? false"
+                          [cols]="value.cols"
+                          [rows]="value.rows"
+                          [required]="value.isRequired"
+                          [maxlength]="value.maxLength ?? ''"
+                          [minlength]="value.minLength ?? ''"
+                          class="form-control"
+                          [(ngModel)]="bindItems[value.bindItem!]"></textarea>
+
+
+              </div>
+            }
+          }
+          @case (Types.SWITCH_TYPE) {
+            @if (value.isDisplayedSignal?.()) {
+
+              <div class="has-validation" [classList]="value.className">
+                <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>
+
+<!--                <app-switch elementId="{{value.id}}-isActive"-->
+<!--                            elementName="{{value.id}}-isActive"-->
+<!--                            [(select)]="bindItems[value.bindItem!]"-->
+<!--                            [customErrorMessage]="value.errorItems?.errorMessage"-->
+<!--                            [disabled]="value.disable ?? false"-->
+<!--                            handelError-->
+<!--                            dir="rtl"-->
+<!--                            formCheckGroupClass="d-block mt-2"-->
+<!--                            labelContentClass="d-inline-block mie-2"-->
+<!--                            [isRequired]="value.isRequired"-->
+<!--                            [elementName]="value.id"-->
+<!--                            (selectChange)="bindItems[value.bindItem] = $event"-->
+<!--                            selectedLabel="{{labels.getIsActiveOrNot(bindItems[value.bindItem!])}}"-->
+<!--                ></app-switch>-->
+
+              </div>
+            }
+          }
+          @case (Types.INPUT_FILE) {
+            @if (value.isDisplayedSignal?.()) {
+              <div class="form-group has-validation" [classList]="value.className">
+                <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>
+<!--                <div class="d-flex column-gap-2">-->
+<!--                  <div class="w-100">-->
+<!--                    <app-file-input-->
+<!--                      handelError-->
+<!--                      [customErrorMessage]="value.errorItems?.errorMessage"-->
+<!--                      [inputId]="value.id +'-'+ItemIndex"-->
+<!--                      [name]="value.id+'_'+ItemIndex"-->
+<!--                      [maxSize]="getFIleItem(value).maxSize!"-->
+<!--                      [disabled]="value.disable ?? false"-->
+<!--                      [placeHolder]="value.placeholder?.(ItemIndex)"-->
+<!--                      [sizeLimitTitle]="getFIleItem(value).sizeLimit"-->
+<!--                      [validFormats]="getFIleItem(value).validFormats!"-->
+<!--                      [required]="value.isRequired"-->
+<!--                      [(ngModel)]="bindItems[value.bindItem]"-->
+<!--                      [submitted]="ngForm.submitted"-->
+<!--                      [uploadStatus]="getFileInputItem(value).uploadStatus"-->
+<!--                      [fileName]="bindItems[value.bindItem]"-->
+<!--                      (removeFile)="bindItems[value.bindItem] = undefined"-->
+<!--                      (fileSelected)="selectFileInput(value,$event)"></app-file-input>-->
+<!--                  </div>-->
+<!--                  @if (getFIleItem(value).hasPreview) {-->
+<!--                    <div class="d-flex flex-column justify-content-center align-items-center h-100">-->
+<!--                      <img class="preview image-manager-card" style="width: 124px;height: 124px"-->
+<!--                           alt="preview_{{ItemIndex}}_{{index}}"-->
+<!--                           [src]="bindItems[value.bindItem] ? bindItems[value.bindItem]: '/assets/img/no-image.png'">-->
+<!--                    </div>-->
+<!--                  }-->
+<!--                </div>-->
+              </div>
+            }
+          }
+          @case (Types.COLOR_INPUT) {
+            @if (value.isDisplayedSignal?.()) {
+              <div class="form-group has-validation" [classList]="value.className">
+                <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>
+                <input type="color" class="form-control"
+                       [required]="value.isRequired"
+                       [customErrorMessage]="value.errorItems?.errorMessage"
+                       handelError
+                       [placeholder]="value.placeholder?.(ItemIndex) ?? ''"
+                       [id]="value.id+'_'+ItemIndex"
+                       [disabled]="value.disable ?? false"
+                       [name]="value.id+'_'+ItemIndex!"
+                       [min]="value.min"
+                       [max]="value.max"
+                       [minlength]="value.minLength!"
+                       [maxlength]="value.maxLength!"
+                       [pattern]="value.pattern"
+                       (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
+                       [(ngModel)]="bindItems[value.bindItem!]">
+
+              </div>
+            }
+          }
+          @case (Types.FROM_DATE_TYPE) {
+            @if (value.isDisplayedSignal?.()) {
+
+              <!-------------------------------------- createDate: start -------------------------------------------------->
+              <div class="form-group" [classList]="value.className">
+                <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>
+                <div class="custom-date-pick">
+                  <ng-persian-datepicker
+                    [dateFormat]="'jYYYY/jMM/jDD'"
+                    [dateInitValue]="false"
+                    [timeEnable]="true"
+                    [dateIsGregorian]="false"
+                    [uiHideAfterSelectDate]="false"
+                    dateFormat="jYYYY/jMM/jDD HH:mm:ss"
+                    [dateValue]="fromDate.control">
+                    <input #fromDate='ngModel'
+                           [(ngModel)]="bindItems[value.bindItem]"
+                           [id]="value.id+'_'+ItemIndex"
+                           [placeholder]="'انتخاب تاریخ'"
+                           (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
+                           handelError
+                           [customErrorMessage]="value.errorItems?.errorMessage"
+                           autocomplete="off"
+                           class="form-control text-center"
+                           dir="ltr"
+                           [name]="value.id+'_'+ItemIndex"
+                           type="text"/>
+                  </ng-persian-datepicker>
+                </div>
+              </div>
+              <!-------------------------------------- createDate: end ---------------------------------------------------->
+            }
+          }
+          @case (Types.TO_DATE_TYPE) {
+            @if (value.isDisplayedSignal?.()) {
+
+              <!-------------------------------------- createDate: start -------------------------------------------------->
+              <div class="form-group" [classList]="value.className">
+                <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>
+                <div class="custom-date-pick">
+                  <ng-persian-datepicker
+                    [dateFormat]="'jYYYY/jMM/jDD'"
+                    [dateInitValue]="false"
+                    [timeEnable]="true"
+                    [dateIsGregorian]="false"
+                    [uiHideAfterSelectDate]="false"
+                    dateFormat="jYYYY/jMM/jDD HH:mm:ss"
+                    [dateValue]="toDate.control">
+                    <input #toDate='ngModel'
+                           [(ngModel)]="bindItems[value.bindItem]"
+                           [placeholder]="'انتخاب تاریخ'"
+                           (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
+                           handelError
+                           [customErrorMessage]="value.errorItems?.errorMessage"
+                           autocomplete="off"
+                           class="form-control text-center"
+                           dir="ltr"
+                           [name]="value.id+'_'+ItemIndex"
+                           [id]="value.id+'_'+ItemIndex"
+                           type="text"/>
+                  </ng-persian-datepicker>
+                </div>
+              </div>
+              <!-------------------------------------- createDate: end ---------------------------------------------------->
+            }
+          }
+          @case (Types.CUSTOM_FORM_ITEM) {
+            @if (value.isDisplayedSignal?.()) {
+
+              <ng-container *ngTemplateOutlet="getTemplate(value);
+          context:{
+            value:value,bindItems:bindItems,
+             form:ControlContainer}"></ng-container>
+            }
+          }
+          @case (Types.FORM_GROUP) {
+            @if (value.isDisplayedSignal?.()) {
+              <app-form-items
+                handelError
+                ngDefaultControl
+                [items]="getFormGroup(value)"
+                [bindItems]="bindItems[value.bindItem]"></app-form-items>
+            }
+          }
+          @case (Types.FORM_ARRAY) {
+            @if (value.isDisplayedSignal?.()) {
+              <div [classList]="value.className">
+                <div class="d-flex flex-column">
+                  @if (getFormArray(value, 'hasAddButton')) {
+                    <div class='my-2'>
+                      <button class="btn btn-primary" type="button"
+                              (click)="addFormItem(value)">
+                        {{ getFormArray(value, 'addText') }}
+                      </button>
+                    </div>
+                  }
+                  <div class="col-lg-12">
+                    @for (formArrayItem of getFormArray(value, 'formArrayFields'); track i; let i = $index) {
+                      @if (getFormGroup(formArrayItem) && getFormGroup(formArrayItem).length &&
+                      bindItems[value.bindItem] != null) {
+                        <div class="d-flex my-2 border justify-content-between border-radius-normal">
+                          <div class="col-lg-10 p-3">
+                            <app-form-items
+                              handelError
+                              ngDefaultControl
+                              id="{{formArrayItem.bindItem}}{{i}}"
+                              [ItemIndex]="i"
+                              [items]="getFormGroup(formArrayItem)"
+                              [bindItems]="bindItems[value.bindItem][i]"></app-form-items>
+                          </div>
+
+                          @if (getFormArray(value, 'hasDeleteButton')) {
+                            <div class="col-lg-1 my-2">
+                             <span class="btn btn-outline-danger"
+                                   (click)="deleteFormArrayItemHandler(value,formArrayItem,i)">
+                             {{ getFormArray(value, 'removeText') }}</span>
+                            </div>
+                          }
+                        </div>
+                      }
+                    }
+                  </div>
+                </div>
+              </div>
+            }
+          }
+        }
+      }
+    </section>
+
+  </ng-container>
+
+}

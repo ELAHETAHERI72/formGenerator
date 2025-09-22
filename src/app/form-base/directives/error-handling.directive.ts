@@ -1,16 +1,27 @@
-import { DestroyRef, Directive, ElementRef, HostListener, inject, Inject, Input, OnInit, Optional, Renderer2, Self } from "@angular/core";
-import { NgControl } from "@angular/forms";
-import { DOCUMENT } from "@angular/common";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import {
+  DestroyRef,
+  Directive,
+  ElementRef,
+  HostListener,
+  inject,
+  Inject,
+  Input,
+  OnInit,
+  Optional,
+  Renderer2,
+  Self
+} from "@angular/core";
+import {NgControl} from "@angular/forms";
+import {DOCUMENT} from "@angular/common";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 export const ERROR_MESSAGES = {
-  required: () => 'this field is required',
-  minlength: (value: any) => `this field length must be equal to ${value.requiredLength}`,
-  maxlength: (value: any) => `this field length must be equal to ${value.requiredLength}`,
-  pattern: () => 'incorrect format',
-  email: () => 'incorrect format',
+  required: () => 'فیلد اجباری',
+  minlength: (value: any) => `تعداد کاراکتر باید برابر با ${value.requiredLength}`,
+  maxlength: (value: any) => `تعداد کاراکتر باید برابر با${value.requiredLength}`,
+  pattern: () => 'فرمت اشتباه',
+  email: () => 'فرمت اشتباه',
 }
-
 
 @Directive({
   selector: '[handelError]',
@@ -22,6 +33,7 @@ export class ErrorHandlingDirective implements OnInit {
   p: any;
   text: any = null;
   private destroyRef = inject(DestroyRef);
+
   constructor(
     @Optional() @Self() public ngControl: NgControl,
     private elementRef: ElementRef,
@@ -30,16 +42,19 @@ export class ErrorHandlingDirective implements OnInit {
   ) {
   }
 
+  @Input() customErrorMessage = '';
+
   get errorMessage(): string | null {
     const errors = Object.entries(this.ngControl?.errors || {});
     if (!errors.length) {
       return null
     }
     const [key, value] = errors[0];
-    return (ERROR_MESSAGES as any)[key](value);
+    return (ERROR_MESSAGES as any)[key](value) || this.customErrorMessage;
   }
 
   ngOnInit() {
+
     this.appendErrorMessageWrapper();
 
     this.ngControl?.valueChanges?.pipe(
@@ -110,7 +125,6 @@ export class ErrorHandlingDirective implements OnInit {
   }
 
   @HostListener('click') onTouched(e: any) {
-
     const parentElement = this.elementRef.nativeElement.parentElement;
     const existingParagraph = parentElement.querySelector('p.invalid-feedback');
 

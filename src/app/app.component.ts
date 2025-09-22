@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
-import { FormComponent } from "./form/form/form.component";
 
 
 export interface formModel {
@@ -13,7 +12,7 @@ export interface formModel {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FormComponent, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

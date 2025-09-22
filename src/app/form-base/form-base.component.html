@@ -1,0 +1,32 @@
+<div class="card shadow-sm mx-5 my-5">
+  <div class="card-body">
+    <div class="container-fluid px-4">
+      <div class="row">
+
+        <form dir="rtl"
+              [id]="formConfig.formId"
+              class="d-flex flex-column needs-validation"
+              (ngSubmit)="submitApiForm(FormRef)"
+              [name]="formConfig.formId" #FormRef="ngForm">
+
+          <app-form-items class="w-100"
+                          [bindItems]="bindItems"
+                          (emitNewDomeItemFromOutside)="updateDomItems($event)"
+                          [items]="formConfig.items">
+          </app-form-items>
+
+        @if(formConfig.hasSaveBtn){
+          <div class="container-fluid px-4 d-flex justify-start my-5 ">
+            <button class="btn btn-primary"
+                    [disabled]="formConfig.isCheckFormValid ? FormRef.invalid : false" type="submit">ذخیره
+            </button>
+          </div>
+        }
+
+        </form>
+      </div>
+    </div>
+
+
+  </div>
+</div>
