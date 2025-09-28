@@ -1,0 +1,14 @@
+<div class="form-group has-validation" [classList]="itemConfig.className">
+  <label [ngClass]="{'required':itemConfig.isRequired}">{{ itemConfig.labelName }}</label>
+  <input type="text" class="form-control"
+         handelError
+         [customErrorMessage]="itemConfig.errorItems?.errorMessage"
+         [required]="itemConfig.isRequired"
+         [disabled]="(itemConfig.disable) ?? false"
+         [id]="itemConfig.id+'_'+ItemIndex"
+         [name]="itemConfig.id+'_'+ItemIndex!"
+         [placeholder]="itemConfig.placeholder?.(ItemIndex) ?? ''"
+         [pattern]="itemConfig.pattern"
+         (ngModelChange)="itemConfig.emitFormItems?.({bindItemField,$event})"
+         [(ngModel)]="bindItemField[itemConfig['bindItem']]">
+</div>

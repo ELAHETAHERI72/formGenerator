@@ -23,6 +23,8 @@ export class FormItemBase {
   rows?: string;
   className?: string;
   disable?: boolean;
+  bindItem: string;
+
   emitFormItems?: (item: any) => void;
   isDisplayedSignal?: WritableSignal<any> = signal(true);
 
@@ -45,6 +47,7 @@ export class FormItemBase {
     this.rows = item.rows ?? '4';
     this.className = item.className ?? 'col-lg-3';
     this.disable = item.disable ?? false;
+    this.bindItem = item.bindItem;
     this.emitFormItems = item.emitFormItems;
 
     // if (item.isDisplayedSignal?.()) {
@@ -74,9 +77,6 @@ export enum Types {
 export type borderLine = Pick<FormItemBase, 'inputType'>;
 
 export class InputInterface extends FormItemBase {
-
-  bindItem: string;
-
   constructor(item: {
     id: string;
     name: string;
@@ -105,19 +105,29 @@ export interface ErrorInterface {
 export class CustomItem extends FormItemBase {
   template?: TemplateRef<string>;
   templateName?: string;
-  bindItem: string;
 
   constructor(item: CustomItem) {
     super(item);
     this.template = item.template;
-    this.bindItem = item.bindItem;
     this.templateName = item.templateName;
+  }
+}
+
+export class LineInterface extends FormItemBase {
+
+  constructor(item: LineInterface) {
+    super(item);
+  }
+}
+
+export class SectionTitleModel extends FormItemBase {
+  constructor(item: SectionTitleModel) {
+    super(item);
   }
 }
 
 export class SelectInterface extends FormItemBase {
   fields: Array<any> | Observable<Array<any>>;
-  bindItem: string | number | any;
   hasApi?: boolean;
   apiUrl?: string;
   addItemFromOutSide?: boolean;
@@ -127,7 +137,6 @@ export class SelectInterface extends FormItemBase {
   constructor(item: SelectInterface) {
     super(item);
     this.fields = item.fields;
-    this.bindItem = item.bindItem;
     this.changeValue$ = item.changeValue$;
     this.hasApi = item.hasApi;
     this.apiUrl = item.apiUrl;
@@ -139,11 +148,9 @@ export class SelectInterface extends FormItemBase {
 }
 
 export class ColorInterface extends FormItemBase {
-  bindItem: string | number;
 
   constructor(item: ColorInterface) {
     super(item);
-    this.bindItem = item.bindItem;
     this.changeValue$ = item.changeValue$;
 
   }
@@ -152,13 +159,11 @@ export class ColorInterface extends FormItemBase {
 
 export class DateInterface extends FormItemBase {
   minDate?: string;
-  bindItem: string;
   maxDate?: string;
 
   constructor(item: DateInterface) {
     super(item);
     this.minDate = item.minDate;
-    this.bindItem = item.bindItem;
     this.maxDate = item.maxDate;
 
   }
@@ -166,7 +171,6 @@ export class DateInterface extends FormItemBase {
 }
 
 export class GalleryBaseInterface extends FormItemBase {
-  bindItem: string;
   altName: string;
   type: 'photo' | 'video' | 'file';
   choiceItemLabelName: string;
@@ -184,35 +188,29 @@ export class GalleryBaseInterface extends FormItemBase {
 }
 
 export class TextAreaInterface extends FormItemBase {
-  bindItem?: string;
 
   constructor(item: TextAreaInterface) {
     super(item);
-    this.bindItem = item.bindItem;
 
   }
 }
 
 export class SwitchInterface extends FormItemBase {
-  bindItem?: any;
   isSelect?: boolean;
 
   constructor(item: SwitchInterface) {
     super(item)
-    this.bindItem = item.bindItem;
     this.isSelect = item.isSelect;
 
   }
 }
 
 export class FormGroups extends FormItemBase {
-  formItems: Array<InputTYpe> = [];
-  bindItem?: any;
+  formItems: Array<InputType> = [];
 
   constructor(item: FormGroups) {
     super(item)
     this.formItems = item.formItems;
-    this.bindItem = item.bindItem;
 
   }
 }
@@ -221,7 +219,6 @@ export class FormGroups extends FormItemBase {
 export class FormItemArray extends FormItemBase {
   hasAddButton?: boolean;
   formArrayFields: Array<FormGroups> = [];
-  bindItem: any;
   hasDeleteButton: boolean;
   addText?: string;
   removeText?: string;
@@ -233,7 +230,6 @@ export class FormItemArray extends FormItemBase {
     super(item)
     this.hasAddButton = item.hasAddButton;
     this.formArrayFields = item.formArrayFields;
-    this.bindItem = item.bindItem;
     this.hasDeleteButton = item.hasDeleteButton;
     this.addFormArrayField = item.addFormArrayField;
     this.addText = item.addText;
@@ -247,7 +243,6 @@ export class FileInputInterFace extends FormItemBase {
   maxSize?: number;
   sizeLimit: string | undefined;
   validFormats?: string[] = [];
-  bindItem?: any;
   hasPreview?: boolean;
   uploadStatus?: boolean;
   isUploadToServer?: boolean;
@@ -264,17 +259,19 @@ export class FileInputInterFace extends FormItemBase {
   }
 }
 
-export type InputTYpe =
+export type InputType =
   SelectInterface
   | InputInterface
   | TextAreaInterface
   | SwitchInterface
   | CustomItem
-  | FileInputInterFace;
+  | FileInputInterFace
+  | LineInterface
+  | SectionTitleModel;
 
 export class FormConfig {
-  items: Array<InputTYpe>;
-  outPutItems?: Array<InputTYpe>;
+  items: Array<InputType>;
+  outPutItems?: Array<InputType>;
   classList: string;
   formName: NgForm;
   restOfApiPath?: string | number;
@@ -288,7 +285,7 @@ export class FormConfig {
 
   constructor(
     config: {
-      items: Array<InputTYpe>,
+      items: Array<InputType>,
       submitted: (items: any, isLoaded: boolean) => void,
       classList: string,
       formName: NgForm,

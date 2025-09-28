@@ -6,7 +6,11 @@ import {Jalali} from 'jalali-ts';
 import {AsyncPipe, NgClass, NgTemplateOutlet} from '@angular/common';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { ErrorHandlingDirective } from '../directives/error-handling.directive';
-import {CustomItem, FormGroups, FormItemArray, InputTYpe, SelectInterface, Types} from "../classes/form.base-class";
+import {CustomItem, FormGroups, FormItemArray, InputType, SelectInterface, Types} from "../classes/form.base-class";
+import {HorizontalLineComponent} from "../form-fields/horizontal-line/horizontal-line.component";
+import {TitleDescriptionComponent} from "../form-fields/title-description/title-description.component";
+import {TextInputComponent} from "../form-fields/text-input/text-input.component";
+import {SelectInputComponent} from "../form-fields/select-input/select-input.component";
 
 
 @Component({
@@ -19,6 +23,10 @@ import {CustomItem, FormGroups, FormItemArray, InputTYpe, SelectInterface, Types
     NgSelectComponent,
     AsyncPipe,
     NgTemplateOutlet,
+    HorizontalLineComponent,
+    TitleDescriptionComponent,
+    TextInputComponent,
+    SelectInputComponent,
   ],
   viewProviders: [{provide: ControlContainer, useExisting: NgForm}],
   templateUrl: './form-items.component.html',
@@ -27,7 +35,7 @@ import {CustomItem, FormGroups, FormItemArray, InputTYpe, SelectInterface, Types
 })
 export class FormItemsComponent {
 
-  _items: Array<InputTYpe> = [];
+  _items: Array<InputType> = [];
   _bindItems: { [key: string]: any } = {};
 
   readonly ngForm = inject(NgForm);
@@ -37,7 +45,6 @@ export class FormItemsComponent {
 
   // protected modalService: NgbModal = inject<NgbModal>(NgbModal);
 
-  @Output() emitNewDomeItemFromOutside: EventEmitter<{ items: Array<InputTYpe> }> = new EventEmitter();
 
   @Input() set bindItems(bindItem: any) {
     this._bindItems = bindItem ?? {};
@@ -55,22 +62,14 @@ export class FormItemsComponent {
 
   protected ControlContainer = inject(ControlContainer);
 
-  @Input() set items(config: Array<InputTYpe>) {
+  @Input() set items(config: Array<InputType>) {
     this._items = config;
   }
 
-  get items(): Array<InputTYpe> {
+  get items(): Array<InputType> {
     return this._items;
   }
 
-  returnArray(_t7: SelectInterface | any): Observable<Array<any>> {
-    if (_t7 && typeof _t7.fields.subscribe === 'function') {
-      return _t7.fields;
-    } else {
-      return of(_t7.fields); // wrap the array in an Observable
-    }
-
-  }
 
   getFormGroup(_t7: FormGroups | any) {
     return _t7.formItems;
@@ -80,13 +79,13 @@ export class FormItemsComponent {
     return item.template ? item.template : null;
   }
 
-  getFormArray(item: FormItemArray | InputTYpe, formField: string) {
+  getFormArray(item: FormItemArray | InputType, formField: string) {
     return (item as FormItemArray)[formField as keyof FormItemArray] ?? undefined;
   }
 
   protected readonly Jalali = Jalali;
 
-  addFormItem(formItem: FormItemArray | InputTYpe) {
+  addFormItem(formItem: FormItemArray | InputType) {
     let bindItemModel: any = {};
 
     if ((formItem as FormItemArray)?.maxItemAddLength) {
@@ -114,7 +113,7 @@ export class FormItemsComponent {
 
   }
 
-  deleteFormArrayItemHandler(value: InputTYpe, formArrayItem: any, i: number) {
+  deleteFormArrayItemHandler(value: InputType, formArrayItem: any, i: number) {
     let formItem: Array<FormGroups> = this.getFormArray(value, 'formArrayFields')
     formItem.splice(i, 1);
     this.bindItems[value.bindItem].splice(i, 1);
@@ -127,15 +126,7 @@ export class FormItemsComponent {
   //   return (value as FileInputInterFace);
   // }
 
-    selectionChange(value: SelectInterface | InputTYpe, event: HTMLInputElement) {
-    if ((value as SelectInterface).addItemFromOutSide) { // if has input items from outside do this
-      (value as SelectInterface).emitFormItems?.({items: this.items, $event: event});
-      this.emitNewDomeItemFromOutside.emit({items: this.items})
-    } else { // if a simple select without items from outside do this
-      value.emitFormItems?.({bindItems: this.bindItems, $event: event});
 
-    }
-  }
 
 
   // select section
@@ -169,9 +160,7 @@ export class FormItemsComponent {
   //   }
   // }
 
-  getSelectMode(value: InputTYpe | SelectInterface) {
-    return value as SelectInterface;
-  }
+
 
   // protected readonly FileInputInterFace = FileInputInterFace;
 }

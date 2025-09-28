@@ -6,72 +6,50 @@
         @switch (value.inputType) {
 
           @case (Types.BORDER_LINE) {
-            <hr class="dotted border my-5"/>
+            <app-horizontal-line [itemConfig]="value"></app-horizontal-line>
           }
           @case (Types.SECTION_TITLE) {
-            <h5 class="card-title" [classList]="value.className">{{ value.labelName }}</h5>
+            <app-title-description [itemConfig]="value"></app-title-description>
           }
           @case (Types.INPUT_TYPE) {
             @if (value.isDisplayedSignal?.()) {
-              <div class="form-group has-validation" [classList]="value.className">
-                <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>
-                <input type="text" class="form-control"
-                       handelError
-                       [customErrorMessage]="value.errorItems?.errorMessage"
-                       [required]="value.isRequired"
-                       [disabled]="(value.disable) ?? false"
-                       [id]="value.id+'_'+ItemIndex"
-                       [name]="value.id+'_'+ItemIndex!"
-                       [placeholder]="value.placeholder?.(ItemIndex) ?? ''"
-                       [pattern]="value.pattern" #input1Ref="ngModel"
-                       (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
-                       [(ngModel)]="bindItems[value.bindItem]">
-              </div>
+              <app-text-input
+                [bindItemField]="bindItems"
+                [ItemIndex]="ItemIndex"
+                [itemConfig]="value"></app-text-input>
             }
           }
           @case (Types.INPUT_NUMBER_TYPE) {
             @if (value.isDisplayedSignal?.()) {
-              <div class="form-group has-validation" [classList]="value.className">
-                <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>
-                <input type="text" class="form-control"
-                       [required]="value.isRequired"
-                       [customErrorMessage]="value.errorItems?.errorMessage"
-                       handelError
-                       [disabled]="value.disable ?? false"
-                       [id]="value.id+'_'+ItemIndex"
-                       [name]="value.id+'_'+ItemIndex!"
-                       [min]="value.min"
-                       [max]="value.max"
-                       [placeholder]="value.placeholder?.(ItemIndex) ?? ''"
-                       [minlength]="value.minLength!"
-                       [maxlength]="value.maxLength!"
-                       inputMode="numeric"
-                       [pattern]="value.pattern"
-                       (ngModelChange)="value.emitFormItems?.({bindItems,$event})"
-                       [(ngModel)]="bindItems[value.bindItem]">
+<!--              <div class="form-group has-validation" [classList]="value.className">-->
+<!--                <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>-->
+<!--                <input type="text" class="form-control"-->
+<!--                       [required]="value.isRequired"-->
+<!--                       [customErrorMessage]="value.errorItems?.errorMessage"-->
+<!--                       handelError-->
+<!--                       [disabled]="value.disable ?? false"-->
+<!--                       [id]="value.id+'_'+ItemIndex"-->
+<!--                       [name]="value.id+'_'+ItemIndex!"-->
+<!--                       [min]="value.min"-->
+<!--                       [max]="value.max"-->
+<!--                       [placeholder]="value.placeholder?.(ItemIndex) ?? ''"-->
+<!--                       [minlength]="value.minLength!"-->
+<!--                       [maxlength]="value.maxLength!"-->
+<!--                       inputMode="numeric"-->
+<!--                       [pattern]="value.pattern"-->
+<!--                       (ngModelChange)="value.emitFormItems?.({bindItems,$event})"-->
+<!--                       [(ngModel)]="bindItems[value.bindItem]">-->
 
-              </div>
+<!--              </div>-->
             }
           }
           @case (Types.SELECT_TYPE) {
             @if (value.isDisplayedSignal?.()) {
-
-              <div class="form-group has-validation" [classList]="value.className">
-                <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>
-                <ng-select class="custom-select"
-                           handelError
-                           [disabled]="value.disable ?? false"
-                           [customErrorMessage]="value.errorItems?.errorMessage"
-                           (ngModelChange)="selectionChange(value,$event)"
-                           [bindLabel]="getSelectMode(value).bindLabel!"
-                           [bindValue]="getSelectMode(value).bindId!"
-                           [items]="returnArray(value) | async"
-                           [required]="value.isRequired" #input2Ref="ngModel"
-                           [name]="value.id+'_'+ItemIndex" [id]="value.id+'_'+ItemIndex"
-                           [(ngModel)]="bindItems[value.bindItem]">
-                </ng-select>
-
-              </div>
+               <app-select-input
+                 [bindItemField]="bindItems"
+                 [ItemIndex]="ItemIndex"
+                 [itemConfig]="value"
+               ></app-select-input>
             }
           }
           @case (Types.TEXTAREA_TYPE) {
@@ -105,20 +83,20 @@
               <div class="has-validation" [classList]="value.className">
                 <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>
 
-<!--                <app-switch elementId="{{value.id}}-isActive"-->
-<!--                            elementName="{{value.id}}-isActive"-->
-<!--                            [(select)]="bindItems[value.bindItem!]"-->
-<!--                            [customErrorMessage]="value.errorItems?.errorMessage"-->
-<!--                            [disabled]="value.disable ?? false"-->
-<!--                            handelError-->
-<!--                            dir="rtl"-->
-<!--                            formCheckGroupClass="d-block mt-2"-->
-<!--                            labelContentClass="d-inline-block mie-2"-->
-<!--                            [isRequired]="value.isRequired"-->
-<!--                            [elementName]="value.id"-->
-<!--                            (selectChange)="bindItems[value.bindItem] = $event"-->
-<!--                            selectedLabel="{{labels.getIsActiveOrNot(bindItems[value.bindItem!])}}"-->
-<!--                ></app-switch>-->
+                <!--                <app-switch elementId="{{value.id}}-isActive"-->
+                <!--                            elementName="{{value.id}}-isActive"-->
+                <!--                            [(select)]="bindItems[value.bindItem!]"-->
+                <!--                            [customErrorMessage]="value.errorItems?.errorMessage"-->
+                <!--                            [disabled]="value.disable ?? false"-->
+                <!--                            handelError-->
+                <!--                            dir="rtl"-->
+                <!--                            formCheckGroupClass="d-block mt-2"-->
+                <!--                            labelContentClass="d-inline-block mie-2"-->
+                <!--                            [isRequired]="value.isRequired"-->
+                <!--                            [elementName]="value.id"-->
+                <!--                            (selectChange)="bindItems[value.bindItem] = $event"-->
+                <!--                            selectedLabel="{{labels.getIsActiveOrNot(bindItems[value.bindItem!])}}"-->
+                <!--                ></app-switch>-->
 
               </div>
             }
@@ -127,34 +105,34 @@
             @if (value.isDisplayedSignal?.()) {
               <div class="form-group has-validation" [classList]="value.className">
                 <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>
-<!--                <div class="d-flex column-gap-2">-->
-<!--                  <div class="w-100">-->
-<!--                    <app-file-input-->
-<!--                      handelError-->
-<!--                      [customErrorMessage]="value.errorItems?.errorMessage"-->
-<!--                      [inputId]="value.id +'-'+ItemIndex"-->
-<!--                      [name]="value.id+'_'+ItemIndex"-->
-<!--                      [maxSize]="getFIleItem(value).maxSize!"-->
-<!--                      [disabled]="value.disable ?? false"-->
-<!--                      [placeHolder]="value.placeholder?.(ItemIndex)"-->
-<!--                      [sizeLimitTitle]="getFIleItem(value).sizeLimit"-->
-<!--                      [validFormats]="getFIleItem(value).validFormats!"-->
-<!--                      [required]="value.isRequired"-->
-<!--                      [(ngModel)]="bindItems[value.bindItem]"-->
-<!--                      [submitted]="ngForm.submitted"-->
-<!--                      [uploadStatus]="getFileInputItem(value).uploadStatus"-->
-<!--                      [fileName]="bindItems[value.bindItem]"-->
-<!--                      (removeFile)="bindItems[value.bindItem] = undefined"-->
-<!--                      (fileSelected)="selectFileInput(value,$event)"></app-file-input>-->
-<!--                  </div>-->
-<!--                  @if (getFIleItem(value).hasPreview) {-->
-<!--                    <div class="d-flex flex-column justify-content-center align-items-center h-100">-->
-<!--                      <img class="preview image-manager-card" style="width: 124px;height: 124px"-->
-<!--                           alt="preview_{{ItemIndex}}_{{index}}"-->
-<!--                           [src]="bindItems[value.bindItem] ? bindItems[value.bindItem]: '/assets/img/no-image.png'">-->
-<!--                    </div>-->
-<!--                  }-->
-<!--                </div>-->
+                <!--                <div class="d-flex column-gap-2">-->
+                <!--                  <div class="w-100">-->
+                <!--                    <app-file-input-->
+                <!--                      handelError-->
+                <!--                      [customErrorMessage]="value.errorItems?.errorMessage"-->
+                <!--                      [inputId]="value.id +'-'+ItemIndex"-->
+                <!--                      [name]="value.id+'_'+ItemIndex"-->
+                <!--                      [maxSize]="getFIleItem(value).maxSize!"-->
+                <!--                      [disabled]="value.disable ?? false"-->
+                <!--                      [placeHolder]="value.placeholder?.(ItemIndex)"-->
+                <!--                      [sizeLimitTitle]="getFIleItem(value).sizeLimit"-->
+                <!--                      [validFormats]="getFIleItem(value).validFormats!"-->
+                <!--                      [required]="value.isRequired"-->
+                <!--                      [(ngModel)]="bindItems[value.bindItem]"-->
+                <!--                      [submitted]="ngForm.submitted"-->
+                <!--                      [uploadStatus]="getFileInputItem(value).uploadStatus"-->
+                <!--                      [fileName]="bindItems[value.bindItem]"-->
+                <!--                      (removeFile)="bindItems[value.bindItem] = undefined"-->
+                <!--                      (fileSelected)="selectFileInput(value,$event)"></app-file-input>-->
+                <!--                  </div>-->
+                <!--                  @if (getFIleItem(value).hasPreview) {-->
+                <!--                    <div class="d-flex flex-column justify-content-center align-items-center h-100">-->
+                <!--                      <img class="preview image-manager-card" style="width: 124px;height: 124px"-->
+                <!--                           alt="preview_{{ItemIndex}}_{{index}}"-->
+                <!--                           [src]="bindItems[value.bindItem] ? bindItems[value.bindItem]: '/assets/img/no-image.png'">-->
+                <!--                    </div>-->
+                <!--                  }-->
+                <!--                </div>-->
               </div>
             }
           }

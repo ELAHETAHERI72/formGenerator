@@ -1,0 +1,17 @@
+
+<div class="form-group has-validation" [classList]="itemConfig.className">
+  <label [ngClass]="{'required':itemConfig.isRequired}">{{ itemConfig.labelName }}</label>
+  <ng-select class="custom-select"
+             handelError
+             [disabled]="itemConfig.disable ?? false"
+             [customErrorMessage]="itemConfig.errorItems?.errorMessage"
+             (ngModelChange)="selectionChange(itemConfig,$event)"
+             [bindLabel]="itemConfig.bindLabel"
+             [bindValue]="itemConfig.bindId!"
+             [items]="returnArray(itemConfig) | async"
+             [required]="itemConfig.isRequired"
+             [name]="itemConfig.id+'_'+ItemIndex" [id]="itemConfig.id+'_'+ItemIndex"
+             [(ngModel)]="bindItemField[itemConfig.bindItem]">
+  </ng-select>
+
+</div>
