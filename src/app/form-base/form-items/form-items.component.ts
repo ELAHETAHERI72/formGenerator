@@ -11,6 +11,7 @@ import {HorizontalLineComponent} from "../form-fields/horizontal-line/horizontal
 import {TitleDescriptionComponent} from "../form-fields/title-description/title-description.component";
 import {TextInputComponent} from "../form-fields/text-input/text-input.component";
 import {SelectInputComponent} from "../form-fields/select-input/select-input.component";
+import {TextAreaInputComponent} from "../form-fields/text-area-input/text-area-input.component";
 
 
 @Component({
@@ -27,6 +28,7 @@ import {SelectInputComponent} from "../form-fields/select-input/select-input.com
     TitleDescriptionComponent,
     TextInputComponent,
     SelectInputComponent,
+    TextAreaInputComponent,
   ],
   viewProviders: [{provide: ControlContainer, useExisting: NgForm}],
   templateUrl: './form-items.component.html',

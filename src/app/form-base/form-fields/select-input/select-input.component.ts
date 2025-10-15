@@ -3,7 +3,7 @@ import {AsyncPipe, NgClass} from "@angular/common";
 import {ErrorHandlingDirective} from "../../directives/error-handling.directive";
 import {NgSelectComponent} from "@ng-select/ng-select";
 import {ControlContainer, FormsModule, NgForm} from "@angular/forms";
-import {InputInterface, InputType, SelectInterface} from "../../classes/form.base-class";
+import { InputType, SelectInterface} from "../../classes/form.base-class";
 import {Observable, of} from "rxjs";
 
 @Component({
@@ -22,7 +22,7 @@ import {Observable, of} from "rxjs";
 })
 export class SelectInputComponent {
 
-  @Input({required: true}) itemConfig!: SelectInterface ;
+  @Input({required: true}) itemConfig!: SelectInterface | InputType;
   @Input({required: true}) ItemIndex!: number;
   @Input({required: true})bindItemField: any;
 
@@ -38,13 +38,13 @@ export class SelectInputComponent {
   }
 
   selectionChange(value: SelectInterface | InputType, event: HTMLInputElement) {
-    if ((value as SelectInterface).addItemFromOutSide) { // if has input items from outside do this
-      (value as SelectInterface).emitFormItems?.({items: this.items, $event: event});
-      this.emitNewDomeItemFromOutside.emit({items: this.items})
-    } else { // if a simple select without items from outside do this
-      value.emitFormItems?.({bindItems: this.bindItemField, $event: event});
-
-    }
+    // if ((value as SelectInterface).addItemFromOutSide) { // if has input items from outside do this
+    //   (value as SelectInterface).emitFormItems?.({items: this.items, $event: event});
+    //   this.emitNewDomeItemFromOutside.emit({items: this.items})
+    // } else { // if a simple select without items from outside do this
+    //   value.emitFormItems?.({bindItems: this.bindItemField, $event: event});
+    //
+    // }
   }
 
 }
