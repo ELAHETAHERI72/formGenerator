@@ -40,13 +40,6 @@ export class FormItemsComponent {
   _items: Array<InputType> = [];
   _bindItems: { [key: string]: any } = {};
 
-  readonly ngForm = inject(NgForm);
-  // readonly fileService = inject(FileService);
-  readonly destroyRef = inject(DestroyRef);
-  // readonly toasterService = inject(ToastrService);
-
-  // protected modalService: NgbModal = inject<NgbModal>(NgbModal);
-
 
   @Input() set bindItems(bindItem: any) {
     this._bindItems = bindItem ?? {};
