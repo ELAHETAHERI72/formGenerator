@@ -1,0 +1,38 @@
+<div [classList]="itemConfig.className">
+  <div class="d-flex flex-column">
+    @if (  (itemConfig | onionConflict : Types.FORM_ARRAY).hasAddButton ) {
+      <div class='my-2'>
+        <button class="btn btn-primary" type="button"
+                (click)="addFormItem(value)">
+          {{ getFormArray(value, 'addText') }}
+        </button>
+      </div>
+    }
+    <div class="col-lg-12">
+      @for (formArrayItem of getFormArray(value, 'formArrayFields'); track i; let i = $index) {
+        @if (getFormGroup(formArrayItem) && getFormGroup(formArrayItem).length &&
+        bindItems[value.bindItem] != null) {
+          <div class="d-flex my-2 border justify-content-between border-radius-normal">
+            <div class="col-lg-10 p-3">
+              <app-form-items
+                handelError
+                ngDefaultControl
+                id="{{formArrayItem.bindItem}}{{i}}"
+                [ItemIndex]="i"
+                [items]="getFormGroup(formArrayItem)"
+                [bindItems]="bindItems[value.bindItem][i]"></app-form-items>
+            </div>
+
+            @if (getFormArray(value, 'hasDeleteButton')) {
+              <div class="col-lg-1 my-2">
+                             <span class="btn btn-outline-danger"
+                                   (click)="deleteFormArrayItemHandler(value,formArrayItem,i)">
+                             {{ getFormArray(value, 'removeText') }}</span>
+              </div>
+            }
+          </div>
+        }
+      }
+    </div>
+  </div>
+</div>
