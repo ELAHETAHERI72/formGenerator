@@ -18,7 +18,7 @@ import {
 export class OnionTypeConflictHandlerPipe implements PipeTransform {
 
   transform(value: InputType, type: Types): InputType {
-
+    debugger
     switch (type) {
       case Types.TEXTAREA_TYPE:
         value as TextAreaInterface
@@ -59,6 +59,8 @@ export class OnionTypeConflictHandlerPipe implements PipeTransform {
       case Types.INPUT_TYPE:
         value as InputInterface
     }
+    console.log(typeof value);
+    debugger
     return value;
   }
 }

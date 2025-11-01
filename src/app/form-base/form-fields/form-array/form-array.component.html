@@ -1,17 +1,17 @@
-<div [classList]="itemConfig.className">
+<div [classList]="config.className">
   <div class="d-flex flex-column">
-    @if (  (itemConfig | onionConflict : Types.FORM_ARRAY).hasAddButton ) {
+    @if (config.hasAddButton) {
       <div class='my-2'>
         <button class="btn btn-primary" type="button"
-                (click)="addFormItem(value)">
-          {{ getFormArray(value, 'addText') }}
+                (click)="addFormItem(config)">
+          {{ config.addText }}
         </button>
       </div>
     }
     <div class="col-lg-12">
-      @for (formArrayItem of getFormArray(value, 'formArrayFields'); track i; let i = $index) {
+      @for (formArrayItem of config.formArrayFields; track i; let i = $index) {
         @if (getFormGroup(formArrayItem) && getFormGroup(formArrayItem).length &&
-        bindItems[value.bindItem] != null) {
+        bindItemField[config.bindItem] != null) {
           <div class="d-flex my-2 border justify-content-between border-radius-normal">
             <div class="col-lg-10 p-3">
               <app-form-items
@@ -20,14 +20,14 @@
                 id="{{formArrayItem.bindItem}}{{i}}"
                 [ItemIndex]="i"
                 [items]="getFormGroup(formArrayItem)"
-                [bindItems]="bindItems[value.bindItem][i]"></app-form-items>
+                [bindItems]="bindItemField[config.bindItem][i]"></app-form-items>
             </div>
 
-            @if (getFormArray(value, 'hasDeleteButton')) {
+            @if (config.hasDeleteButton) {
               <div class="col-lg-1 my-2">
                              <span class="btn btn-outline-danger"
-                                   (click)="deleteFormArrayItemHandler(value,formArrayItem,i)">
-                             {{ getFormArray(value, 'removeText') }}</span>
+                                   (click)="deleteFormArrayItemHandler(config,formArrayItem,i)">
+                             {{ config.removeText }}</span>
               </div>
             }
           </div>

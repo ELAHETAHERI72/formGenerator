@@ -17,8 +17,17 @@ import {NgClass} from "@angular/common";
 })
 export class TextAreaInputComponent {
 
-  @Input({required: true}) itemConfig!: TextAreaInterface | InputType;
+  private _config!: TextAreaInterface;
+
+  @Input({required: true}) set itemConfig(config: TextAreaInterface | InputType) {
+    this._config = config;
+  };
+
   @Input({required: true}) ItemIndex!: number;
   @Input({required: true}) bindItemField: any;
+
+  get config(): TextAreaInterface {
+    return this._config;
+  }
 
 }

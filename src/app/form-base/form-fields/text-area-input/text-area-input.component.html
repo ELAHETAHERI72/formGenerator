@@ -1,19 +1,19 @@
-<div class="form-group has-validation" [classList]="itemConfig.className">
-  <label [ngClass]="{'required':itemConfig.isRequired}">{{ itemConfig.labelName }}</label>
-  <textarea [name]="itemConfig.id+'_'+ItemIndex!"
+<div class="form-group has-validation" [classList]="config.className">
+  <label [ngClass]="{'required':config.isRequired}">{{ config.labelName }}</label>
+  <textarea [name]="config.id+'_'+ItemIndex!"
             handelError
-            [placeholder]="itemConfig.placeholder?.(ItemIndex) ?? ''"
-            [customErrorMessage]="itemConfig.errorItems?.errorMessage"
-            (ngModelChange)="itemConfig.emitFormItems?.({bindItemField,$event})"
-            [id]="itemConfig.id+'_'+ItemIndex"
-            [pattern]="itemConfig.pattern"
-            [disabled]="itemConfig.disable ?? false"
-            [cols]="itemConfig.cols"
-            [rows]="itemConfig.rows"
-            [required]="itemConfig.isRequired"
-            [maxlength]="itemConfig.maxLength ?? ''"
-            [minlength]="itemConfig.minLength ?? ''"
+            [placeholder]="config.placeholder?.(ItemIndex) ?? ''"
+            [customErrorMessage]="config.errorItems?.errorMessage"
+            (ngModelChange)="config.emitFormItems?.({bindItemField,$event})"
+            [id]="config.id+'_'+ItemIndex"
+            [pattern]="config.pattern"
+            [disabled]="config.disable ?? false"
+            [cols]="config.cols"
+            [rows]="config.rows"
+            [required]="config.isRequired"
+            [maxlength]="config.maxLength ?? ''"
+            [minlength]="config.minLength ?? ''"
             class="form-control"
-            [(ngModel)]="bindItemField[itemConfig['bindItem']]"></textarea>
+            [(ngModel)]="bindItemField[config['bindItem']]"></textarea>
 
 </div>
