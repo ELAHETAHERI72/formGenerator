@@ -230,13 +230,13 @@
           }
           @case (Types.FORM_ARRAY) {
             @if (value.isDisplayedSignal?.()) {
-              @if (!fromChild) {
                 <app-form-array
+                  [hideParent]="hideParent()"
                   [bindItemField]="bindItems"
                   [ItemIndex]="ItemIndex"
                   [itemConfig]="value"
                 ></app-form-array>
-              }
+
               <!--              <ng-container #formArrayPalaceHolder></ng-container>-->
 
             }

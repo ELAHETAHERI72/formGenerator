@@ -2,8 +2,8 @@ import {
   Component, forwardRef,
   Inject,
   inject,
-  InjectionToken,
-  Input,
+  InjectionToken, input,
+  Input, InputSignal,
   Optional,
   TemplateRef,
   ViewChild,
@@ -49,7 +49,7 @@ export class FormItemsComponent {
   Types = Types;
   _items: Array<InputType> = [];
   _bindItems: { [key: string]: any } = {};
-  @Input() fromChild!: boolean;
+  hideParent:InputSignal<boolean> = input.required<boolean>();
 
   // formArray display
 
