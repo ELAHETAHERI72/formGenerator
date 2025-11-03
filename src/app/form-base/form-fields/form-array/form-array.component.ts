@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, forwardRef, Input} from '@angular/core';
 import {ErrorHandlingDirective} from "../../directives/error-handling.directive";
 import {ReactiveFormsModule} from "@angular/forms";
 import {FormGroups, FormItemArray, InputType, Types} from "../../classes/form.base-class";
@@ -8,9 +8,9 @@ import {FormItemsComponent} from "../../form-items/form-items.component";
   selector: 'app-form-array',
   standalone: true,
   imports: [
-    ErrorHandlingDirective,
     ReactiveFormsModule,
-    FormItemsComponent,
+    ErrorHandlingDirective,
+    forwardRef(() => FormItemsComponent),
   ],
   templateUrl: './form-array.component.html',
   styleUrl: './form-array.component.scss'

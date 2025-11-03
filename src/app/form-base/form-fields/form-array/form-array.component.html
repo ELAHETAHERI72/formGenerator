@@ -15,6 +15,7 @@
           <div class="d-flex my-2 border justify-content-between border-radius-normal">
             <div class="col-lg-10 p-3">
               <app-form-items
+                [fromChild]="true"
                 handelError
                 ngDefaultControl
                 id="{{formArrayItem.bindItem}}{{i}}"

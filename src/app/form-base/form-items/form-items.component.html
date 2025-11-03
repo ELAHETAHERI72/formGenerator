@@ -221,20 +221,24 @@
           }
           @case (Types.FORM_GROUP) {
             @if (value.isDisplayedSignal?.()) {
-              <app-form-items
-                handelError
-                ngDefaultControl
-                [items]="getFormGroup(value)"
-                [bindItems]="bindItems[value.bindItem]"></app-form-items>
+              <!--              <app-form-items-->
+                <!--                handelError-->
+                <!--                ngDefaultControl-->
+                <!--                [items]="getFormGroup(value)"-->
+                <!--                [bindItems]="bindItems[value.bindItem]"></app-form-items>-->
             }
           }
           @case (Types.FORM_ARRAY) {
             @if (value.isDisplayedSignal?.()) {
-              <app-form-array
-                [bindItemField]="bindItems"
-                [ItemIndex]="ItemIndex"
-                [itemConfig]="value"
-              ></app-form-array>
+              @if (!fromChild) {
+                <app-form-array
+                  [bindItemField]="bindItems"
+                  [ItemIndex]="ItemIndex"
+                  [itemConfig]="value"
+                ></app-form-array>
+              }
+              <!--              <ng-container #formArrayPalaceHolder></ng-container>-->
+
             }
           }
         }

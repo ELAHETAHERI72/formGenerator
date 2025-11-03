@@ -1,4 +1,14 @@
-import {Component, Inject, inject, InjectionToken, Input, Optional, TemplateRef} from '@angular/core';
+import {
+  Component, forwardRef,
+  Inject,
+  inject,
+  InjectionToken,
+  Input,
+  Optional,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import {NgPersianDatepickerModule} from 'ng-persian-datepicker';
 import {ControlContainer, FormsModule, NgForm} from '@angular/forms';
 import {AsyncPipe, NgClass, NgTemplateOutlet} from '@angular/common';
@@ -27,7 +37,7 @@ export const FORM_ARRAY_COMPONENT = new InjectionToken<any>('FORM_ARRAY_COMPONEN
     TextInputComponent,
     SelectInputComponent,
     TextAreaInputComponent,
-    FormArrayComponent,
+    FormArrayComponent
   ],
   viewProviders: [{provide: ControlContainer, useExisting: NgForm}],
   templateUrl: './form-items.component.html',
@@ -39,6 +49,12 @@ export class FormItemsComponent {
   Types = Types;
   _items: Array<InputType> = [];
   _bindItems: { [key: string]: any } = {};
+  @Input() fromChild!: boolean;
+
+  // formArray display
+
+  @ViewChild('formArrayPalaceHolder', {read: ViewContainerRef, static: true}) formArrayPalaceHolder!: ViewContainerRef;
+  vcr = inject(ViewContainerRef);
 
 
   @Input() ItemIndex: number = 0;
@@ -52,7 +68,7 @@ export class FormItemsComponent {
     this._items = config;
   }
 
-  constructor( @Optional() @Inject(FORM_ARRAY_COMPONENT) private formArrayComponent: any
+  constructor(@Optional() @Inject(FORM_ARRAY_COMPONENT) private formArrayComponent: any
   ) {
 
   }
@@ -76,6 +92,10 @@ export class FormItemsComponent {
 
   getTemplate(item: CustomItem | any) {
     return item.template ? item.template : null;
+  }
+
+  loadFormArray() {
+
   }
 
 
