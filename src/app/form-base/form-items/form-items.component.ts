@@ -94,9 +94,5 @@ export class FormItemsComponent {
     return item.template ? item.template : null;
   }
 
-  loadFormArray() {
-
-  }
-
 
 }

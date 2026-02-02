@@ -4,7 +4,7 @@
                handelError
                [disabled]="config.disable ?? false"
                [customErrorMessage]="config.errorItems?.errorMessage"
-               (ngModelChange)="selectionChange(config,$event)"
+               (ngModelChange)="config.selectionChange(config,$event)"
                [bindLabel]="config.bindLabel"
                [bindValue]="config.bindId"
                [items]="returnArray(config) | async"

@@ -133,6 +133,7 @@ export class SelectInterface extends FormItemBase {
   addItemFromOutSide?: boolean;
   bindLabel: string;
   bindId: string;
+  selectionChange: (config: SelectInterface, value: any) => void;
 
   constructor(item: SelectInterface) {
     super(item);
@@ -143,6 +144,7 @@ export class SelectInterface extends FormItemBase {
     this.addItemFromOutSide = item.addItemFromOutSide;
     this.bindLabel = item.bindLabel;
     this.bindId = item.bindId;
+    this.selectionChange = item.selectionChange;
   }
 
 }
