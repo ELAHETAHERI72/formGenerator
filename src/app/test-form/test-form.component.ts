@@ -1,16 +1,14 @@
-import {Component, DestroyRef, effect, inject, OnInit, signal, WritableSignal} from '@angular/core';
-
-import {formModel} from "../app.component";
+import {Component, DestroyRef, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {FormsModule, NgForm} from "@angular/forms";
 import {NgSelectModule} from '@ng-select/ng-select';
 import {of} from 'rxjs';
 import {AsyncPipe, Location} from '@angular/common';
 import {
-  CustomItem,
-  DateInterface,
-  FormConfig, FormGroups, FormItemArray,
+  FormConfig,
+  FormGroups,
+  FormItemArray,
   InputInterface,
-  SelectInterface, TextAreaInterface,
+  TextAreaInterface,
   Types
 } from "../form-base/classes/form.base-class";
 import {FormBaseComponent} from "../form-base/form-base.component";
@@ -31,9 +29,6 @@ import {FormBaseComponent} from "../form-base/form-base.component";
 export class TestFormComponent implements OnInit {
 
   resultPageContent!: NgForm;
-
-  // readonly toasterService = inject(ToastrService);
-  readonly destroyRef = inject(DestroyRef);
 
   dataWasUpdated?: WritableSignal<boolean> = signal(false);
 
@@ -95,6 +90,42 @@ export class TestFormComponent implements OnInit {
 
           }
         ),
+        new FormItemArray(
+          {
+            bindItem: "test",
+            formArrayFields: [
+              new FormGroups({
+                bindItem: "0",
+                formItems: [
+                  new InputInterface(
+                    {
+                      id:'sample',
+                      name:'sample',
+                      inputType:Types.INPUT_TYPE,
+                      isRequired:true,
+                      bindItem:'sample',
+                      className:'col-lg-4',
+                      labelName:'نمونه',
+                      placeholder: (index:number) => 'متن دکمه اشتراک گذاری',
+
+                    }
+                  ),
+                ],
+                id: "0",
+                inputType: Types.FORM_GROUP,
+                isRequired: true,
+                labelName: ""
+
+              })
+            ],
+            hasDeleteButton: false,
+            id: "",
+            inputType: Types.FORM_ARRAY,
+            isRequired: true,
+            labelName: "تست "
+
+          }
+        )
       ]
     };
   }

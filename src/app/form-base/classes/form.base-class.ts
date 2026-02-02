@@ -206,7 +206,7 @@ export class SwitchInterface extends FormItemBase {
 }
 
 export class FormGroups extends FormItemBase {
-  formItems: Array<InputType> = [];
+  formItems: Array<FormFieldType> = [];
 
   constructor(item: FormGroups) {
     super(item)
@@ -259,7 +259,7 @@ export class FileInputInterFace extends FormItemBase {
   }
 }
 
-export type InputType =
+export type FormFieldType =
   SelectInterface
   | InputInterface
   | TextAreaInterface
@@ -270,8 +270,8 @@ export type InputType =
   | SectionTitleModel;
 
 export class FormConfig {
-  items: Array<InputType>;
-  outPutItems?: Array<InputType>;
+  items: Array<FormFieldType>;
+  outPutItems?: Array<FormFieldType>;
   classList: string;
   formName: NgForm;
   restOfApiPath?: string | number;
@@ -285,7 +285,7 @@ export class FormConfig {
 
   constructor(
     config: {
-      items: Array<InputType>,
+      items: Array<FormFieldType>,
       submitted: (items: any, isLoaded: boolean) => void,
       classList: string,
       formName: NgForm,

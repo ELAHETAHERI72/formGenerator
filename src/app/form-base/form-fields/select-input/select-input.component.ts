@@ -3,7 +3,7 @@ import {AsyncPipe, NgClass} from "@angular/common";
 import {ErrorHandlingDirective} from "../../directives/error-handling.directive";
 import {NgSelectComponent} from "@ng-select/ng-select";
 import {ControlContainer, FormsModule, NgForm} from "@angular/forms";
-import { InputType, SelectInterface} from "../../classes/form.base-class";
+import {FormFieldType, SelectInterface, TextAreaInterface} from "../../classes/form.base-class";
 import {Observable, of} from "rxjs";
 
 @Component({
@@ -22,11 +22,19 @@ import {Observable, of} from "rxjs";
 })
 export class SelectInputComponent {
 
-  @Input({required: true}) itemConfig!: SelectInterface | InputType;
   @Input({required: true}) ItemIndex!: number;
-  @Input({required: true})bindItemField: any;
+  @Input({required: true}) bindItemField: any;
+  @Output() emitNewDomeItemFromOutside: EventEmitter<{ items: Array<FormFieldType> }> = new EventEmitter();
+  private _config!: SelectInterface;
 
-  @Output() emitNewDomeItemFromOutside: EventEmitter<{ items: Array<InputType> }> = new EventEmitter();
+  @Input({required: true}) set itemConfig(config: SelectInterface | FormFieldType) {
+    this._config = config as SelectInterface;
+  };
+
+  get config(): SelectInterface {
+    return this._config;
+  }
+
 
   returnArray(_t7: SelectInterface | any): Observable<Array<any>> {
     if (_t7 && typeof _t7.fields.subscribe === 'function') {
@@ -37,7 +45,7 @@ export class SelectInputComponent {
 
   }
 
-  selectionChange(value: SelectInterface | InputType, event: HTMLInputElement) {
+  selectionChange(value: SelectInterface | FormFieldType, event: HTMLInputElement) {
     // if ((value as SelectInterface).addItemFromOutSide) { // if has input items from outside do this
     //   (value as SelectInterface).emitFormItems?.({items: this.items, $event: event});
     //   this.emitNewDomeItemFromOutside.emit({items: this.items})

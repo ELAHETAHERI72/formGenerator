@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {CustomItem, FormConfig, FormGroups, FormItemArray, InputType, Types} from './classes/form.base-class';
+import {CustomItem, FormConfig, FormGroups, FormItemArray, FormFieldType, Types} from './classes/form.base-class';
 import { BaseDIService } from './base-d-i.service';
 import {FormsModule, NgForm} from "@angular/forms";
 import {FormItemsComponent} from "./form-items/form-items.component";
@@ -175,10 +175,10 @@ export class FormBaseComponent implements OnInit {
   }
 
   // create dto model
-  createModel(items: Array<InputType>) {
+  createModel(items: Array<FormFieldType>) {
     let formDto: { [value: string]: any } = {};
 
-    items?.forEach((element: InputType) => {
+    items?.forEach((element: FormFieldType) => {
       if (!(element.inputType == Types.BORDER_LINE || element.inputType == Types.SECTION_TITLE)) {
 
         if (element.inputType == Types.SWITCH_TYPE) {
@@ -241,7 +241,7 @@ export class FormBaseComponent implements OnInit {
     )
   }
 
-  updateDomItems(event: { items: InputType[] }) {
+  updateDomItems(event: { items: FormFieldType[] }) {
     if (event.items.length > 0) {
       this.formConfig.items = event.items
       this.bindItems = this.createModel(this.formConfig.items);

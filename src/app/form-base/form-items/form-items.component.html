@@ -44,20 +44,20 @@
               <div class="has-validation" [classList]="value.className">
                 <label [ngClass]="{'required':value.isRequired}">{{ value.labelName }}</label>
 
-                <!--                <app-switch elementId="{{value.id}}-isActive"-->
-                <!--                            elementName="{{value.id}}-isActive"-->
-                <!--                            [(select)]="bindItems[value.bindItem!]"-->
-                <!--                            [customErrorMessage]="value.errorItems?.errorMessage"-->
-                <!--                            [disabled]="value.disable ?? false"-->
-                <!--                            handelError-->
-                <!--                            dir="rtl"-->
-                <!--                            formCheckGroupClass="d-block mt-2"-->
-                <!--                            labelContentClass="d-inline-block mie-2"-->
-                <!--                            [isRequired]="value.isRequired"-->
-                <!--                            [elementName]="value.id"-->
-                <!--                            (selectChange)="bindItems[value.bindItem] = $event"-->
-                <!--                            selectedLabel="{{labels.getIsActiveOrNot(bindItems[value.bindItem!])}}"-->
-                <!--                ></app-switch>-->
+                <!--                                <app-switch elementId="{{value.id}}-isActive"-->
+                <!--                                            elementName="{{value.id}}-isActive"-->
+                <!--                                            [(select)]="bindItems[value.bindItem!]"-->
+                <!--                                            [customErrorMessage]="value.errorItems?.errorMessage"-->
+                <!--                                            [disabled]="value.disable ?? false"-->
+                <!--                                            handelError-->
+                <!--                                            dir="rtl"-->
+                <!--                                            formCheckGroupClass="d-block mt-2"-->
+                <!--                                            labelContentClass="d-inline-block mie-2"-->
+                <!--                                            [isRequired]="value.isRequired"-->
+                <!--                                            [elementName]="value.id"-->
+                <!--                                            (selectChange)="bindItems[value.bindItem] = $event"-->
+                <!--                                            selectedLabel="{{labels.getIsActiveOrNot(bindItems[value.bindItem!])}}"-->
+                <!--                                ></app-switch>-->
 
               </div>
             }
@@ -221,21 +221,22 @@
           }
           @case (Types.FORM_GROUP) {
             @if (value.isDisplayedSignal?.()) {
-              <!--              <app-form-items-->
-                <!--                handelError-->
-                <!--                ngDefaultControl-->
-                <!--                [items]="getFormGroup(value)"-->
-                <!--                [bindItems]="bindItems[value.bindItem]"></app-form-items>-->
+              <app-form-items
+                handelError
+                ngDefaultControl
+                [items]="getFormGroup(value)"
+                [bindItems]="bindItems[value.bindItem]"
+                [hideParent]="true"></app-form-items>
             }
           }
           @case (Types.FORM_ARRAY) {
             @if (value.isDisplayedSignal?.()) {
-                <app-form-array
-                  [hideParent]="hideParent()"
-                  [bindItemField]="bindItems"
-                  [ItemIndex]="ItemIndex"
-                  [itemConfig]="value"
-                ></app-form-array>
+              <app-form-array
+                [hideParent]="true"
+                [bindItemField]="bindItems"
+                [ItemIndex]="ItemIndex"
+                [itemConfig]="value"
+              ></app-form-array>
 
               <!--              <ng-container #formArrayPalaceHolder></ng-container>-->
 

@@ -4,7 +4,7 @@ import {
   CustomItem,
   DateInterface, FileInputInterFace, FormGroups, FormItemArray,
   InputInterface,
-  InputType,
+  FormFieldType,
   SelectInterface,
   SwitchInterface,
   TextAreaInterface,
@@ -17,7 +17,7 @@ import {
 })
 export class OnionTypeConflictHandlerPipe implements PipeTransform {
 
-  transform(value: InputType, type: Types): InputType {
+  transform(value: FormFieldType, type: Types): FormFieldType {
     debugger
     switch (type) {
       case Types.TEXTAREA_TYPE:

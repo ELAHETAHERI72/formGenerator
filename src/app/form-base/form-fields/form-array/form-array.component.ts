@@ -1,7 +1,7 @@
 import {Component, forwardRef, input, Input} from '@angular/core';
 import {ErrorHandlingDirective} from "../../directives/error-handling.directive";
 import {ReactiveFormsModule} from "@angular/forms";
-import {FormGroups, FormItemArray, InputType, Types} from "../../classes/form.base-class";
+import {FormGroups, FormItemArray, FormFieldType, Types} from "../../classes/form.base-class";
 import {FormItemsComponent} from "../../form-items/form-items.component";
 
 @Component({
@@ -19,7 +19,8 @@ export class FormArrayComponent {
 
   private _config!: FormItemArray;
 
-  @Input({required: true}) set itemConfig(config: FormItemArray | InputType) {
+  @Input({required: true}) set itemConfig(config: FormItemArray | FormFieldType) {
+    debugger
     this._config = config as FormItemArray;
   };
 
@@ -34,7 +35,7 @@ export class FormArrayComponent {
   }
 
   //  add form item on click add button
-  addFormItem(formItem: FormItemArray | InputType) {
+  addFormItem(formItem: FormItemArray | FormFieldType) {
     let bindItemModel: any = {};
 
     if ((formItem as FormItemArray)?.maxItemAddLength) {
@@ -63,7 +64,7 @@ export class FormArrayComponent {
   }
 
 
-  getFormArray(item: FormItemArray | InputType, formField: string) {
+  getFormArray(item: FormItemArray | FormFieldType, formField: string) {
     return (item as FormItemArray)[formField as keyof FormItemArray] ?? undefined;
   }
 
@@ -71,7 +72,7 @@ export class FormArrayComponent {
     return _t7.formItems;
   }
 
-  deleteFormArrayItemHandler(value: InputType, formArrayItem: any, i: number) {
+  deleteFormArrayItemHandler(value: FormFieldType, formArrayItem: any, i: number) {
     let formItem: Array<FormGroups> = this.getFormArray(value, 'formArrayFields')
     formItem.splice(i, 1);
     this.bindItemField[value.bindItem].splice(i, 1);

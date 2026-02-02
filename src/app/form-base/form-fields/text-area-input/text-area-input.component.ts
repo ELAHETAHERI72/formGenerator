@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {ErrorHandlingDirective} from "../../directives/error-handling.directive";
 import {FormsModule} from "@angular/forms";
-import {InputInterface, InputType, TextAreaInterface} from "../../classes/form.base-class";
+import {InputInterface, FormFieldType, TextAreaInterface} from "../../classes/form.base-class";
 import {NgClass} from "@angular/common";
 
 @Component({
@@ -19,7 +19,7 @@ export class TextAreaInputComponent {
 
   private _config!: TextAreaInterface;
 
-  @Input({required: true}) set itemConfig(config: TextAreaInterface | InputType) {
+  @Input({required: true}) set itemConfig(config: TextAreaInterface | FormFieldType) {
     this._config = config;
   };
 
