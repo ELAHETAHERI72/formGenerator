@@ -24,7 +24,6 @@ export class SelectInputComponent {
 
   @Input({required: true}) ItemIndex!: number;
   @Input({required: true}) bindItemField: any;
-  @Output() emitNewDomeItemFromOutside: EventEmitter<{ items: Array<FormFieldType> }> = new EventEmitter();
   private _config!: SelectInterface;
 
   @Input({required: true}) set itemConfig(config: SelectInterface | FormFieldType) {
@@ -44,8 +43,6 @@ export class SelectInputComponent {
     }
 
   }
-
-
 
 
 }
