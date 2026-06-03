@@ -1,5 +1,5 @@
 import {inject, Injectable, InjectionToken} from '@angular/core';
-import {HttpContext} from "@angular/common/http";
+import { HttpContext } from "@angular/common/http";
 
 export const    BASE_API_RELATIVE_PATH = new InjectionToken<string>('base api relative path');
 
