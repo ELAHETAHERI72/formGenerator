@@ -13,7 +13,7 @@ import {NgPersianDatepickerModule} from 'ng-persian-datepicker';
 import {ControlContainer, FormsModule, NgForm} from '@angular/forms';
 import {AsyncPipe, NgClass, NgTemplateOutlet} from '@angular/common';
 import {ErrorHandlingDirective} from '../directives/error-handling.directive';
-import {CustomItem, FormGroups, FormItemArray, FormFieldType, SelectInterface, Types} from "../classes/form.base-class";
+import {CustomItem, FormGroups, FormItemArray, FormFieldType, SelectInterface, InputTypes} from "../classes/form.base-class";
 import {HorizontalLineComponent} from "../form-fields/horizontal-line/horizontal-line.component";
 import {TitleDescriptionComponent} from "../form-fields/title-description/title-description.component";
 import {TextInputComponent} from "../form-fields/text-input/text-input.component";
@@ -45,7 +45,7 @@ export const FORM_ARRAY_COMPONENT = new InjectionToken<any>('FORM_ARRAY_COMPONEN
 })
 export class FormItemsComponent {
 
-  Types = Types;
+  Types = InputTypes;
   _items: Array<FormFieldType> = [];
   _bindItems: { [key: string]: any } = {};
   hideParent:InputSignal<boolean> = input.required<boolean>();

@@ -9,10 +9,11 @@ import {
   OnInit,
   Optional,
   Renderer2,
-  Self
+  Self,
+  DOCUMENT
 } from "@angular/core";
 import {NgControl} from "@angular/forms";
-import {DOCUMENT} from "@angular/common";
+
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 export const ERROR_MESSAGES = {

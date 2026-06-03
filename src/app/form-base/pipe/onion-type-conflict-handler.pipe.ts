@@ -3,12 +3,12 @@ import {
   ColorInterface,
   CustomItem,
   DateInterface, FileInputInterFace, FormGroups, FormItemArray,
-  InputInterface,
+  TextInputInterface,
   FormFieldType,
   SelectInterface,
   SwitchInterface,
   TextAreaInterface,
-  Types
+  InputTypes
 } from "../classes/form.base-class";
 
 @Pipe({
@@ -17,47 +17,47 @@ import {
 })
 export class OnionTypeConflictHandlerPipe implements PipeTransform {
 
-  transform(value: FormFieldType, type: Types): FormFieldType {
+  transform(value: FormFieldType, type: InputTypes): FormFieldType {
     debugger
     switch (type) {
-      case Types.TEXTAREA_TYPE:
+      case InputTypes.TEXTAREA_TYPE:
         value as TextAreaInterface
         break;
-      case Types.SELECT_TYPE:
+      case InputTypes.SELECT_TYPE:
         value as SelectInterface
         break;
-      case Types.SWITCH_TYPE:
+      case InputTypes.SWITCH_TYPE:
         value as SwitchInterface
         break;
-      case Types.FROM_DATE_TYPE:
+      case InputTypes.FROM_DATE_TYPE:
         value as DateInterface
         break;
-      case Types.TO_DATE_TYPE:
+      case InputTypes.TO_DATE_TYPE:
         value as DateInterface
         break;
-      case Types.FORM_GROUP:
+      case InputTypes.FORM_GROUP:
         value as FormGroups
         break;
-      case Types.FORM_ARRAY:
+      case InputTypes.FORM_ARRAY:
         value as FormItemArray
         break;
-      case Types.CUSTOM_FORM_ITEM:
+      case InputTypes.CUSTOM_FORM_ITEM:
         value as CustomItem
         break;
-      case Types.SECTION_TITLE:
+      case InputTypes.SECTION_TITLE:
         value as SelectInterface
         break;
-      case Types.INPUT_NUMBER_TYPE:
-        value as InputInterface
+      case InputTypes.INPUT_NUMBER_TYPE:
+        value as TextInputInterface
         break;
-      case Types.INPUT_FILE:
+      case InputTypes.INPUT_FILE:
         value as FileInputInterFace
         break;
-      case Types.COLOR_INPUT:
+      case InputTypes.COLOR_INPUT:
         value as ColorInterface
         break;
-      case Types.INPUT_TYPE:
-        value as InputInterface
+      case InputTypes.TEXT_INPUT_TYPE:
+        value as TextInputInterface
     }
     console.log(typeof value);
     debugger

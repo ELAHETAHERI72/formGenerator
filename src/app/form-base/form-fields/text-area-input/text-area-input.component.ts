@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {ErrorHandlingDirective} from "../../directives/error-handling.directive";
 import {FormsModule} from "@angular/forms";
-import {InputInterface, FormFieldType, TextAreaInterface} from "../../classes/form.base-class";
+import {TextInputInterface, FormFieldType, TextAreaInterface} from "../../classes/form.base-class";
 import {NgClass} from "@angular/common";
 
 @Component({

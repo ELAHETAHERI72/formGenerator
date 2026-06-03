@@ -3,61 +3,8 @@ import {NgForm} from "@angular/forms";
 import {signal, TemplateRef, WritableSignal} from "@angular/core";
 
 
-export class FormItemBase {
-  placeholder?: (index: number) => string; // if it`s used on form array we can have index of form group
-  name?: string;
-  id: string;
-  labelName: string;
-  inputType: Types;
-  isRequired: boolean | string;
-  changeValue$?: Observable<any> | BehaviorSubject<any>;
-  defaultValue?: any;
-  errorItems?: ErrorInterface | any;
-  pattern?: string | any;
-  isDisPlayed?: boolean = false;
-  min?: string;
-  minLength?: number | string | null;
-  max?: string;
-  maxLength?: number | string | null;
-  cols?: string;
-  rows?: string;
-  className?: string;
-  disable?: boolean;
-  bindItem: string;
-
-  emitFormItems?: (item: any) => void;
-  isDisplayedSignal?: WritableSignal<any> = signal(true);
-
-  constructor(item: FormItemBase) {
-    this.placeholder = item.placeholder;
-    this.id = item.id;
-    this.labelName = item.labelName;
-    this.inputType = item.inputType;
-    this.isRequired = item.isRequired;
-    this.defaultValue = item.defaultValue;
-    this.changeValue$ = item.changeValue$;
-    this.errorItems = item.errorItems;
-    this.pattern = item.pattern;
-    this.isDisPlayed = item.isDisPlayed;
-    this.min = item.min ?? undefined;
-    this.minLength = item.minLength ?? null;
-    this.max = item.max ?? undefined;
-    this.maxLength = item.maxLength ?? null;
-    this.cols = item.cols ?? '10';
-    this.rows = item.rows ?? '4';
-    this.className = item.className ?? 'col-lg-3';
-    this.disable = item.disable ?? false;
-    this.bindItem = item.bindItem;
-    this.emitFormItems = item.emitFormItems;
-
-    // if (item.isDisplayedSignal?.()) {
-    this.isDisplayedSignal = item.isDisplayedSignal ?? signal(true);
-    // }
-  }
-}
-
-export enum Types {
-  INPUT_TYPE = 'INPUT_TYPE',
+export enum InputTypes {
+  TEXT_INPUT_TYPE = 'TEXT_INPUT_TYPE',
   TEXTAREA_TYPE = 'TEXTAREA_TYPE',
   SELECT_TYPE = 'SELECT_TYPE',
   SWITCH_TYPE = 'SWITCH_TYPE',
@@ -74,59 +21,73 @@ export enum Types {
   GALLERY = 'GALLERY',
 }
 
+
+export class FormItemBase {
+  inputType: InputTypes;
+  className?: string;
+
+  constructor(item: FormItemBase) {
+
+    this.inputType = item.inputType;
+    this.className = item.className ?? 'col-lg-3';
+
+  }
+}
+
+export class CommonFieldsInterface {
+  bindItem: string;
+  id: string;
+  labelName: string;
+  min?: string;
+  minLength?: number | string | null;
+  max?: string;
+  maxLength?: number | string | null;
+  disable?: boolean;
+  isRequired: boolean | string;
+  changeValue$?: Observable<any> | BehaviorSubject<any>;
+  defaultValue?: any;
+  errorItems?: ErrorInterface | any;
+  pattern?: string | any;
+  isDisPlayed?: boolean = false;
+  placeholder?: (index: number) => string; // if it`s used on form array we can have index of form group
+  emitFormItems?: (item: any) => void;
+  isDisplayedSignal?: WritableSignal<any> = signal(true);
+
+  constructor(item: CommonFieldsInterface) {
+    this.bindItem = item.bindItem;
+    this.id = item.id;
+    this.labelName = item.labelName;
+    this.placeholder = item.placeholder;
+    this.min = item.min ?? undefined;
+    this.minLength = item.minLength ?? null;
+    this.max = item.max ?? undefined;
+    this.maxLength = item.maxLength ?? null;
+    this.disable = item.disable ?? false;
+    this.isRequired = item.isRequired;
+    this.defaultValue = item.defaultValue;
+    this.changeValue$ = item.changeValue$;
+    this.errorItems = item.errorItems;
+    this.pattern = item.pattern;
+    this.isDisPlayed = item.isDisPlayed;
+    this.emitFormItems = item.emitFormItems;
+    this.isDisplayedSignal = item.isDisplayedSignal ?? signal(true);
+  }
+
+}
+
 export type borderLine = Pick<FormItemBase, 'inputType'>;
 
-export class InputInterface extends FormItemBase {
-  constructor(item: {
-    id: string;
-    name: string;
-    inputType: Types.INPUT_TYPE;
-    isRequired: boolean;
-    bindItem: string;
-    className: string;
-    labelName: string;
-    placeholder: (index: number) => string
-  }) {
+export class TextInputInterface extends FormItemBase{
+
+  constructor(item: TextInputInterface) {
     super(item);
-    this.bindItem = item.bindItem;
 
   }
 
-}
-
-export interface ErrorInterface {
-  patternErrorMsg?: string;
-  oneRequiredErrorMsg?: string;
-  errorMessage?: string;
-  waitForTouch?: boolean;
-  showRequiredError?: boolean;
-}
-
-export class CustomItem extends FormItemBase {
-  template?: TemplateRef<string>;
-  templateName?: string;
-
-  constructor(item: CustomItem) {
-    super(item);
-    this.template = item.template;
-    this.templateName = item.templateName;
-  }
-}
-
-export class LineInterface extends FormItemBase {
-
-  constructor(item: LineInterface) {
-    super(item);
-  }
-}
-
-export class SectionTitleModel extends FormItemBase {
-  constructor(item: SectionTitleModel) {
-    super(item);
-  }
 }
 
 export class SelectInterface extends FormItemBase {
+
   fields: Array<any> | Observable<Array<any>>;
   hasApi?: boolean;
   apiUrl?: string;
@@ -191,9 +152,13 @@ export class GalleryBaseInterface extends FormItemBase {
 
 export class TextAreaInterface extends FormItemBase {
 
+  cols?: string;
+  rows?: string;
+
   constructor(item: TextAreaInterface) {
     super(item);
-
+    this.cols = item.cols ?? '10';
+    this.rows = item.rows ?? '4';
   }
 }
 
@@ -215,6 +180,39 @@ export class FormGroups extends FormItemBase {
     this.formItems = item.formItems;
 
   }
+}
+
+export class CustomItem extends FormItemBase {
+  template?: TemplateRef<string>;
+  templateName?: string;
+
+  constructor(item: CustomItem) {
+    super(item);
+    this.template = item.template;
+    this.templateName = item.templateName;
+  }
+}
+
+
+export class LineInterface extends FormItemBase {
+
+  constructor(item: LineInterface) {
+    super(item);
+  }
+}
+
+export class SectionTitleModel extends FormItemBase {
+  constructor(item: SectionTitleModel) {
+    super(item);
+  }
+}
+
+export interface ErrorInterface {
+  patternErrorMsg?: string;
+  oneRequiredErrorMsg?: string;
+  errorMessage?: string;
+  waitForTouch?: boolean;
+  showRequiredError?: boolean;
 }
 
 
@@ -263,7 +261,7 @@ export class FileInputInterFace extends FormItemBase {
 
 export type FormFieldType =
   SelectInterface
-  | InputInterface
+  | TextInputInterface
   | TextAreaInterface
   | SwitchInterface
   | CustomItem

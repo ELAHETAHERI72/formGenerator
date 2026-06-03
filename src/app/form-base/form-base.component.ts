@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {CustomItem, FormConfig, FormGroups, FormItemArray, FormFieldType, Types} from './classes/form.base-class';
+import {CustomItem, FormConfig, FormGroups, FormItemArray, FormFieldType, InputTypes} from './classes/form.base-class';
 import { BaseDIService } from './base-d-i.service';
 import {FormsModule, NgForm} from "@angular/forms";
 import {FormItemsComponent} from "./form-items/form-items.component";
@@ -177,27 +177,27 @@ export class FormBaseComponent implements OnInit {
     let formDto: { [value: string]: any } = {};
 
     items?.forEach((element: FormFieldType) => {
-      if (!(element.inputType == Types.BORDER_LINE || element.inputType == Types.SECTION_TITLE)) {
+      if (!(element.inputType == InputTypes.BORDER_LINE || element.inputType == InputTypes.SECTION_TITLE)) {
 
-        if (element.inputType == Types.SWITCH_TYPE) {
+        if (element.inputType == InputTypes.SWITCH_TYPE) {
 
           formDto[element?.bindItem] = element.defaultValue ?? false;
-        } else if (element.inputType == Types.SELECT_TYPE) {
+        } else if (element.inputType == InputTypes.SELECT_TYPE) {
           formDto[element.bindItem] = element.defaultValue ?? undefined;
 
-        } else if (element.inputType == Types.CUSTOM_FORM_ITEM) {
+        } else if (element.inputType == InputTypes.CUSTOM_FORM_ITEM) {
           formDto[element.bindItem] = element.defaultValue ?? undefined;
 
           if (formDto[element.bindItem]) {
             this.customFormItemSetValue();
           }
 
-        } else if (element.inputType == Types.INPUT_TYPE) {
+        } else if (element.inputType == InputTypes.TEXT_INPUT_TYPE) {
           formDto[element.bindItem] = element.defaultValue ?? undefined;
-        } else if (element.inputType == Types.FORM_GROUP || element.inputType == Types.FORM_ARRAY) {
-          if (element.inputType == Types.FORM_GROUP) {
+        } else if (element.inputType == InputTypes.FORM_GROUP || element.inputType == InputTypes.FORM_ARRAY) {
+          if (element.inputType == InputTypes.FORM_GROUP) {
             formDto[element.bindItem] = this.createModel((element as FormGroups | any).formItems) ?? {} as Object;
-          } else if (element.inputType == Types.FORM_ARRAY) {
+          } else if (element.inputType == InputTypes.FORM_ARRAY) {
             formDto[element.bindItem] = element.defaultValue as Array<any> ?? [];
             formDto[element.bindItem] = (element as FormItemArray).formArrayFields?.map(field => {
               return (formDto[element.bindItem][field.bindItem] as Object) = this.createModel((field as FormGroups | any).formItems) ?? {} as Object;
@@ -221,7 +221,7 @@ export class FormBaseComponent implements OnInit {
 
   // add custom template to dto
   customFormItemSetValue() {
-    this._formConfig.items.filter(item => item.inputType === Types.CUSTOM_FORM_ITEM).forEach(
+    this._formConfig.items.filter(item => item.inputType === InputTypes.CUSTOM_FORM_ITEM).forEach(
       element => {
         Object.values(this._tempRefs()).map(item => {
           if (item.id == (element as CustomItem).bindItem) {

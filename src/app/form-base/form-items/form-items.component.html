@@ -11,7 +11,7 @@
           @case (Types.SECTION_TITLE) {
             <app-title-description [itemConfig]="value"></app-title-description>
           }
-          @case (Types.INPUT_TYPE) {
+          @case (Types.TEXT_INPUT_TYPE) {
             @if (value.isDisplayedSignal?.()) {
               <app-text-input
                 [bindItemField]="bindItems"

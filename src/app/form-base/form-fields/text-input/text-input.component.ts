@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {ErrorHandlingDirective} from "../../directives/error-handling.directive";
 import {ControlContainer, FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
-import {InputInterface, FormFieldType} from "../../classes/form.base-class";
+import {TextInputInterface, FormFieldType} from "../../classes/form.base-class";
 import {NgClass} from "@angular/common";
 import {multicast} from "rxjs";
 
@@ -18,7 +18,7 @@ import {multicast} from "rxjs";
     styleUrl: './text-input.component.scss'
 })
 export class TextInputComponent {
-  @Input({required: true}) itemConfig!: InputInterface |FormFieldType ;
+  @Input({required: true}) itemConfig!: TextInputInterface |FormFieldType ;
   @Input({required: true}) ItemIndex!: number;
   @Input({required: true})bindItemField: any;
 }

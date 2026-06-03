@@ -7,9 +7,9 @@ import {
   FormConfig,
   FormGroups,
   FormItemArray,
-  InputInterface,
+  TextInputInterface,
   TextAreaInterface,
-  Types
+  InputTypes
 } from "../form-base/classes/form.base-class";
 import {FormBaseComponent} from "../form-base/form-base.component";
 
@@ -68,7 +68,7 @@ export class TestFormComponent implements OnInit {
           id: 'sharePrompt',
           name: 'sharePrompt',
           isRequired: false,
-          inputType: Types.TEXTAREA_TYPE,
+          inputType: InputTypes.TEXTAREA_TYPE,
           bindItem: 'sharePrompt',
           labelName: 'متن تشویق به اشتراک گذاری',
           placeholder: () => 'متن تشویق به اشتراک گذاری',
@@ -76,11 +76,11 @@ export class TestFormComponent implements OnInit {
           maxLength: 100,
           rows: '5',
         }),
-        new InputInterface(
+        new TextInputInterface(
           {
             id:'shareButtonText',
             name:'shareButtonText',
-            inputType:Types.INPUT_TYPE,
+            inputType:InputTypes.TEXT_INPUT_TYPE,
             isRequired:true,
             bindItem:'shareButtonText',
             className:'col-lg-4',
@@ -96,11 +96,11 @@ export class TestFormComponent implements OnInit {
               new FormGroups({
                 bindItem: "0",
                 formItems: [
-                  new InputInterface(
+                  new TextInputInterface(
                     {
                       id:'sample',
                       name:'sample',
-                      inputType:Types.INPUT_TYPE,
+                      inputType:InputTypes.TEXT_INPUT_TYPE,
                       isRequired:true,
                       bindItem:'sample',
                       className:'col-lg-4',
@@ -111,7 +111,7 @@ export class TestFormComponent implements OnInit {
                   ),
                 ],
                 id: "0",
-                inputType: Types.FORM_GROUP,
+                inputType: InputTypes.FORM_GROUP,
                 isRequired: true,
                 labelName: ""
 
@@ -119,7 +119,7 @@ export class TestFormComponent implements OnInit {
             ],
             hasDeleteButton: false,
             id: "",
-            inputType: Types.FORM_ARRAY,
+            inputType: InputTypes.FORM_ARRAY,
             isRequired: true,
             labelName: "تست "
 

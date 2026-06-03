@@ -1,7 +1,7 @@
 import {Component, forwardRef, input, Input} from '@angular/core';
 import {ErrorHandlingDirective} from "../../directives/error-handling.directive";
 import {ReactiveFormsModule} from "@angular/forms";
-import {FormGroups, FormItemArray, FormFieldType, Types} from "../../classes/form.base-class";
+import {FormGroups, FormItemArray, FormFieldType, InputTypes} from "../../classes/form.base-class";
 import {FormItemsComponent} from "../../form-items/form-items.component";
 
 @Component({
@@ -27,7 +27,7 @@ export class FormArrayComponent {
   @Input({required: true}) bindItemField: any;
   @Input({required: true}) hideParent: boolean = true;
 
-  protected readonly Types = Types;
+  protected readonly Types = InputTypes;
 
   get config(): FormItemArray {
     return this._config;
