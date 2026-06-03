@@ -14,16 +14,15 @@ import {
 import {FormBaseComponent} from "../form-base/form-base.component";
 
 @Component({
-  selector: 'app-test-form',
-  standalone: true,
-  imports: [
-    NgSelectModule,
-    FormsModule,
-    AsyncPipe,
-    FormBaseComponent
-  ],
-  templateUrl: './test-form.component.html',
-  styleUrl: './test-form.component.scss'
+    selector: 'app-test-form',
+    imports: [
+        NgSelectModule,
+        FormsModule,
+        AsyncPipe,
+        FormBaseComponent
+    ],
+    templateUrl: './test-form.component.html',
+    styleUrl: './test-form.component.scss'
 })
 
 export class TestFormComponent implements OnInit {

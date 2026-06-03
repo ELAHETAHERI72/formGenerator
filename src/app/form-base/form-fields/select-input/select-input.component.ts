@@ -7,18 +7,17 @@ import {FormFieldType, SelectInterface, TextAreaInterface} from "../../classes/f
 import {Observable, of} from "rxjs";
 
 @Component({
-  selector: 'app-select-input',
-  standalone: true,
-  imports: [
-    AsyncPipe,
-    ErrorHandlingDirective,
-    NgSelectComponent,
-    NgClass,
-    FormsModule
-  ],
-  viewProviders: [{provide: ControlContainer, useExisting: NgForm}],
-  templateUrl: './select-input.component.html',
-  styleUrl: './select-input.component.scss'
+    selector: 'app-select-input',
+    imports: [
+        AsyncPipe,
+        ErrorHandlingDirective,
+        NgSelectComponent,
+        NgClass,
+        FormsModule
+    ],
+    viewProviders: [{ provide: ControlContainer, useExisting: NgForm }],
+    templateUrl: './select-input.component.html',
+    styleUrl: './select-input.component.scss'
 })
 export class SelectInputComponent {
 

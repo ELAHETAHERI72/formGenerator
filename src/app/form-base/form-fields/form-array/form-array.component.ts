@@ -5,15 +5,14 @@ import {FormGroups, FormItemArray, FormFieldType, Types} from "../../classes/for
 import {FormItemsComponent} from "../../form-items/form-items.component";
 
 @Component({
-  selector: 'app-form-array',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    ErrorHandlingDirective,
-    forwardRef(() => FormItemsComponent),
-  ],
-  templateUrl: './form-array.component.html',
-  styleUrl: './form-array.component.scss'
+    selector: 'app-form-array',
+    imports: [
+        ReactiveFormsModule,
+        ErrorHandlingDirective,
+        forwardRef(() => FormItemsComponent),
+    ],
+    templateUrl: './form-array.component.html',
+    styleUrl: './form-array.component.scss'
 })
 export class FormArrayComponent {
 

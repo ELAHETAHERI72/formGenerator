@@ -20,15 +20,13 @@ import {FormsModule, NgForm} from "@angular/forms";
 import {FormItemsComponent} from "./form-items/form-items.component";
 
 @Component({
-  selector: 'app-form-base',
-  imports: [
-    forwardRef(() =>FormItemsComponent),
-    FormsModule,
-  ],
-
-  templateUrl: './form-base.component.html',
-  standalone: true,
-  styleUrl: './form-base.component.scss'
+    selector: 'app-form-base',
+    imports: [
+        forwardRef(() => FormItemsComponent),
+        FormsModule,
+    ],
+    templateUrl: './form-base.component.html',
+    styleUrl: './form-base.component.scss'
 })
 export class FormBaseComponent implements OnInit {
 

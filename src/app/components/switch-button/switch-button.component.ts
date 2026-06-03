@@ -3,11 +3,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'switch-button',
-  standalone: true,
-  imports: [CommonModule,FormsModule],
-  templateUrl: './switch-button.component.html',
-  styleUrl: './switch-button.component.scss'
+    selector: 'switch-button',
+    imports: [CommonModule, FormsModule],
+    templateUrl: './switch-button.component.html',
+    styleUrl: './switch-button.component.scss'
 })
 export class SwitchButtonComponent {
 

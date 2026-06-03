@@ -25,24 +25,23 @@ export const FORM_ARRAY_COMPONENT = new InjectionToken<any>('FORM_ARRAY_COMPONEN
 
 
 @Component({
-  selector: 'app-form-items',
-  imports: [
-    FormsModule,
-    NgPersianDatepickerModule,
-    NgClass,
-    ErrorHandlingDirective,
-    NgTemplateOutlet,
-    HorizontalLineComponent,
-    TitleDescriptionComponent,
-    TextInputComponent,
-    SelectInputComponent,
-    TextAreaInputComponent,
-    FormArrayComponent
-  ],
-  viewProviders: [{provide: ControlContainer, useExisting: NgForm}],
-  templateUrl: './form-items.component.html',
-  standalone: true,
-  styleUrl: './form-items.component.scss'
+    selector: 'app-form-items',
+    imports: [
+        FormsModule,
+        NgPersianDatepickerModule,
+        NgClass,
+        ErrorHandlingDirective,
+        NgTemplateOutlet,
+        HorizontalLineComponent,
+        TitleDescriptionComponent,
+        TextInputComponent,
+        SelectInputComponent,
+        TextAreaInputComponent,
+        FormArrayComponent
+    ],
+    viewProviders: [{ provide: ControlContainer, useExisting: NgForm }],
+    templateUrl: './form-items.component.html',
+    styleUrl: './form-items.component.scss'
 })
 export class FormItemsComponent {
 
